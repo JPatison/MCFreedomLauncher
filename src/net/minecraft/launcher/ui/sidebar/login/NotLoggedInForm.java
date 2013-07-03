@@ -7,6 +7,7 @@ import net.minecraft.launcher.profile.Profile;
 import net.minecraft.launcher.profile.ProfileManager;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.StringUtils.*;
 import org.spara.mol.InstallDirSettings;
 import org.spara.mol.Main;
 
@@ -30,7 +31,7 @@ public class NotLoggedInForm extends BaseLogInForm {
 
     public NotLoggedInForm(LoginContainerForm container) {
         super(container, "Log In");
-        setMaximumSize(new Dimension(2147483647, 300));
+        //setMaximumSize(new Dimension(2147483647, 300));
         createInterface();
     }
 
@@ -47,7 +48,8 @@ public class NotLoggedInForm extends BaseLogInForm {
         add(passwordLabel, constraints, 0, 1, 0, 1);
         add(this.passwordField, constraints, 1, 1, 1, 0);
 
-        ((JCheckBox) add(this.rememberMeCheckbox, constraints, 0, 2, 0, 2)).setEnabled(false);
+        //((JCheckBox) add(this.rememberMeCheckbox, constraints, 0, 2, 0, 2)).setEnabled(false);
+        add(this.rememberMeCheckbox, constraints, 0, 2, 0, 2);
 
         this.playButton.addActionListener(this);
         this.usernameField.addActionListener(this);
@@ -87,8 +89,11 @@ public class NotLoggedInForm extends BaseLogInForm {
 
     public void checkLoginState() {
         boolean canLogIn = true;
+        Profile profile = getLauncher().getProfileManager().getSelectedProfile();
 
-        if (getLauncher().getGameLauncher().isWorking()) canLogIn = false;
+
+       // if (getLauncher().getGameLauncher().isWorking()) canLogIn = false;
+        if (getLauncher().getVersionManager().getVersions(profile.getVersionFilter()).size() <= 0) canLogIn = false;
         if (getLauncher().getVersionManager().getVersions().size() <= 0) canLogIn = false;
 
         this.playButton.setEnabled(canLogIn);
@@ -122,6 +127,9 @@ public class NotLoggedInForm extends BaseLogInForm {
         Profile profile = manager.getSelectedProfile();
         AuthenticationService authentication = profile.getAuthentication();
 
+        this.rememberMeCheckbox.setSelected(profile.getAuthentication().shouldRememberMe());
+
+
         if ((authentication.isLoggedIn()) && (authentication.canPlayOnline())) {
             checkLoginState();
         } else if (!StringUtils.isBlank(authentication.getUsername())) {
@@ -150,6 +158,8 @@ public class NotLoggedInForm extends BaseLogInForm {
 
         getLoginContainer().checkLoginState();
 
+        authentication.setRememberMe(this.rememberMeCheckbox.isSelected());
+
         getLauncher().getVersionManager().getExecutorService().submit(new Runnable() {
             public void run() {
                 String username = NotLoggedInForm.this.usernameField.getText();
@@ -167,7 +177,8 @@ public class NotLoggedInForm extends BaseLogInForm {
                     }
 
                     NotLoggedInForm.this.getLauncher().println("Logged in successfully");
-                    NotLoggedInForm.this.saveAuthenticationDetails(profile);
+                   // NotLoggedInForm.this.saveAuthenticationDetails(profile);
+                    NotLoggedInForm.this.saveAuthenticationDetails();
 
                     if (launchOnSuccess)
                         NotLoggedInForm.this.getLauncher().getGameLauncher().playGame();
@@ -193,18 +204,19 @@ public class NotLoggedInForm extends BaseLogInForm {
                     } else {
                         //NotLoggedInForm.this.loginFailed(ex.getMessage(), verbose, authentication.getUsername().contains("@"));
                     }
+                    NotLoggedInForm.this.saveAuthenticationDetails();
                 }
             }
         });
     }
 
-    private void saveAuthenticationDetails(Profile profile) {
+    /*private void saveAuthenticationDetails(Profile profile) {
         try {
             getLauncher().getProfileManager().saveProfiles();
         } catch (IOException e) {
             getLauncher().println("Couldn't save authentication details to profile", e);
         }
-    }
+    }*/
 
     private void loginFailed(final String error, final boolean verbose, final boolean mojangAccount) {
         Launcher.getInstance().println("Could not log in: " + error);

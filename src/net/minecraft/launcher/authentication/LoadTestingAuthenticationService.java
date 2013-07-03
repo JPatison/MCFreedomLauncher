@@ -94,6 +94,17 @@ public class LoadTestingAuthenticationService
     public String guessPasswordFromSillyOldFormat(File lastlogin) {
         return this.primary.guessPasswordFromSillyOldFormat(lastlogin);
     }
+
+    public void setRememberMe(boolean rememberMe)
+    {
+        this.primary.setRememberMe(rememberMe);
+        this.secondary.setRememberMe(rememberMe);
+    }
+
+    public boolean shouldRememberMe()
+    {
+        return this.primary.shouldRememberMe();
+    }
 }
 
 

@@ -117,7 +117,7 @@ public class CrashReportTab extends JPanel {
             result.append(" (by ");
             result.append(System.getProperty("java.vendor"));
             result.append(")\nLauncher: ");
-            result.append("1.0.4");
+            result.append("1.0.7");
             result.append(" (bootstrap ");
             result.append(Launcher.getInstance().getBootstrapVersion());
             result.append(")\nMinecraft: ");

@@ -4,6 +4,7 @@ import net.minecraft.launcher.events.RefreshedVersionsListener;
 import net.minecraft.launcher.profile.Profile;
 import net.minecraft.launcher.updater.VersionManager;
 import net.minecraft.launcher.updater.VersionSyncInfo;
+import net.minecraft.launcher.versions.ReleaseType;
 import net.minecraft.launcher.versions.Version;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
+import java.util.HashSet;
 import java.util.List;
 
 public class ProfileInfoPanel extends JPanel
@@ -26,6 +28,7 @@ public class ProfileInfoPanel extends JPanel
     private final JCheckBox resolutionCustom = new JCheckBox("Resolution:");
     private final JTextField resolutionWidth = new JTextField();
     private final JTextField resolutionHeight = new JTextField();
+    private final JCheckBox allowSnapshots = new JCheckBox("Enable experimental development versions (\"snapshots\")");
 
     public ProfileInfoPanel(ProfileEditorPopup editor) {
         this.editor = editor;
@@ -37,7 +40,8 @@ public class ProfileInfoPanel extends JPanel
         fillDefaultValues();
         addEventHandlers();
 
-        List versions = editor.getLauncher().getVersionManager().getVersions();
+        //List versions = editor.getLauncher().getVersionManager().getVersions();
+        List versions = editor.getLauncher().getVersionManager().getVersions(editor.getProfile().getVersionFilter());
 
         if (versions.isEmpty())
             editor.getLauncher().getVersionManager().addRefreshedVersionsListener(this);
@@ -69,6 +73,17 @@ public class ProfileInfoPanel extends JPanel
         constraints.fill = 0;
 
         constraints.gridy += 1;
+
+        constraints.fill = 2;
+        constraints.weightx = 1.0D;
+        constraints.gridwidth = 0;
+        add(this.allowSnapshots, constraints);
+        constraints.gridwidth = 1;
+        constraints.weightx = 0.0D;
+        constraints.fill = 0;
+
+        constraints.gridy += 1;
+
 
         add(new JLabel("Use version:"), constraints);
         constraints.fill = 2;
@@ -118,6 +133,9 @@ public class ProfileInfoPanel extends JPanel
         this.resolutionWidth.setText(String.valueOf(resolution.getWidth()));
         this.resolutionHeight.setText(String.valueOf(resolution.getHeight()));
         updateResolutionState();
+
+
+        this.allowSnapshots.setSelected(this.editor.getProfile().getVersionFilter().getTypes().contains(ReleaseType.SNAPSHOT));
     }
 
     protected void addEventHandlers() {
@@ -177,6 +195,35 @@ public class ProfileInfoPanel extends JPanel
         };
         this.resolutionWidth.getDocument().addDocumentListener(resolutionListener);
         this.resolutionHeight.getDocument().addDocumentListener(resolutionListener);
+
+
+        this.allowSnapshots.addItemListener(new ItemListener()
+        {
+            public void itemStateChanged(ItemEvent e) {
+                ProfileInfoPanel.this.updateCustomVersionFilter();
+            }
+        });
+    }
+
+    private void updateCustomVersionFilter() {
+        Profile profile = this.editor.getProfile();
+
+        if (this.allowSnapshots.isSelected()) {
+            if (profile.getAllowedReleaseTypes() == null) {
+                profile.setAllowedReleaseTypes(new HashSet(Profile.DEFAULT_RELEASE_TYPES));
+            }
+
+            profile.getAllowedReleaseTypes().add(ReleaseType.SNAPSHOT);
+        } else if (profile.getAllowedReleaseTypes() != null) {
+            profile.getAllowedReleaseTypes().remove(ReleaseType.SNAPSHOT);
+
+            if (profile.getAllowedReleaseTypes().equals(Profile.DEFAULT_RELEASE_TYPES)) {
+                profile.setAllowedReleaseTypes(null);
+            }
+        }
+
+        populateVersions(this.editor.getLauncher().getVersionManager().getVersions(this.editor.getProfile().getVersionFilter()));
+        this.editor.getLauncher().getVersionManager().removeRefreshedVersionsListener(this);
     }
 
     private void updateProfileName() {
@@ -250,7 +297,8 @@ public class ProfileInfoPanel extends JPanel
     }
 
     public void onVersionsRefreshed(VersionManager manager) {
-        List versions = manager.getVersions();
+        List versions = manager.getVersions(this.editor.getProfile().getVersionFilter());
+        //List versions = manager.getVersions();
         populateVersions(versions);
         this.editor.getLauncher().getVersionManager().removeRefreshedVersionsListener(this);
     }

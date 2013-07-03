@@ -7,6 +7,7 @@ import net.minecraft.launcher.ui.sidebar.SidebarGridForm;
 import net.minecraft.launcher.updater.VersionManager;
 
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public abstract class BaseLogInForm extends SidebarGridForm
         implements ActionListener, RefreshedProfilesListener, RefreshedVersionsListener {
@@ -37,6 +38,14 @@ public abstract class BaseLogInForm extends SidebarGridForm
 
     public Launcher getLauncher() {
         return this.launcher;
+    }
+
+    protected void saveAuthenticationDetails() {
+        try {
+            getLauncher().getProfileManager().saveProfiles();
+        } catch (IOException e) {
+            getLauncher().println("Couldn't save authentication details to profile", e);
+        }
     }
 }
 

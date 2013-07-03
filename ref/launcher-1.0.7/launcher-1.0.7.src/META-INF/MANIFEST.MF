@@ -1,0 +1,984 @@
+Manifest-Version: 1.0
+
+Name: com/google/gson/internal/bind/TypeAdapters$27.class
+SHA1-Digest: 6kufnSbp8bxRLHKs+0D1HcdP3jI=
+
+Name: com/google/gson/internal/bind/TypeAdapters$10.class
+SHA1-Digest: 2dcIuVE+dZZrNUKvbflZyWEntLM=
+
+Name: net/minecraft/launcher/ui/sidebar/ProfileSelection$1.class
+SHA1-Digest: 3J66l4iuQ0S4m4u6NVumXZ3ORyQ=
+
+Name: com/google/gson/TreeTypeAdapter.class
+SHA1-Digest: 1zTj8yDSo4iQpcwGpanv8kTWGbI=
+
+Name: net/minecraft/launcher/updater/LowerCaseEnumTypeAdapterFactory$1
+ .class
+SHA1-Digest: sPEqXwm8mkKDgejApV94aX4tFfc=
+
+Name: com/google/gson/internal/bind/TypeAdapters$15.class
+SHA1-Digest: sKN2v86Le+MmaeivXmQA73unq6I=
+
+Name: com/google/gson/internal/StringMap.class
+SHA1-Digest: 1M8iasmxA9hlpvm17gADzKYV4RI=
+
+Name: net/minecraft/launcher/ui/tabs/ProfileListTab$4.class
+SHA1-Digest: nwnnDpqMIxDe3PyaMPhztDKl0GE=
+
+Name: net/minecraft/launcher/authentication/yggdrasil/AuthenticationRe
+ quest.class
+SHA1-Digest: 8T8reKqdHp2rbsvXD3Zr4HZZi98=
+
+Name: net/minecraft/launcher/updater/VersionSyncInfo.class
+SHA1-Digest: rHGRTZdfOgjYLrYrjx4mJLGEKTo=
+
+Name: net/minecraft/launcher/updater/VersionSyncInfo$VersionSource.cla
+ ss
+SHA1-Digest: 0doKc0glMMZ9+bNLKOgEwVJyxmE=
+
+Name: com/google/gson/internal/bind/TypeAdapterRuntimeTypeWrapper.clas
+ s
+SHA1-Digest: eveQuoaVsPwrW9wsvejjg+H2xgo=
+
+Name: org/apache/commons/io/output/StringBuilderWriter.class
+SHA1-Digest: 1ANckDfaNQ1F/CnyTr1Wqc+RHVs=
+
+Name: com/google/gson/stream/JsonReader$2.class
+SHA1-Digest: ZGfRWV9PHzWIFqHjxSoK4R+qFW4=
+
+Name: net/minecraft/launcher/ui/sidebar/SidebarGridForm.class
+SHA1-Digest: Ptop+RJIYgNh/qU1S4ehsIwm/18=
+
+Name: com/google/gson/internal/bind/TypeAdapters$14.class
+SHA1-Digest: kxvUqzNBKksOANdVZICJRTkJkp8=
+
+Name: net/minecraft/launcher/authentication/yggdrasil/YggdrasilAuthent
+ icationService.class
+SHA1-Digest: Gjms8K9eOZEFFZIpdDdUl+3FVqM=
+
+Name: net/minecraft/launcher/profile/ProfileManager$RawProfileList.cla
+ ss
+SHA1-Digest: sXUe1CLb5DEdd6v0W08c9THadDA=
+
+Name: org/apache/commons/lang3/ObjectUtils$Null.class
+SHA1-Digest: GBSq1JoCl2WtTpY7PIFFjZu+xi8=
+
+Name: com/google/gson/internal/ConstructorConstructor$1.class
+SHA1-Digest: zv2AX27mhdxzePdjDpzjvZpHD2Y=
+
+Name: com/google/gson/internal/bind/TypeAdapters$EnumTypeAdapter.class
+SHA1-Digest: wKdTkmGZgcrhWpt09WY9nL6ssU8=
+
+Name: com/google/gson/TypeAdapter$1.class
+SHA1-Digest: zvDA4VxHFPFVqXwjBAb1IdYXIog=
+
+Name: net/minecraft/launcher/ui/tabs/WebsiteTab.class
+SHA1-Digest: /PPtsnhJ7hb96eegcsbvKw9zhK4=
+
+Name: com/google/gson/Gson$2.class
+SHA1-Digest: btfnWl8xKpMJF7dXLm9OOkJ5C9I=
+
+Name: net/minecraft/launcher/updater/FileBasedVersionList.class
+SHA1-Digest: 90litzNonx/i2Pnh0pR6B4x8FGs=
+
+Name: net/minecraft/launcher/updater/download/DownloadListener.class
+SHA1-Digest: /z3/KsJGsvUV8XXKXJtvOESgXuI=
+
+Name: net/minecraft/launcher/updater/download/Downloadable.class
+SHA1-Digest: kxRpL5zYi9GRd165I8xybY4WWKg=
+
+Name: net/minecraft/launcher/OperatingSystem.class
+SHA1-Digest: YqSpMpmYn+R181os4/QfXx/tmjw=
+
+Name: net/minecraft/launcher/process/LimitedCapacityList.class
+SHA1-Digest: yXYNwzvNDNfnObVPVnAaXYVodEE=
+
+Name: net/minecraft/launcher/ui/TexturedPanel.class
+SHA1-Digest: Ascb5hTR1/GAqTUXUmQhk531xpI=
+
+Name: com/google/gson/TypeAdapterFactory.class
+SHA1-Digest: rhia2pMLPe1l8mx0akz+DN+oKOc=
+
+Name: net/minecraft/launcher/updater/VersionFilter.class
+SHA1-Digest: ZPrJfsZSsauO5uvstxfLFY765TM=
+
+Name: net/minecraft/launcher/authentication/GameProfile.class
+SHA1-Digest: gwFv96KNAagcUiBlCMjv7+2eHj8=
+
+Name: com/google/gson/internal/bind/TypeAdapters$3.class
+SHA1-Digest: 2SE4oIP5Ac6PtostTtUBGgCGwsM=
+
+Name: net/minecraft/launcher/ui/popups/profile/ProfileEditorPopup.clas
+ s
+SHA1-Digest: Tb0JsbxqLCFZYevSXj5eiv9GnZw=
+
+Name: net/minecraft/launcher/ui/sidebar/login/NotLoggedInForm.class
+SHA1-Digest: J1EbPG/sZdGaLkQHCL/UjTpSr0w=
+
+Name: com/google/gson/internal/Streams.class
+SHA1-Digest: 5DC9Pg4msA2WmxBU3sWuSjQS/GE=
+
+Name: com/google/gson/internal/bind/TypeAdapters$6.class
+SHA1-Digest: 5aK9lQb0/l6LJ42mBdQV/W01gZ8=
+
+Name: net/minecraft/launcher/authentication/yggdrasil/Response.class
+SHA1-Digest: ggs3i25ML/4H8EVYOYrbEtNQjk8=
+
+Name: com/google/gson/internal/UnsafeAllocator$2.class
+SHA1-Digest: 3y4V2wnAoGfqz/c2WH77RZ/1G1k=
+
+Name: net/minecraft/launcher/ui/popups/profile/ProfileInfoPanel$Versio
+ nListRenderer.class
+SHA1-Digest: h3W54DyX3kDwOw6ccqvX/ca7lIA=
+
+Name: com/google/gson/FieldAttributes.class
+SHA1-Digest: T1XYhZmXcE6IIM33aBOewLHgfTA=
+
+Name: com/google/gson/internal/StringMap$1.class
+SHA1-Digest: rd4Y0KNbMQshxl0IC91PoWduSt4=
+
+Name: net/minecraft/launcher/ui/sidebar/ProfileSelection$ProfileListRe
+ nderer.class
+SHA1-Digest: N6IykL33tMsPXJk1WKD5uDId3es=
+
+Name: net/minecraft/launcher/ui/sidebar/ProfileSelection.class
+SHA1-Digest: 67QKM86xkJCbi07MPpUrH1IbZ9o=
+
+Name: net/minecraft/launcher/updater/DateTypeAdapter.class
+SHA1-Digest: DfTX8eqBZQ7/PrW+8yFNzXNyzRM=
+
+Name: templates/release-notes.vm
+SHA1-Digest: GN1CN526/OsPkNk4hNeHsdd7z1E=
+
+Name: com/google/gson/internal/bind/JsonTreeWriter.class
+SHA1-Digest: vQ/wRdtNXBMLAJbtiLwu48vYwU4=
+
+Name: com/google/gson/internal/bind/TypeAdapters$18.class
+SHA1-Digest: uk2TflX+yUJUv9XQu18cxDXHnN4=
+
+Name: net/minecraft/launcher/versions/ExtractRules.class
+SHA1-Digest: AWSHVUxo190qMqonmXqQIHX8/Qk=
+
+Name: net/minecraft/launcher/versions/CompleteVersion.class
+SHA1-Digest: kuAyELorxJTcxWPXHB9uBiInPs4=
+
+Name: net/minecraft/launcher/authentication/LoadTestingAuthenticationS
+ ervice.class
+SHA1-Digest: zkX4irou7qTb3MnlArswRW2hbzQ=
+
+Name: net/minecraft/launcher/events/ProfileChangedListener.class
+SHA1-Digest: wpRL3XNTzTRokiUSfLcXLL5B4ps=
+
+Name: com/google/gson/internal/Streams$AppendableWriter$CurrentWrite.c
+ lass
+SHA1-Digest: 2hYX+w45koauQA8pg05JH3XDxDo=
+
+Name: com/google/gson/internal/bind/TypeAdapters$17.class
+SHA1-Digest: RXhWorSY4vU9sgvwlaZbT+E2dNg=
+
+Name: favicon.png
+SHA1-Digest: hGEKL1zvApYnubMueZZWUdTrsz4=
+
+Name: net/minecraft/launcher/authentication/yggdrasil/InvalidateReques
+ t.class
+SHA1-Digest: dSQgrs6/2HkUS8WngzrZrms0whw=
+
+Name: com/google/gson/internal/UnsafeAllocator$3.class
+SHA1-Digest: bKS6YF/+bdpGjHu5NGzdRnVyXQs=
+
+Name: net/minecraft/launcher/ui/popups/profile/ProfileInfoPanel.class
+SHA1-Digest: pvY8OUG/J0AusWWi8oEEcjxOQEc=
+
+Name: com/google/gson/JsonDeserializer.class
+SHA1-Digest: L4XZH+Lxooh+vO4YJaJ3s99Dik8=
+
+Name: com/google/gson/internal/ConstructorConstructor$2.class
+SHA1-Digest: dxhaoVyQ+1/CK7YQho3pI92JINA=
+
+Name: net/minecraft/launcher/profile/ProfileManager.class
+SHA1-Digest: jpMxyl8E+93gPRds3neF+vx0DEM=
+
+Name: net/minecraft/launcher/versions/ReleaseType.class
+SHA1-Digest: /gwz9XrTGN1HmdKZe2B1mC3pVl4=
+
+Name: com/google/gson/JsonElement.class
+SHA1-Digest: p/kiZnE+VGmTlcuOQ64Y9mBt0M8=
+
+Name: net/minecraft/launcher/ui/tabs/ProfileListTab.class
+SHA1-Digest: T8ecmu2YD3oU71QLHkAXn+nt4Vs=
+
+Name: net/minecraft/launcher/events/AuthenticationChangedListener.clas
+ s
+SHA1-Digest: ClT84AhdpmyHhIsN+m2C8N4+7UY=
+
+Name: com/google/gson/internal/bind/ObjectTypeAdapter$1.class
+SHA1-Digest: q9Xb2BvDgJLDhANaZi14tr7qdZo=
+
+Name: net/minecraft/launcher/versions/Library.class
+SHA1-Digest: 76My556PtheZ9hlAi1lMuqhZFDM=
+
+Name: net/minecraft/launcher/profile/ProfileManager$1.class
+SHA1-Digest: Xkm3x6p2pas0qPZgr8aF12cwTek=
+
+Name: org/apache/commons/io/IOUtils.class
+SHA1-Digest: svlBKxAe5aCh6+pEk2x2HCsamrE=
+
+Name: net/minecraft/launcher/authentication/AuthenticationSerializer.c
+ lass
+SHA1-Digest: s2HjQophsK2Hi5GjfM3PasszAtA=
+
+Name: net/minecraft/launcher/ui/tabs/WebsiteTab$1.class
+SHA1-Digest: cyCNuxioG6Ay/t3X+j+zRq5gXcg=
+
+Name: com/google/gson/GsonBuilder.class
+SHA1-Digest: HrWdcFp8skW81+1HOhiHXn7xfjE=
+
+Name: net/minecraft/launcher/versions/PartialVersion.class
+SHA1-Digest: /hejuPXGf6JVnCP4juT1nCRUuGA=
+
+Name: net/minecraft/launcher/profile/Profile.class
+SHA1-Digest: 5CS5pfMwgbpNTFXINTOkhqoB4Q8=
+
+Name: org/apache/commons/lang3/text/StrMatcher$NoMatcher.class
+SHA1-Digest: FOUZJh62f9bftgUzosMjzhTtfwU=
+
+Name: com/google/gson/FieldNamingPolicy$3.class
+SHA1-Digest: EhOTBqPIqnnpXqgnvjTQFFvPp1U=
+
+Name: com/google/gson/FieldNamingPolicy.class
+SHA1-Digest: Ek+/opjag/C1MT4PTi6ELl4HM5A=
+
+Name: com/google/gson/internal/bind/TypeAdapters$22$1.class
+SHA1-Digest: xZ7T2BI7/frbf6arvUQRmDwwVhA=
+
+Name: com/google/gson/stream/MalformedJsonException.class
+SHA1-Digest: IkAlnpCV8W1PqDbX5g8gPoyYyLs=
+
+Name: com/google/gson/internal/$Gson$Types$WildcardTypeImpl.class
+SHA1-Digest: QRbJ7AP3TQzbAB93UJWeQHblfjI=
+
+Name: net/minecraft/launcher/GameLauncher.class
+SHA1-Digest: 2H9+p7dY6IPCUu1VAoxE02naPcU=
+
+Name: net/minecraft/launcher/versions/Version.class
+SHA1-Digest: brC1m29uyZlYrtQKUmyuW0EwiFI=
+
+Name: com/google/gson/InstanceCreator.class
+SHA1-Digest: mgtBscASTnjtrNUpa0ExmmYO1ds=
+
+Name: org/apache/commons/lang3/text/StrMatcher$TrimMatcher.class
+SHA1-Digest: 6Bu/LfnnF9DGHZL5bq0x3HUZaTQ=
+
+Name: com/google/gson/internal/bind/JsonTreeReader$1.class
+SHA1-Digest: wr6Wbce6dXbGOyU0q4Bo2K7ab28=
+
+Name: com/google/gson/internal/bind/ReflectiveTypeAdapterFactory$Bound
+ Field.class
+SHA1-Digest: VuKTEcoqEQ+H0Yvc1ESV7KIAmF4=
+
+Name: com/google/gson/internal/bind/DateTypeAdapter.class
+SHA1-Digest: I68iNdn2WS0l8z+cFcVeiHDCmnE=
+
+Name: net/minecraft/launcher/ui/popups/profile/ProfileJavaPanel$2.clas
+ s
+SHA1-Digest: 6i/gZa8ceVWu8+Z8vEZsMdtCMBM=
+
+Name: net/minecraft/launcher/ui/popups/profile/ProfileInfoPanel$4.clas
+ s
+SHA1-Digest: /mMBnHS4w1BhGtk9FiwsMmeIFqA=
+
+Name: net/minecraft/launcher/ui/tabs/CrashReportTab$CrashInfoPane.clas
+ s
+SHA1-Digest: HhwBEEyRN3K5WLn9j1zZvdVCYH0=
+
+Name: net/minecraft/launcher/ui/tabs/WebsiteTab$2.class
+SHA1-Digest: Y+/RsgRKUdORpCRdxGrrHnmMB+E=
+
+Name: org/apache/commons/io/filefilter/FileFilterUtils.class
+SHA1-Digest: Ros6wj7KetTGEowU81rMhGO18FQ=
+
+Name: org/apache/commons/lang3/text/StrLookup.class
+SHA1-Digest: p/jg1dKCSfH0Keh6j6LeKnQ8nhA=
+
+Name: dirt.png
+SHA1-Digest: 9SuO1HIzfA6kQ3j4F4jq/lg5w6o=
+
+Name: com/google/gson/internal/bind/TypeAdapters$4.class
+SHA1-Digest: DluvMlMFI5sk7KvaVQa5dI6aiWs=
+
+Name: com/google/gson/internal/bind/TypeAdapters$29.class
+SHA1-Digest: XATf7aHO1BPlKtEOqv/3Q/jwdIk=
+
+Name: net/minecraft/launcher/authentication/BaseAuthenticationService.
+ class
+SHA1-Digest: PYuTvCXlhjk04alO9aOX1k3XViQ=
+
+Name: org/apache/commons/io/filefilter/DirectoryFileFilter.class
+SHA1-Digest: tvtfIXvj3RFxzcwiTa7C+FZ2uCs=
+
+Name: com/google/gson/internal/bind/CollectionTypeAdapterFactory$Adapt
+ er.class
+SHA1-Digest: PmQvCsjl8mauWar7rsd5pQBGYCc=
+
+Name: net/minecraft/launcher/process/JavaProcess.class
+SHA1-Digest: d2wLzxkg0cFSJ9mdHtgjF+clmQI=
+
+Name: com/google/gson/FieldNamingPolicy$2.class
+SHA1-Digest: Dx3Mjld3GToeKR9iqb5vhv/cShc=
+
+Name: org/apache/commons/io/filefilter/AgeFileFilter.class
+SHA1-Digest: VRWaoqKQrM4BM7VqSlHXC9MkSj0=
+
+Name: com/google/gson/internal/bind/TypeAdapters$31.class
+SHA1-Digest: yy5VXlLHT4NgfLZRmsjBGrrmJTg=
+
+Name: com/google/gson/internal/bind/TypeAdapters$26.class
+SHA1-Digest: 3NpNoIl0ToBqEMQsCIj0hT85uc4=
+
+Name: com/google/gson/internal/bind/TypeAdapters$32.class
+SHA1-Digest: nX1jUpW/bhqp55NY63DqKoJl9K8=
+
+Name: com/google/gson/internal/$Gson$Preconditions.class
+SHA1-Digest: XXT3JvCVaFk31mPaweqqghBLLfQ=
+
+Name: com/google/gson/internal/$Gson$Types$ParameterizedTypeImpl.class
+SHA1-Digest: sHUC2DbuMUD5CVuY2JTz3iWtYQk=
+
+Name: com/google/gson/Gson$1.class
+SHA1-Digest: NDP+R2HZJYObG+pO0Mjr2iAuaC8=
+
+Name: com/google/gson/internal/StringMap$KeySet.class
+SHA1-Digest: o8Af36M4FLYMmwBWG06hcpPUkrM=
+
+Name: net/minecraft/launcher/ui/tabs/CrashReportTab.class
+SHA1-Digest: cj56YwBKW1ija9783vCHmM49Oas=
+
+Name: net/minecraft/launcher/ui/sidebar/login/NotLoggedInForm$1.class
+SHA1-Digest: DlNwy5cYcLlIWAdRv/SZoP4xPs4=
+
+Name: com/google/gson/internal/Primitives.class
+SHA1-Digest: xCXFVX1pC8i7mXuIAYX+EKi7eyA=
+
+Name: net/minecraft/launcher/updater/VersionManager$2.class
+SHA1-Digest: OeS/ZsmxRBtdou+AWMLlZpZiLR4=
+
+Name: com/google/gson/stream/JsonWriter.class
+SHA1-Digest: W33GwHXNhh68CLKdz+ns30m/kl8=
+
+Name: org/apache/commons/io/filefilter/NotFileFilter.class
+SHA1-Digest: 7K3zFcBlxvIR0D7J0Vo80jFyItA=
+
+Name: com/google/gson/annotations/Since.class
+SHA1-Digest: 8XkNCFrbuEyhPMS8iISAJlh2MMA=
+
+Name: net/minecraft/launcher/Launcher$2.class
+SHA1-Digest: b+WuYoGFTmN59ww8rcXcQkRhHvk=
+
+Name: com/google/gson/FieldNamingPolicy$1.class
+SHA1-Digest: WSyLYwosmVqZ+tbdDqstRfRSM4Y=
+
+Name: com/google/gson/JsonParseException.class
+SHA1-Digest: zk2iBLr5ySj+5UJ/kcaEkN81rKM=
+
+Name: net/minecraft/launcher/ui/tabs/ConsoleTab.class
+SHA1-Digest: KmVEBA20QV55LlDYyHQzoOGo4ck=
+
+Name: com/google/gson/Gson$3.class
+SHA1-Digest: 1AQAHXVmiKJlHzoF25XWkbJAxuM=
+
+Name: com/google/gson/internal/bind/TypeAdapters$13.class
+SHA1-Digest: dGyLtmlaVWSImU0YOrSq7UoqZ2c=
+
+Name: net/minecraft/launcher/updater/download/DownloadJob$1.class
+SHA1-Digest: sVc028dgVB2pMy2IOblsohc7GNY=
+
+Name: com/google/gson/DefaultDateTypeAdapter.class
+SHA1-Digest: VriNrLbW8gkfqtSJT7iWs4Y3eA0=
+
+Name: com/google/gson/stream/JsonReader$1.class
+SHA1-Digest: ef48rcui3+Gp67ktkCRCMHE6UWM=
+
+Name: net/minecraft/launcher/ui/tabs/ProfileListTab$3.class
+SHA1-Digest: mVZgzbqvQt4Y3aeWn99hdrnNGyY=
+
+Name: net/minecraft/launcher/ui/popups/profile/ProfileInfoPanel$1.clas
+ s
+SHA1-Digest: TnTmRJqYPSxEy4Onc2U5tcmv/AA=
+
+Name: org/apache/commons/io/FileUtils.class
+SHA1-Digest: ZiqpB0vtBrmJ+rpj+VCT+puUSxQ=
+
+Name: net/minecraft/launcher/ui/popups/profile/ProfileJavaPanel$3.clas
+ s
+SHA1-Digest: JP+P9O9846ybPsm2ET4jqa3lQlw=
+
+Name: net/minecraft/launcher/events/RefreshedProfilesListener.class
+SHA1-Digest: BcZ/Ey6NufhP8uBX4Eo+q3YMn9k=
+
+Name: com/google/gson/internal/$Gson$Types.class
+SHA1-Digest: paXQwgOt38i3NYVXaWoFIPTo8Ik=
+
+Name: net/minecraft/launcher/process/JavaProcessRunnable.class
+SHA1-Digest: GmXAhoiecFf7hoOTMkGZEjN/gj0=
+
+Name: net/minecraft/launcher/ui/sidebar/SidebarForm.class
+SHA1-Digest: PCj8ZRSOQERvx7qopex2nWGYx44=
+
+Name: net/minecraft/launcher/updater/FileTypeAdapter.class
+SHA1-Digest: z4/pzmfry10NpBS//PEqDBZZTDA=
+
+Name: org/apache/commons/io/filefilter/AndFileFilter.class
+SHA1-Digest: eKUbPXZdNeyXTb9IQTyl3qgTZ9Q=
+
+Name: com/google/gson/annotations/Expose.class
+SHA1-Digest: GS2N60V9VwIia5tjyx4Fk1Jktt4=
+
+Name: org/apache/commons/io/filefilter/NameFileFilter.class
+SHA1-Digest: tzigX1QsAo/rrBq8BZ4f/OsVLi0=
+
+Name: net/minecraft/launcher/updater/VersionList.class
+SHA1-Digest: /+fABwKbMNfT+7cqsiVEOXoaXKI=
+
+Name: com/google/gson/LongSerializationPolicy.class
+SHA1-Digest: DNmK/mXOim5ogbv3g0QpGK+kUCg=
+
+Name: org/apache/commons/lang3/text/StrMatcher$StringMatcher.class
+SHA1-Digest: 4OequBrVCCTRSDVj4lAmwswjt3U=
+
+Name: org/apache/commons/lang3/ArrayUtils.class
+SHA1-Digest: 6qdlORs/tH54bDnT51bhMdxeOVg=
+
+Name: net/minecraft/launcher/ui/tabs/ConsoleTab$1.class
+SHA1-Digest: mgwdWDILjdkMh3M3HCtz8JaIKXI=
+
+Name: com/google/gson/internal/bind/TypeAdapters$7.class
+SHA1-Digest: GXy/pzHiC3HyMWzCpwfimilUhLs=
+
+Name: com/google/gson/JsonSerializer.class
+SHA1-Digest: C8P/dSbgt8l4DBFsXx1hbmVM1tE=
+
+Name: org/apache/commons/lang3/CharSequenceUtils.class
+SHA1-Digest: pvqMTzasXdG4gbeH01aeM60Y+vM=
+
+Name: net/minecraft/launcher/ui/popups/profile/ProfileJavaPanel$1.clas
+ s
+SHA1-Digest: D2f4lCmFkZ5MNmZCAF1xG0XV3e4=
+
+Name: net/minecraft/launcher/ui/sidebar/login/LoggedInForm$1.class
+SHA1-Digest: cAN1Tw7F1nyckWF+nFoBoyzU7Ek=
+
+Name: net/minecraft/launcher/updater/ExceptionalThreadPoolExecutor$Exc
+ eptionalFutureTask.class
+SHA1-Digest: rh0JKkxzSTRADj1R0xVke1C0wnA=
+
+Name: net/minecraft/launcher/authentication/LegacyAuthenticationServic
+ e.class
+SHA1-Digest: lnwVQoCq4121f38htlTC6WFDVt0=
+
+Name: net/minecraft/launcher/authentication/yggdrasil/RefreshResponse.
+ class
+SHA1-Digest: 5XPMRhWR2tLf6vVhs9ul97+1fJA=
+
+Name: com/google/gson/JsonIOException.class
+SHA1-Digest: BlPg2OgymHHA/8rw94aOPJFd5Gk=
+
+Name: org/apache/commons/io/filefilter/IOFileFilter.class
+SHA1-Digest: QL+GqOPYK8r6jzmW3rutd5DmHFs=
+
+Name: com/google/gson/internal/StringMap$LinkedHashIterator.class
+SHA1-Digest: Euvd4SdaQ1jq961MUL096hwV4zY=
+
+Name: com/google/gson/annotations/Until.class
+SHA1-Digest: hJUipI1lQQbHrAfMB7pGZKwtv0s=
+
+Name: org/apache/commons/io/Charsets.class
+SHA1-Digest: IfmBCLu+8t8gK3OOilIlmFFyP5g=
+
+Name: net/minecraft/launcher/Launcher$1.class
+SHA1-Digest: 2LcZxlL5G/m5VeoWUjYmZHLxW5w=
+
+Name: net/minecraft/launcher/process/MinecraftProcessArguments.class
+SHA1-Digest: hVznEZgcoCgPIKyJT9IW8Ob6z1g=
+
+Name: com/google/gson/internal/bind/ReflectiveTypeAdapterFactory$Adapt
+ er.class
+SHA1-Digest: YzKgqCi8t2M8dei7/K4iS0xLK2s=
+
+Name: net/minecraft/launcher/ui/sidebar/StatusPanelForm$1$1.class
+SHA1-Digest: a24ku8BzyOlPn3b+bjrZqC2P+oE=
+
+Name: com/google/gson/Gson$6.class
+SHA1-Digest: GRaCeRDnTA4luoSZYdaBdyQC2M8=
+
+Name: com/google/gson/Gson$5.class
+SHA1-Digest: PkbgCwn4bXiqXMYtz4FXBe8zVok=
+
+Name: com/google/gson/stream/JsonScope.class
+SHA1-Digest: J9Wko3u1eNnOEFSTSUqmVv7iw8Y=
+
+Name: net/minecraft/launcher/ui/SidebarPanel.class
+SHA1-Digest: s5HRHFZ1eJBAq40Tepa+gkPsEEs=
+
+Name: com/google/gson/internal/StringMap$Values$1.class
+SHA1-Digest: B85wiFT5wW1iPanJCzh+Hq56KEg=
+
+Name: net/minecraft/launcher/ui/tabs/ProfileListTab$5.class
+SHA1-Digest: Xb/Hyt/0MXS5w5cLDDle4PJSz4Q=
+
+Name: net/minecraft/launcher/ui/popups/profile/ProfileInfoPanel$7.clas
+ s
+SHA1-Digest: FG7s+9UONrV503KGjCUyECeMfNI=
+
+Name: net/minecraft/launcher/GameLauncher$3.class
+SHA1-Digest: Jmy8XBMqOShkjn3KBelyLQ0J2kw=
+
+Name: net/minecraft/launcher/LauncherConstants.class
+SHA1-Digest: iPxDgUPjKB1ngIHUAz3o0KJ17kY=
+
+Name: org/apache/commons/lang3/text/StrSubstitutor.class
+SHA1-Digest: 09RuisdKio3zXL/V8sDaQ/OoVF0=
+
+Name: com/google/gson/internal/bind/TypeAdapters.class
+SHA1-Digest: mGd6ub+xx3ZNUmV+iXmd0WvvmZ8=
+
+Name: net/minecraft/launcher/ui/tabs/VersionListTab$1.class
+SHA1-Digest: M2y4Pxnfuso2UFCyjkfQ9JTdN+M=
+
+Name: org/apache/commons/io/filefilter/AbstractFileFilter.class
+SHA1-Digest: /C8wo3Zmxd13uh6vNP2Pjaxuy0o=
+
+Name: com/google/gson/internal/UnsafeAllocator$1.class
+SHA1-Digest: lzS6ogMVe8UvUyoNOloKuFWoq6Q=
+
+Name: org/apache/commons/lang3/StringUtils.class
+SHA1-Digest: ZFAVYejfvhSXY/bFCaqxjhl4pmw=
+
+Name: com/google/gson/internal/$Gson$Types$GenericArrayTypeImpl.class
+SHA1-Digest: jMwb8M77mEgW+Y3zDBdG2pjJ/wg=
+
+Name: net/minecraft/launcher/ui/sidebar/StatusPanelForm.class
+SHA1-Digest: GQt+sVLJj7PhaRcZ7OWxzhCBu/M=
+
+Name: com/google/gson/internal/bind/TypeAdapters$12.class
+SHA1-Digest: eAuuk6wJoeSrosOUPMSG3gxm3Ac=
+
+Name: net/minecraft/launcher/process/ProcessMonitorThread.class
+SHA1-Digest: aaAlzXSvZ1N66eGxwTBo34kj5Vs=
+
+Name: net/minecraft/launcher/Launcher$3.class
+SHA1-Digest: qAwBdQw2IY5L7rRWFDOuDmLvhoY=
+
+Name: net/minecraft/launcher/updater/VersionList$1.class
+SHA1-Digest: 1apyZwwNM/entq54cWIHGL1THcE=
+
+Name: net/minecraft/launcher/ui/popups/profile/ProfileJavaPanel.class
+SHA1-Digest: jDVAZ6f3F9+h+XJ8ENwCIpQ7BIE=
+
+Name: com/google/gson/Gson.class
+SHA1-Digest: 7M7XFcS3vzI6d4U+kVGIQWKm0U0=
+
+Name: com/google/gson/internal/bind/TypeAdapters$28.class
+SHA1-Digest: RgLG+T6kVjVr5o+RHSsQuL+bqNU=
+
+Name: net/minecraft/launcher/authentication/exceptions/AuthenticationE
+ xception.class
+SHA1-Digest: IgWTJF2Ic+BWTzLf55S+WVE2noc=
+
+Name: com/google/gson/internal/LazilyParsedNumber.class
+SHA1-Digest: PY4QjI/4LKYEPRyKxsShi57Q0v0=
+
+Name: net/minecraft/launcher/ui/popups/profile/ProfileInfoPanel$2.clas
+ s
+SHA1-Digest: mAZJToh4Ikaj0tySjjREVJUO7Po=
+
+Name: net/minecraft/launcher/authentication/yggdrasil/RefreshRequest.c
+ lass
+SHA1-Digest: eW9okmJ9YUuu9OhcranpSaooH+E=
+
+Name: com/google/gson/internal/ConstructorConstructor$3.class
+SHA1-Digest: Hw4dcJKBb6PWR4ASvimHkFUCNOA=
+
+Name: com/google/gson/internal/StringMap$LinkedEntry.class
+SHA1-Digest: D0Ss4q4EwKMqUrlwjInX8C62y7E=
+
+Name: com/google/gson/internal/bind/TypeAdapters$23.class
+SHA1-Digest: kb+NYlXiSOIEgFIP/I6hrgQjwFE=
+
+Name: net/minecraft/launcher/ui/sidebar/login/LoginContainerForm.class
+SHA1-Digest: 9+KsdppWN8vilQYLGsCp3rNI2kg=
+
+Name: com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.class
+SHA1-Digest: TJzZUYDygMZraIeBpXS2xElAGPM=
+
+Name: com/google/gson/internal/bind/DateTypeAdapter$1.class
+SHA1-Digest: CzBSJN6g5Hxeg8jLsRaep54h34k=
+
+Name: net/minecraft/launcher/ui/tabs/VersionListTab.class
+SHA1-Digest: wdrp+XoMp5JbZQ9ZKRMgLd1HMww=
+
+Name: org/apache/commons/lang3/ObjectUtils.class
+SHA1-Digest: hvKRNHw/5Jz0YErpvFJ+1gYi7JI=
+
+Name: net/minecraft/launcher/authentication/AuthenticationService.clas
+ s
+SHA1-Digest: e4xrWt59VpOChvarq/IVI7XoZo4=
+
+Name: com/google/gson/internal/ConstructorConstructor$5.class
+SHA1-Digest: XMtvhWsDn4kxzY8M0RJ0IJuCi44=
+
+Name: org/apache/commons/lang3/text/StrMatcher.class
+SHA1-Digest: YXZnecN+fHIvHVJn8L79bLKTs6o=
+
+Name: net/minecraft/launcher/Http.class
+SHA1-Digest: sO7QNSh+a42cLn7Q0Ht76wiUp2I=
+
+Name: com/google/gson/internal/bind/TypeAdapters$30.class
+SHA1-Digest: roVVy+xMWXVPxiyRcmVqteeqldA=
+
+Name: com/google/gson/internal/bind/TypeAdapters$21.class
+SHA1-Digest: H4lDa4sB6wPoM9yW//yi/YdWDi4=
+
+Name: com/google/gson/internal/bind/ObjectTypeAdapter.class
+SHA1-Digest: K/Z4hRmr3G+aztMNhV2HIrXCbFg=
+
+Name: com/google/gson/Gson$FutureTypeAdapter.class
+SHA1-Digest: UCNJpXQknSmLisKCPIffSgcZUi8=
+
+Name: org/apache/commons/lang3/Validate.class
+SHA1-Digest: qApkxapTpC1kbJFvK6HD2wQ37xA=
+
+Name: com/google/gson/internal/ObjectConstructor.class
+SHA1-Digest: AZqpKZjzecmLwMTht2xe3TBcq24=
+
+Name: com/google/gson/JsonObject.class
+SHA1-Digest: FGaTK4ildNEdmLCbYICZinHrMEw=
+
+Name: com/google/gson/internal/bind/MapTypeAdapterFactory$Adapter.clas
+ s
+SHA1-Digest: iVbbf8PYGd7WNBEczwqoGybL+rs=
+
+Name: com/google/gson/internal/ConstructorConstructor$4.class
+SHA1-Digest: HBTXjRGlYrEvqPc0+bWUqU+mX1o=
+
+Name: net/minecraft/launcher/updater/download/DownloadJob.class
+SHA1-Digest: r32tm43Be8TdHqcNJDfS9256CuE=
+
+Name: com/google/gson/internal/bind/ReflectiveTypeAdapterFactory$1.cla
+ ss
+SHA1-Digest: wN4TYCscicGyMn8kCzS/hI73/XI=
+
+Name: net/minecraft/launcher/events/RefreshedVersionsListener.class
+SHA1-Digest: IkJE8SxwVsdOlAftunTSSKfYLgI=
+
+Name: com/google/gson/internal/ConstructorConstructor$7.class
+SHA1-Digest: RioxJd8uZ6ZHLrC2iRpJ58DBLis=
+
+Name: com/google/gson/internal/bind/TypeAdapters$1.class
+SHA1-Digest: xcQJI9qP0TOfDWjJay2RB3AK5tU=
+
+Name: net/minecraft/launcher/ui/tabs/ProfileListTab$2.class
+SHA1-Digest: 4t/gyrhfosICsD/BRquHvHzzw/Q=
+
+Name: com/google/gson/internal/StringMap$Values.class
+SHA1-Digest: JMkkoebGJaRx3cPebMAb9XTyA14=
+
+Name: org/apache/commons/lang3/text/StrMatcher$CharMatcher.class
+SHA1-Digest: 1QDqbM1nd+d0whapMNT5wbqeo20=
+
+Name: net/minecraft/launcher/profile/Profile$Resolution.class
+SHA1-Digest: NmGeRcgBo0rqam6ZTPS/PuOo7X8=
+
+Name: net/minecraft/launcher/ui/popups/profile/ProfileInfoPanel$6.clas
+ s
+SHA1-Digest: o1W7HXOqkPoR8X6yjhIxkEa8zrM=
+
+Name: com/google/gson/internal/bind/TypeAdapters$22.class
+SHA1-Digest: WtDX8P/MyYcl1NGGeRc5Sd8Rmkw=
+
+Name: com/google/gson/stream/JsonWriter$1.class
+SHA1-Digest: trT+Yn/gH87RqaqPd5tGL7ClpRg=
+
+Name: com/google/gson/internal/bind/TypeAdapters$20.class
+SHA1-Digest: jFvwnpsXRFA/ohc5VN/BjlC7jCU=
+
+Name: com/google/gson/internal/bind/TypeAdapters$11.class
+SHA1-Digest: iQtO0TYKMZfggvFJkZuVwK/tOic=
+
+Name: com/google/gson/reflect/TypeToken.class
+SHA1-Digest: g/xGwsqxVqX/B81zJ0pXyIpemOE=
+
+Name: com/google/gson/internal/bind/ObjectTypeAdapter$2.class
+SHA1-Digest: hJyF4p+L3lgeZDF1WGjBkP3zkRw=
+
+Name: com/google/gson/internal/bind/JsonTreeWriter$1.class
+SHA1-Digest: yFmMfwdm5aZXFl5WuqsnuZLbQnE=
+
+Name: com/google/gson/TypeAdapter.class
+SHA1-Digest: SE1ILUjmX+oyMv1pY4jsWf9qd7M=
+
+Name: com/google/gson/stream/JsonToken.class
+SHA1-Digest: g74W7GOGhQ1JoZowQJMXbVILvmA=
+
+Name: net/minecraft/launcher/ui/sidebar/login/BaseLogInForm.class
+SHA1-Digest: 05RpBNb4vVEC6sKSnEAsJJQx8hE=
+
+Name: com/google/gson/internal/ConstructorConstructor$8.class
+SHA1-Digest: 7iOCRrKNrXL4fiLixLhlQk7JF0k=
+
+Name: com/google/gson/Gson$4.class
+SHA1-Digest: aMuOyVkAyMFPB1+s1b6iTblnnAY=
+
+Name: net/minecraft/launcher/updater/VersionManager.class
+SHA1-Digest: XildlAV//4SO0mXDWSpellR7sPc=
+
+Name: net/minecraft/launcher/ui/tabs/LauncherTabPanel.class
+SHA1-Digest: /9U1KggFOBppqk5u2QpvPBbPr1o=
+
+Name: net/minecraft/launcher/ui/popups/profile/ProfileInfoPanel$5.clas
+ s
+SHA1-Digest: mC3OJDC98AhnkW5SFDdMEUcvVUA=
+
+Name: net/minecraft/launcher/GameLauncher$2.class
+SHA1-Digest: wvpW78nEzya4OOqBTth22AWfQoM=
+
+Name: com/google/gson/TreeTypeAdapter$SingleTypeFactory.class
+SHA1-Digest: F+qEX1N90mAeW3m9/CgX/aF3Teo=
+
+Name: com/google/gson/internal/bind/TypeAdapters$5.class
+SHA1-Digest: zr+5smPYIMV1KAooh62zFpz9s+w=
+
+Name: com/google/gson/internal/bind/JsonTreeReader.class
+SHA1-Digest: sD0fxhrrKv/f3fzJN2qypxJZNrA=
+
+Name: com/google/gson/internal/bind/TypeAdapters$9.class
+SHA1-Digest: GV+2vvHKkGiz53hyH/3Gpqi0XD8=
+
+Name: com/google/gson/annotations/SerializedName.class
+SHA1-Digest: IF+SBb6ruQts9HJ8SMEFS/Bf6yg=
+
+Name: com/google/gson/ExclusionStrategy.class
+SHA1-Digest: aVbF6+QIWZCTY7MDQpkyYcjpm1s=
+
+Name: org/apache/commons/io/filefilter/PrefixFileFilter.class
+SHA1-Digest: YphAvDibEvye+2De9rK+UOofB/Q=
+
+Name: com/google/gson/internal/bind/TypeAdapters$19.class
+SHA1-Digest: avbld14YzCGp0vdl1nykkfDhmjc=
+
+Name: com/google/gson/stream/StringPool.class
+SHA1-Digest: XvjjbEJUzL6FOXekggz7tclUNNA=
+
+Name: net/minecraft/launcher/updater/RemoteVersionList.class
+SHA1-Digest: 6XFptsMYNOi8OQt+cJpI2+4JVwM=
+
+Name: net/minecraft/launcher/authentication/BaseAuthenticationService$
+ 1.class
+SHA1-Digest: lzvWg0nOCLIicsN5bU1RW6mtqvA=
+
+Name: com/google/gson/internal/bind/CollectionTypeAdapterFactory.class
+SHA1-Digest: 1JBAoXk56aNJtAOfdelFeucfXIw=
+
+Name: net/minecraft/launcher/ui/popups/profile/ProfileInfoPanel$3.clas
+ s
+SHA1-Digest: /dd+iLrsDQKxpszGKOc76xTTCWk=
+
+Name: com/google/gson/internal/StringMap$KeySet$1.class
+SHA1-Digest: M6pMnsEKqJZqtbS1zUqdBR1wS0Y=
+
+Name: com/google/gson/internal/bind/ArrayTypeAdapter.class
+SHA1-Digest: V/Il8bdAlxaIrnuc2PBNNXJVnRw=
+
+Name: net/minecraft/launcher/GameLauncher$1.class
+SHA1-Digest: K+rwg/CEmnfqMiv6NEcC3TGlWLM=
+
+Name: com/google/gson/internal/bind/TypeAdapters$24.class
+SHA1-Digest: 1hCAwVTOe0inz8Iq1BazLH8fexU=
+
+Name: net/minecraft/launcher/ui/sidebar/login/NotLoggedInForm$2.class
+SHA1-Digest: v7NCkw55jmLX5mZJTB9C2r24IOE=
+
+Name: net/minecraft/launcher/ui/sidebar/StatusPanelForm$ServerStatus.c
+ lass
+SHA1-Digest: LAtJMa26J/UdLsIdECoDKHkfNjk=
+
+Name: com/google/gson/FieldNamingPolicy$4.class
+SHA1-Digest: h597hytQO7WDdrDcc6AYJWrFpEw=
+
+Name: net/minecraft/launcher/ui/sidebar/StatusPanelForm$1.class
+SHA1-Digest: 7+scwvudfySVi2df0khttSMsS8U=
+
+Name: com/google/gson/JsonArray.class
+SHA1-Digest: 9m3GjtkVo8QABzT1i7UKy5eFM30=
+
+Name: com/google/gson/JsonNull.class
+SHA1-Digest: tv3dlyfbvOc8Bvbk9kChlDROoGg=
+
+Name: com/google/gson/JsonDeserializationContext.class
+SHA1-Digest: 7NUO47/MGogz1VOINQ49QLwxVZw=
+
+Name: com/google/gson/internal/bind/MapTypeAdapterFactory.class
+SHA1-Digest: SUf5ufL3RZ3B809fxgQXA1VOOsU=
+
+Name: com/google/gson/internal/bind/TimeTypeAdapter$1.class
+SHA1-Digest: xAqTsU4UtZu0KLCRILGO/YCcSsY=
+
+Name: com/google/gson/internal/JsonReaderInternalAccess.class
+SHA1-Digest: ZdUVGkTDzgDropvIwoyg2LtxXio=
+
+Name: net/minecraft/launcher/ui/popups/profile/ProfileJavaPanel$4.clas
+ s
+SHA1-Digest: hf099xKm04BOvZUhnnmJkjFvEgs=
+
+Name: com/google/gson/internal/Excluder$1.class
+SHA1-Digest: +YB7a5utLe0mTNr3WIJoGIUQzvo=
+
+Name: com/google/gson/LongSerializationPolicy$2.class
+SHA1-Digest: OOAfwzyT8IH/TlP9cZ17IIJOwtY=
+
+Name: net/minecraft/launcher/updater/ExceptionalThreadPoolExecutor.cla
+ ss
+SHA1-Digest: zs/ty+AsateeHG8huDZ/b2eiyjA=
+
+Name: com/google/gson/LongSerializationPolicy$1.class
+SHA1-Digest: QsqT25R+JiSVvrJgso5PL3pWYJE=
+
+Name: com/google/gson/internal/Streams$AppendableWriter.class
+SHA1-Digest: RmHxoV8gmTMmsxTQV7hOWNb7iag=
+
+Name: com/google/gson/internal/bind/TypeAdapters$8.class
+SHA1-Digest: A9tkDpNFicjkwA36SNns39fRE+c=
+
+Name: com/google/gson/FieldNamingStrategy.class
+SHA1-Digest: +jaeBlsaNQbtphpOBBKOzc8SUws=
+
+Name: com/google/gson/internal/ConstructorConstructor$6.class
+SHA1-Digest: 6efjcx5QroAm8siKGIjCBAg0zxc=
+
+Name: net/minecraft/launcher/ui/tabs/ProfileListTab$1.class
+SHA1-Digest: aGXVsbklXakw6mWW+ICaHwN6a6Y=
+
+Name: com/google/gson/JsonSerializationContext.class
+SHA1-Digest: iM0Gv0O7HPSzNGnm72q5sdwdtlw=
+
+Name: com/google/gson/internal/Excluder.class
+SHA1-Digest: PVklneht2gxQiup3p5/ai4QSczQ=
+
+Name: com/google/gson/internal/UnsafeAllocator$4.class
+SHA1-Digest: /weLfNqSsvVpV1s3ws8kOBum6To=
+
+Name: net/minecraft/launcher/updater/VersionList$RawVersionList.class
+SHA1-Digest: 32hRtXO6YF8SnfyKN/hEbj9R0R8=
+
+Name: com/google/gson/stream/JsonReader.class
+SHA1-Digest: yvJ5LRKyUSKNG88NM8mIION+LLc=
+
+Name: com/google/gson/internal/bind/ArrayTypeAdapter$1.class
+SHA1-Digest: BWxV4P3rqfUxfIXUflIWBtNXmYo=
+
+Name: com/google/gson/internal/bind/TypeAdapters$25.class
+SHA1-Digest: 65UhiYjYD8vV+IdrebmCg35BzyE=
+
+Name: com/google/gson/internal/UnsafeAllocator.class
+SHA1-Digest: ImSb0HDe15XZ4bebni76kFpUu3k=
+
+Name: com/google/gson/internal/StringMap$EntrySet.class
+SHA1-Digest: wDILLmDyW8uZJV4/nUAR24l8DVI=
+
+Name: net/minecraft/launcher/ui/sidebar/login/LoggedInForm.class
+SHA1-Digest: lOM4xn405Kquw9pnDbN1Nrh5MEE=
+
+Name: net/minecraft/launcher/process/JavaProcessLauncher.class
+SHA1-Digest: Sw6WF9nXtsXnfSgB3R0Rz+K+Mp0=
+
+Name: net/minecraft/launcher/updater/LowerCaseEnumTypeAdapterFactory.c
+ lass
+SHA1-Digest: Vjde16ejPjpgbxWqdsnIns4rYn0=
+
+Name: org/apache/commons/io/IOCase.class
+SHA1-Digest: xajvXeQqqp9l+tTC2jQqogKuoXo=
+
+Name: com/google/gson/internal/bind/TimeTypeAdapter.class
+SHA1-Digest: Y4ebMCcT6+jn57ADGGNO7TyNJ0Y=
+
+Name: net/minecraft/launcher/updater/VersionManager$1.class
+SHA1-Digest: 6HRqudPCx2NIIgVc0hK2lvirO0Q=
+
+Name: com/google/gson/TreeTypeAdapter$1.class
+SHA1-Digest: k7W2cKV7bYb4LFirjk4sMZo5c2k=
+
+Name: com/google/gson/internal/Streams$1.class
+SHA1-Digest: wL7xoJ6MoPpXujW066EsUtcPzjg=
+
+Name: org/apache/commons/lang3/text/StrLookup$MapStrLookup.class
+SHA1-Digest: RzS1yNKsy3kswOGOopwrEzKzoHw=
+
+Name: net/minecraft/launcher/ui/tabs/VersionListTab$VersionTableModel.
+ class
+SHA1-Digest: zw7iMNnCaSq+ETIsssKTdBzjE9E=
+
+Name: com/google/gson/JsonPrimitive.class
+SHA1-Digest: wZ5oGD3SMN1y1qWvbJVTEfyMM1w=
+
+Name: com/google/gson/JsonSyntaxException.class
+SHA1-Digest: JL6VKo8+Q7YQXKQWWuQLjXNFb3w=
+
+Name: com/google/gson/internal/bind/TypeAdapters$16.class
+SHA1-Digest: n0t8oZjijlJRtLv8aY5ArhrTh+s=
+
+Name: net/minecraft/launcher/ui/sidebar/BetaNoticeForm.class
+SHA1-Digest: D7Qk2k5lgzo3QL2MPnaNKdrqbMg=
+
+Name: com/google/gson/FieldNamingPolicy$5.class
+SHA1-Digest: hikVOOdiNzfyszqLMjo4IOAm/JE=
+
+Name: com/google/gson/internal/ConstructorConstructor.class
+SHA1-Digest: R9Kudvm8Usu1a/kf8nxJm87EYyA=
+
+Name: net/minecraft/launcher/ui/tabs/ProfileListTab$ProfileTableModel.
+ class
+SHA1-Digest: zGJf+WWW4bP/gQFqfMQeTHS5G0Y=
+
+Name: net/minecraft/launcher/updater/LocalVersionList.class
+SHA1-Digest: bLk0SayB107SNmBqxEFW3XXuKmY=
+
+Name: com/google/gson/internal/bind/TypeAdapters$2.class
+SHA1-Digest: hM6pnoA5ZPwjV2JYy8E5LToZE+c=
+
+Name: com/google/gson/internal/StringMap$EntrySet$1.class
+SHA1-Digest: 7SfN03OYJoJXYbjc6vVLxQff/Bw=
+
+Name: net/minecraft/launcher/ui/LauncherPanel.class
+SHA1-Digest: lGGlTjpuszu25PxsMM6Pu6HopeM=
+
+Name: net/minecraft/launcher/authentication/exceptions/InvalidCredenti
+ alsException.class
+SHA1-Digest: 21kcOHEuTpljH3hbaMXJNrRusFo=
+
+Name: net/minecraft/launcher/Launcher.class
+SHA1-Digest: Ob1YeIRJtCAcRUTRPRfFHVYAs9I=
+
+Name: com/google/gson/internal/bind/SqlDateTypeAdapter$1.class
+SHA1-Digest: BRFodCAYvVd6xPgj2014qJ1xtio=
+
+Name: org/apache/commons/io/FilenameUtils.class
+SHA1-Digest: NHLgDXDRoAx/jk+vSGpeFXGixqE=
+
+Name: org/apache/commons/lang3/text/StrBuilder.class
+SHA1-Digest: LL2cZqMdV9MUeLcrfNYCqTDsfNk=
+
+Name: net/minecraft/launcher/Launcher$4.class
+SHA1-Digest: 4k46HRSLLjAVUVofmHZvhbofKr0=
+
+Name: net/minecraft/launcher/authentication/yggdrasil/AuthenticationRe
+ sponse.class
+SHA1-Digest: AdnU8F/LT7aw7k+W9ST/wNJyYgw=
+
+Name: com/google/gson/internal/bind/SqlDateTypeAdapter.class
+SHA1-Digest: amWlC8Sd4mjJ09zCpf/mEX6NLvE=
+
+Name: net/minecraft/launcher/authentication/yggdrasil/Agent.class
+SHA1-Digest: mKPw28VVqDkcb/EG0brFpLnZKRc=
+
+Name: org/apache/commons/lang3/text/StrMatcher$CharSetMatcher.class
+SHA1-Digest: gnPBMIr+1W+SLixZhZdlM+P+dn4=
+

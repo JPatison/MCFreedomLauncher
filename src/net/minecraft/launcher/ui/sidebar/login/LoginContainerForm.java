@@ -19,7 +19,7 @@ public class LoginContainerForm extends JPanel {
         this.launcher = launcher;
         this.loggedInForm = new LoggedInForm(this);
         this.notLoggedInForm = new NotLoggedInForm(this);
-        setMaximumSize(new Dimension(2147483647, 300));
+        //setMaximumSize(new Dimension(2147483647, 300));
 
         setLayout(this.layout);
         add(this.loggedInForm, "Logged In");

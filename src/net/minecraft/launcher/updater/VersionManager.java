@@ -109,7 +109,8 @@ public class VersionManager {
         }
 
         for (Version version : this.localVersionList.getVersions()) {
-            if ((version.getType() != null) && (version.getUpdatedTime() != null)) {
+            if ((version.getType() != null) && (version.getUpdatedTime() != null) && (
+                    (filter == null) || ((filter.getTypes().contains(version.getType())) && (((Integer) counts.get(version.getType())).intValue() < filter.getMaxCount())))) {
                 VersionSyncInfo syncInfo = getVersionSyncInfo(version, this.remoteVersionList.getVersion(version.getId()));
                 ((Map) lookup).put(version.getId(), syncInfo);
                 result.add(syncInfo);
@@ -125,6 +126,15 @@ public class VersionManager {
 
                 if (filter != null)
                     counts.put(version.getType(), Integer.valueOf(((Integer) counts.get(version.getType())).intValue() + 1));
+            }
+        }
+        if (result.isEmpty()) {
+            for (Version version : this.localVersionList.getVersions()) {
+                if ((version.getType() != null) && (version.getUpdatedTime() != null)) {
+                    VersionSyncInfo syncInfo = getVersionSyncInfo(version, this.remoteVersionList.getVersion(version.getId()));
+                    ((Map)lookup).put(version.getId(), syncInfo);
+                    result.add(syncInfo);
+                }
             }
         }
         Collections.sort(result, new Comparator() {

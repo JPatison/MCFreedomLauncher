@@ -33,7 +33,7 @@ public class ProfileSelection extends SidebarGridForm
     public ProfileSelection(Launcher launcher) {
         super("Profile Selection");
         this.launcher = launcher;
-        setMaximumSize(new Dimension(2147483647, 300));
+        //setMaximumSize(new Dimension(2147483647, 300));
 
         this.profileList.setRenderer(new ProfileListRenderer());
         this.profileList.addItemListener(this);
@@ -129,7 +129,8 @@ public class ProfileSelection extends SidebarGridForm
         }
 
         if (syncInfo == null) {
-            List versions = this.launcher.getVersionManager().getVersions();
+            //List versions = this.launcher.getVersionManager().getVersions();
+            List versions = this.launcher.getVersionManager().getVersions(this.launcher.getProfileManager().getSelectedProfile().getVersionFilter());
             if (!versions.isEmpty()) {
                 syncInfo = (VersionSyncInfo) versions.get(0);
             }

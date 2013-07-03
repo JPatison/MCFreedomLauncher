@@ -29,6 +29,7 @@ public class SPAuthenticationService implements AuthenticationService {
     private String username = null;
     private String password = null;
     private GameProfile selectedProfile = null;
+    private boolean shouldRememberMe = true;
 
     public static String[] getStoredDetails(File lastLoginFile) {
         if (!lastLoginFile.isFile()) return null;
@@ -145,6 +146,10 @@ public class SPAuthenticationService implements AuthenticationService {
     public void loadFromStorage(Map<String, String> credentials) {
         logOut();
 
+        if (credentials.containsKey("rememberMe")) {
+            setRememberMe(Boolean.getBoolean((String)credentials.get("rememberMe")));
+        }
+
         setUsername((String) credentials.get("username"));
 
         if ((credentials.containsKey("displayName")) && (credentials.containsKey("uuid")))
@@ -153,6 +158,12 @@ public class SPAuthenticationService implements AuthenticationService {
 
     public Map<String, String> saveForStorage() {
         Map result = new HashMap();
+
+        if (!shouldRememberMe()) {
+            result.put("rememberMe", Boolean.toString(false));
+            return result;
+        }
+
 
         if (getUsername() != null) {
             result.put("username", getUsername());
@@ -165,6 +176,18 @@ public class SPAuthenticationService implements AuthenticationService {
 
         return result;
     }
+
+    public boolean shouldRememberMe()
+    {
+        return this.shouldRememberMe;
+    }
+
+    public void setRememberMe(boolean rememberMe)
+    {
+        this.shouldRememberMe = rememberMe;
+    }
+
+
 
     @Override
     public String getSessionToken() {
@@ -266,4 +289,6 @@ public class SPAuthenticationService implements AuthenticationService {
                 }
             });
     }
+
+
 }

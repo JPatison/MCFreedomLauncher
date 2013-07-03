@@ -16,7 +16,7 @@ public class LoggedInForm extends BaseLogInForm {
 
     public LoggedInForm(LoginContainerForm container) {
         super(container, "Play Game");
-        setMaximumSize(new Dimension(2147483647, 300));
+        //setMaximumSize(new Dimension(2147483647, 300));
         createInterface();
     }
 
@@ -41,14 +41,17 @@ public class LoggedInForm extends BaseLogInForm {
     public void checkLoginState() {
         boolean canPlay = true;
         boolean canLogOut = true;
-        AuthenticationService authentication = getLauncher().getProfileManager().getSelectedProfile().getAuthentication();
+        //AuthenticationService authentication = getLauncher().getProfileManager().getSelectedProfile().getAuthentication();
+        Profile profile = getLauncher().getProfileManager().getSelectedProfile();
+        AuthenticationService authentication = profile.getAuthentication();
 
         if (getLauncher().getGameLauncher().isWorking()) {
             canPlay = false;
             canLogOut = false;
         }
 
-        if (getLauncher().getVersionManager().getVersions().size() <= 0) {
+        if (getLauncher().getVersionManager().getVersions(profile.getVersionFilter()).size() <= 0) {
+        //if (getLauncher().getVersionManager().getVersions().size() <= 0) {
             canPlay = false;
         }
 
@@ -90,6 +93,7 @@ public class LoggedInForm extends BaseLogInForm {
             });
         } else if (e.getSource() == this.logOutButton) {
             getLauncher().getProfileManager().getSelectedProfile().getAuthentication().logOut();
+            saveAuthenticationDetails();
             getLoginContainer().checkLoginState();
         }
     }

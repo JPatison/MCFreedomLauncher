@@ -113,7 +113,8 @@ public class CompleteVersion
 
         for (Library library : (Collection<Library>) libraries) {
             if (library.getNatives() == null) {
-                result.add(new File(base, library.getArtifactPath()));
+//                result.add(new File(base, library.getArtifactPath()));
+                result.add(new File(base, "libraries/" + library.getArtifactPath()));
             }
         }
 
@@ -130,7 +131,8 @@ public class CompleteVersion
             Map natives = library.getNatives();
 
             if ((natives != null) && (natives.containsKey(os))) {
-                result.add(library.getArtifactPath((String) natives.get(os)));
+                //result.add(library.getArtifactPath((String) natives.get(os)));
+                result.add("libraries/" + library.getArtifactPath((String)natives.get(os)));
             }
         }
 
@@ -143,9 +145,12 @@ public class CompleteVersion
         for (Library library : getRelevantLibraries(os)) {
             if (library.getNatives() != null) {
                 String natives = (String) library.getNatives().get(os);
-                if (natives != null) neededFiles.add(library.getArtifactPath(natives));
+
+                // / if (natives != null) neededFiles.add(library.getArtifactPath(natives));
+                if (natives != null) neededFiles.add("libraries/" + library.getArtifactPath(natives));
             } else {
-                neededFiles.add(library.getArtifactPath());
+                neededFiles.add("libraries/" + library.getArtifactPath());
+//                neededFiles.add(library.getArtifactPath());
             }
 
         }
@@ -169,7 +174,8 @@ public class CompleteVersion
 
             if (file != null) {
                 URL url = new URL(library.getDownloadUrl() + file);
-                neededFiles.add(new Downloadable(proxy, url, new File(targetDirectory, file), ignoreLocalFiles));
+                neededFiles.add(new Downloadable(proxy, url, new File(targetDirectory, "libraries/" + file), ignoreLocalFiles));
+                //neededFiles.add(new Downloadable(proxy, url, new File(targetDirectory, file), ignoreLocalFiles));
             }
         }
 

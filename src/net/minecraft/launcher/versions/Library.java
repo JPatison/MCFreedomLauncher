@@ -5,6 +5,7 @@ import net.minecraft.launcher.OperatingSystem;
 import java.util.*;
 
 public class Library {
+    private static final String LIBRARY_DOWNLOAD_BASE = "https://s3.amazonaws.com/Minecraft.Download/libraries/";
     private String name;
     private List<OperatingSystem> os;
     private Map<OperatingSystem, String> natives;
@@ -60,7 +61,8 @@ public class Library {
     public String getArtifactBaseDir() {
         if (this.name == null) throw new IllegalStateException("Cannot get artifact dir of empty/blank artifact");
         String[] parts = this.name.split(":", 3);
-        return String.format("libraries/%s/%s/%s", new Object[]{parts[0].replaceAll("\\.", "/"), parts[1], parts[2]});
+       // return String.format("libraries/%s/%s/%s", new Object[]{parts[0].replaceAll("\\.", "/"), parts[1], parts[2]});
+        return String.format("%s/%s/%s", new Object[] { parts[0].replaceAll("\\.", "/"), parts[1], parts[2] });
     }
 
     public String getArtifactPath() {
@@ -70,7 +72,7 @@ public class Library {
 
     public String getArtifactPath(String classifier) {
         if (this.name == null) throw new IllegalStateException("Cannot get artifact path of empty/blank artifact");
-        String[] parts = this.name.split(":", 3);
+        //String[] parts = this.name.split(":", 3);
         return String.format("%s/%s", new Object[]{getArtifactBaseDir(), getArtifactFilename(classifier)});
     }
 
@@ -92,7 +94,8 @@ public class Library {
 
     public String getDownloadUrl() {
         if (this.url != null) return this.url;
-        return "https://s3.amazonaws.com/Minecraft.Download/";
+        //return "https://s3.amazonaws.com/Minecraft.Download/";
+        return "https://s3.amazonaws.com/Minecraft.Download/libraries/";
     }
 }
 

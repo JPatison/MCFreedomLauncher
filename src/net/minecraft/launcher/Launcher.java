@@ -68,7 +68,7 @@ public class Launcher {
         downloadResources();
         refreshProfiles();
         refreshVersions();
-        println("Launcher 1.0.4 (through bootstrap " + bootstrapVersion + ") started on " + OperatingSystem.getCurrentPlatform().getName() + "...");
+        println("Launcher 1.0.8 (through bootstrap " + bootstrapVersion + ") started on " + OperatingSystem.getCurrentPlatform().getName() + "...");
         if (!OperatingSystem.getCurrentPlatform().isSupported()) {
             println("This operating system is unknown or unsupported, we cannot guarantee that the game will launch.");
         }
@@ -214,7 +214,7 @@ public class Launcher {
 
     protected void initializeFrame() {
         this.frame.getContentPane().removeAll();
-        this.frame.setTitle("Minecraft Freedom Launcher 1.0.4 (modified by Energy. Credits to Sparamoule's Minecraft Open Launcher)");
+        this.frame.setTitle("Minecraft Freedom Launcher 1.0.8 (modified by Energy. Credits to Sparamoule's Minecraft Open Launcher)");
         this.frame.setPreferredSize(new Dimension(925, 525));
         this.frame.setDefaultCloseOperation(2);
         this.frame.addWindowListener(new WindowAdapter() {
