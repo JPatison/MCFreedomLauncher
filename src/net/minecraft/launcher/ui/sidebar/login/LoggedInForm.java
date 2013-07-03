@@ -1,6 +1,7 @@
 package net.minecraft.launcher.ui.sidebar.login;
 
 import net.minecraft.launcher.authentication.AuthenticationService;
+import net.minecraft.launcher.locale.LocaleHelper;
 import net.minecraft.launcher.profile.Profile;
 import net.minecraft.launcher.profile.ProfileManager;
 
@@ -8,15 +9,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.util.ResourceBundle;
 
 public class LoggedInForm extends BaseLogInForm {
-    private final JButton playButton = new JButton("Play");
-    private final JButton logOutButton = new JButton("Log Out");
-    private final JLabel welcomeText = new JLabel("<html>OH NO PANIC! :(</html>");
+    private ResourceBundle messages= LocaleHelper.getMessages();
+    private final JButton playButton = new JButton(messages.getString("play"));
+    private final JButton logOutButton = new JButton(messages.getString("log.out"));
+    private final JLabel welcomeText = new JLabel(messages.getString("html.oh.no.panic.html"));
     private AuthenticationService previousAuthentication = null;
 
     public LoggedInForm(LoginContainerForm container) {
-        super(container, "Play Game");
+        super(container, LocaleHelper.getMessages().getString("play.game"));
         //setMaximumSize(new Dimension(2147483647, 300));
         createInterface();
     }
@@ -56,18 +59,18 @@ public class LoggedInForm extends BaseLogInForm {
             canPlay = false;
         }
 
-        this.welcomeText.setText("<html>Welcome, guest!</html>");
+        this.welcomeText.setText(messages.getString("html.welcome.guest.html"));
 
         if (authentication.isLoggedIn()) {
             if (authentication.getSelectedProfile() == null) {
-                this.playButton.setText("Play Demo");
+                this.playButton.setText(messages.getString("play.demo"));
             } else {
-                this.welcomeText.setText("<html>Welcome, <b>" + authentication.getSelectedProfile().getName() + "</b>!</html>");
+                this.welcomeText.setText(messages.getString("html.welcome.b") + authentication.getSelectedProfile().getName() + "</b>!</html>");
 
                 if (authentication.canPlayOnline())
-                    this.playButton.setText("Play");
+                    this.playButton.setText(messages.getString("play"));
                 else {
-                    this.playButton.setText("Play Offline");
+                    this.playButton.setText(messages.getString("play.offline"));
                 }
             }
         }

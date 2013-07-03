@@ -2,13 +2,16 @@ package net.minecraft.launcher.ui.sidebar.login;
 
 import net.minecraft.launcher.Launcher;
 import net.minecraft.launcher.authentication.AuthenticationService;
+import net.minecraft.launcher.locale.LocaleHelper;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ResourceBundle;
 
 public class LoginContainerForm extends JPanel {
-    private static final String CARD_LOGGED_IN = "Logged In";
-    private static final String CARD_NOT_LOGGED_IN = "Not Logged In";
+    private static ResourceBundle messages= LocaleHelper.getMessages();
+    private static final String CARD_LOGGED_IN = messages.getString("logged.in");
+    private static final String CARD_NOT_LOGGED_IN = messages.getString("not.logged.in");
     private final Launcher launcher;
     private final LoggedInForm loggedInForm;
     private final NotLoggedInForm notLoggedInForm;
@@ -22,10 +25,10 @@ public class LoginContainerForm extends JPanel {
         //setMaximumSize(new Dimension(2147483647, 300));
 
         setLayout(this.layout);
-        add(this.loggedInForm, "Logged In");
-        add(this.notLoggedInForm, "Not Logged In");
+        add(this.loggedInForm, CARD_LOGGED_IN);
+        add(this.notLoggedInForm, CARD_NOT_LOGGED_IN);
 
-        this.layout.show(this, "Not Logged In");
+        this.layout.show(this, CARD_NOT_LOGGED_IN);
     }
 
     public void checkLoginState() {
@@ -35,9 +38,9 @@ public class LoginContainerForm extends JPanel {
         this.loggedInForm.checkLoginState();
 
         if (authentication.isLoggedIn())
-            this.layout.show(this, "Logged In");
+            this.layout.show(this, messages.getString("logged.in"));
         else
-            this.layout.show(this, "Not Logged In");
+            this.layout.show(this, messages.getString("not.logged.in"));
     }
 
     public NotLoggedInForm getNotLoggedInForm() {

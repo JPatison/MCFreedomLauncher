@@ -3,11 +3,11 @@ package net.minecraft.launcher.ui.sidebar.login;
 import net.minecraft.launcher.Launcher;
 import net.minecraft.launcher.OperatingSystem;
 import net.minecraft.launcher.authentication.AuthenticationService;
+import net.minecraft.launcher.locale.LocaleHelper;
 import net.minecraft.launcher.profile.Profile;
 import net.minecraft.launcher.profile.ProfileManager;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.StringUtils.*;
 import org.spara.mol.InstallDirSettings;
 import org.spara.mol.Main;
 
@@ -19,20 +19,28 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class NotLoggedInForm extends BaseLogInForm {
+   private Locale currentLocale= LocaleHelper.getCurrentLocale();
+  private ResourceBundle messages= LocaleHelper.getMessages();
     private final JTextField usernameField = new JTextField(20);
     private final JPasswordField passwordField = new JPasswordField(20);
-    private final JButton playButton = new JButton("Play");
+   private final JButton playButton = new JButton(messages.getString("play"));
+    //private final JButton playButton = new JButton("Play");
     // private final JButton registerButton = new JButton("Register");
-    private final JButton registerButton = new JButton("Install Location");
-    private final JCheckBox rememberMeCheckbox = new JCheckBox("Log me in automatically");
-    private final JCheckBox onlineModeCheckbox = new JCheckBox("Online Mode");
+   // private final JButton installButton = new JButton("Install Location");
+    private final JButton installButton = new JButton(messages.getString("installLocation"));
+    private final JCheckBox rememberMeCheckbox = new JCheckBox(messages.getString("log.me.in.automatically"));
+//    private final JCheckBox onlineModeCheckbox = new JCheckBox("Online Mode");
+private final JCheckBox onlineModeCheckbox = new JCheckBox(messages.getString("onlineMode"));
+
 
     public NotLoggedInForm(LoginContainerForm container) {
-        super(container, "Log In");
+        super(container, LocaleHelper.getMessages().getString("log.in"));
         //setMaximumSize(new Dimension(2147483647, 300));
         createInterface();
     }
@@ -40,12 +48,12 @@ public class NotLoggedInForm extends BaseLogInForm {
     protected void populateGrid(GridBagConstraints constraints) {
         constraints.fill = 2;
 
-        JLabel usernameLabel = new JLabel("Username:", 2);
+        JLabel usernameLabel = new JLabel(messages.getString("username"), 2);
         usernameLabel.setLabelFor(this.usernameField);
         add(usernameLabel, constraints, 0, 0, 0, 1);
         add(this.usernameField, constraints, 1, 0, 1, 0);
 
-        JLabel passwordLabel = new JLabel("Password:", 2);
+        JLabel passwordLabel = new JLabel(messages.getString("password"), 2);
         passwordLabel.setLabelFor(this.passwordField);
         add(passwordLabel, constraints, 0, 1, 0, 1);
         add(this.passwordField, constraints, 1, 1, 1, 0);
@@ -59,12 +67,12 @@ public class NotLoggedInForm extends BaseLogInForm {
         this.playButton.addActionListener(this);
         this.usernameField.addActionListener(this);
         this.passwordField.addActionListener(this);
-        this.registerButton.addActionListener(this);
-        this.registerButton.setDefaultCapable(false);
+        this.installButton.addActionListener(this);
+        this.installButton.setDefaultCapable(false);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(1, 2));
-        buttonPanel.add(this.registerButton);
+        buttonPanel.add(this.installButton);
         buttonPanel.add(this.playButton);
 
         this.playButton.setFont(new Font(this.playButton.getFont().getName(), 1, this.playButton.getFont().getSize()));
@@ -92,8 +100,8 @@ public class NotLoggedInForm extends BaseLogInForm {
         return this.playButton;
     }
 
-    public JButton getRegisterButton() {
-        return this.registerButton;
+    public JButton getInstallButton() {
+        return this.installButton;
     }
 
 
