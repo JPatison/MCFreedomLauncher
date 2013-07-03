@@ -7,6 +7,7 @@ import net.minecraft.launcher.profile.ProfileManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
 
 public class LoggedInForm extends BaseLogInForm {
     private final JButton playButton = new JButton("Play");
@@ -96,6 +97,11 @@ public class LoggedInForm extends BaseLogInForm {
             saveAuthenticationDetails();
             getLoginContainer().checkLoginState();
         }
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent itemEvent) {
+
     }
 }
 

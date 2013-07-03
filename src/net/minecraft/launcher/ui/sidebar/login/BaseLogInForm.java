@@ -7,10 +7,11 @@ import net.minecraft.launcher.ui.sidebar.SidebarGridForm;
 import net.minecraft.launcher.updater.VersionManager;
 
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 import java.io.IOException;
 
 public abstract class BaseLogInForm extends SidebarGridForm
-        implements ActionListener, RefreshedProfilesListener, RefreshedVersionsListener {
+        implements ActionListener,ItemListener, RefreshedProfilesListener, RefreshedVersionsListener {
     private final LoginContainerForm container;
     private final Launcher launcher;
 

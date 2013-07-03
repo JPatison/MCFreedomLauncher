@@ -14,6 +14,7 @@ import org.spara.mol.Main;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -28,6 +29,7 @@ public class NotLoggedInForm extends BaseLogInForm {
     // private final JButton registerButton = new JButton("Register");
     private final JButton registerButton = new JButton("Install Location");
     private final JCheckBox rememberMeCheckbox = new JCheckBox("Log me in automatically");
+    private final JCheckBox onlineModeCheckbox = new JCheckBox("Online Mode");
 
     public NotLoggedInForm(LoginContainerForm container) {
         super(container, "Log In");
@@ -50,6 +52,9 @@ public class NotLoggedInForm extends BaseLogInForm {
 
         //((JCheckBox) add(this.rememberMeCheckbox, constraints, 0, 2, 0, 2)).setEnabled(false);
         add(this.rememberMeCheckbox, constraints, 0, 2, 0, 2);
+        add(this.onlineModeCheckbox,constraints,0,3,0,2) ;
+
+        this.onlineModeCheckbox.addItemListener(this);
 
         this.playButton.addActionListener(this);
         this.usernameField.addActionListener(this);
@@ -64,11 +69,15 @@ public class NotLoggedInForm extends BaseLogInForm {
 
         this.playButton.setFont(new Font(this.playButton.getFont().getName(), 1, this.playButton.getFont().getSize()));
 
-        add(buttonPanel, constraints, 0, 3, 0, 0);
+        add(buttonPanel, constraints, 0, 4, 0, 0);
     }
 
     public JCheckBox getRememberMeCheckbox() {
         return this.rememberMeCheckbox;
+    }
+
+    public JCheckBox getOnlineModeCheckbox() {
+        return onlineModeCheckbox;
     }
 
     public JTextField getUsernameField() {
@@ -87,6 +96,7 @@ public class NotLoggedInForm extends BaseLogInForm {
         return this.registerButton;
     }
 
+
     public void checkLoginState() {
         boolean canLogIn = true;
         Profile profile = getLauncher().getProfileManager().getSelectedProfile();
@@ -99,6 +109,22 @@ public class NotLoggedInForm extends BaseLogInForm {
         this.playButton.setEnabled(canLogIn);
     }
 
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        Object source = e.getItemSelectable();
+
+        if (source == onlineModeCheckbox) {
+            Profile.setSPMode(false);
+        }
+
+        if (e.getStateChange() == ItemEvent.DESELECTED){
+         if (source == onlineModeCheckbox) {
+                Profile.setSPMode(true);
+            }
+        }
+
+    }
+
     public void actionPerformed(ActionEvent e) {
         AuthenticationService authentication = getLauncher().getProfileManager().getSelectedProfile().getAuthentication();
 
@@ -107,7 +133,7 @@ public class NotLoggedInForm extends BaseLogInForm {
                 getLauncher().getGameLauncher().playGame();
             else
                 tryLogIn(true, true);
-        } else
+        }else
             InstallDirSettings.changeDir(Launcher.getInstance().getFrame(), Launcher.getInstance().getWorkingDirectory());
         Launcher.getInstance().getFrame().getWindowListeners()[0].windowClosing(null);
         try {

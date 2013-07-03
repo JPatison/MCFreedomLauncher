@@ -2,6 +2,7 @@ package net.minecraft.launcher.profile;
 
 import net.minecraft.launcher.authentication.AuthenticationService;
 import net.minecraft.launcher.authentication.SPAuthenticationService;
+import net.minecraft.launcher.authentication.yggdrasil.YggdrasilAuthenticationService;
 import net.minecraft.launcher.updater.VersionFilter;
 import net.minecraft.launcher.versions.ReleaseType;
 
@@ -14,8 +15,8 @@ public class Profile {
     public static final String DEFAULT_JRE_ARGUMENTS = "-Xmx1G";
     public static final Resolution DEFAULT_RESOLUTION = new Resolution(854, 480);
     public static final Set<ReleaseType> DEFAULT_RELEASE_TYPES = new HashSet(Arrays.asList(new ReleaseType[]{ReleaseType.RELEASE}));
-
-    private AuthenticationService authentication = new SPAuthenticationService();
+    private static boolean SPMode = true;
+    private AuthenticationService authentication = SPMode ? new SPAuthenticationService() : new YggdrasilAuthenticationService();
     private String name;
     private File gameDir;
     private String lastVersionId;
@@ -43,6 +44,22 @@ public class Profile {
         this.name = name;
     }
 
+    public String getJavaDir() {
+        return javaDir;
+    }
+
+    public void setAuthentication(AuthenticationService authentication) {
+        this.authentication = authentication;
+    }
+
+    public static boolean isSPMode() {
+        return SPMode;
+    }
+
+    public static void setSPMode(boolean SPMode) {
+        Profile.SPMode = SPMode;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -59,24 +76,24 @@ public class Profile {
         this.gameDir = gameDir;
     }
 
-    public void setLastVersionId(String lastVersionId) {
-        this.lastVersionId = lastVersionId;
-    }
-
     public void setJavaDir(String javaDir) {
         this.javaDir = javaDir;
-    }
-
-    public void setJavaArgs(String javaArgs) {
-        this.javaArgs = javaArgs;
     }
 
     public String getLastVersionId() {
         return this.lastVersionId;
     }
 
+    public void setLastVersionId(String lastVersionId) {
+        this.lastVersionId = lastVersionId;
+    }
+
     public String getJavaArgs() {
         return this.javaArgs;
+    }
+
+    public void setJavaArgs(String javaArgs) {
+        this.javaArgs = javaArgs;
     }
 
     public String getJavaPath() {
@@ -95,7 +112,6 @@ public class Profile {
         return this.authentication;
     }
 
-
     public Set<ReleaseType> getAllowedReleaseTypes() {
         return this.allowedReleaseTypes;
     }
@@ -108,9 +124,9 @@ public class Profile {
         VersionFilter filter = new VersionFilter().setMaxCount(2147483647);
 
         if (this.allowedReleaseTypes == null)
-            filter.onlyForTypes((ReleaseType[])DEFAULT_RELEASE_TYPES.toArray(new ReleaseType[DEFAULT_RELEASE_TYPES.size()]));
+            filter.onlyForTypes((ReleaseType[]) DEFAULT_RELEASE_TYPES.toArray(new ReleaseType[DEFAULT_RELEASE_TYPES.size()]));
         else {
-            filter.onlyForTypes((ReleaseType[])this.allowedReleaseTypes.toArray(new ReleaseType[this.allowedReleaseTypes.size()]));
+            filter.onlyForTypes((ReleaseType[]) this.allowedReleaseTypes.toArray(new ReleaseType[this.allowedReleaseTypes.size()]));
         }
 
         return filter;
