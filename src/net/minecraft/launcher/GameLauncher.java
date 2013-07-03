@@ -112,11 +112,21 @@ public class GameLauncher
                 return;
             }
 
-   /*         if (this.version.getMinimumLauncherVersion() > 3) {
-                Launcher.getInstance().println("An update to your launcher is available and is required to play " + this.version.getId() + ". Please restart your launcher.");
-                setWorking(false);
-                return;
-            }*/
+   /*if (!this.version.appliesToCurrentEnvironment()) {
+        String reason = this.version.getIncompatibilityReason();
+        if (reason == null) reason = "This version is incompatible with your computer. Please try another one by going into Edit Profile and selecting one through the dropdown. Sorry!";
+        Launcher.getInstance().println("Version " + this.version.getId() + " is incompatible with current environment: " + reason);
+        JOptionPane.showMessageDialog(this.launcher.getFrame(), reason, "Cannot play game", 0);
+        setWorking(false);
+        return;
+      }
+
+      if (this.version.getMinimumLauncherVersion() > 4) {
+        Launcher.getInstance().println("An update to your launcher is available and is required to play " + this.version.getId() + ". Please restart your launcher.");
+        setWorking(false);
+        return;
+      }
+  */
 
             if (!syncInfo.isInstalled()) {
                 try {
@@ -300,13 +310,13 @@ public class GameLauncher
 
     private void unpackNatives(CompleteVersion version, File targetDir) throws IOException {
         OperatingSystem os = OperatingSystem.getCurrentPlatform();
-        Collection libraries = version.getRelevantLibraries(os);
+        Collection libraries = version.getRelevantLibraries();
 
         for (Library library : (Collection<Library>) libraries) {
             Map nativesPerOs = library.getNatives();
 
             if ((nativesPerOs != null) && (nativesPerOs.get(os) != null)) {
-                File file = new File(this.launcher.getWorkingDirectory(), library.getArtifactPath((String) nativesPerOs.get(os)));
+                File file = new File(this.launcher.getWorkingDirectory(), "libraries/" +library.getArtifactPath((String) nativesPerOs.get(os)));
                 ZipFile zip = new ZipFile(file);
                 ExtractRules extractRules = library.getExtractRules();
                 try {
@@ -448,7 +458,7 @@ public class GameLauncher
         });
     }
 
-    protected float getProgress() {
+ /*   protected float getProgress() {
         synchronized (this.lock) {
             float max = this.jobs.size();
             float result = 0.0F;
@@ -459,7 +469,24 @@ public class GameLauncher
 
             return result / max;
         }
-    }
+    }*/
+ protected float getProgress() {
+     synchronized (this.lock) {
+         float max = 0.0F;
+         float result = 0.0F;
+
+         for (DownloadJob job : this.jobs) {
+             float progress = job.getProgress();
+
+             if (progress >= 0.0F) {
+                 result += progress;
+                 max += 1.0F;
+             }
+         }
+
+         return result / max;
+     }
+ }
 
     public boolean hasRemainingJobs() {
         synchronized (this.lock) {

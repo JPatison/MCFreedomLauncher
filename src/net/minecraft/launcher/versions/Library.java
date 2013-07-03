@@ -9,6 +9,7 @@ public class Library {
     private String name;
     private List<OperatingSystem> os;
     private Map<OperatingSystem, String> natives;
+    private List<Rule> rules;
     private ExtractRules extract;
     private String url;
 
@@ -25,11 +26,11 @@ public class Library {
         return this.name;
     }
 
-    public Library addRestriction(OperatingSystem[] operatingSystems) {
+   /* public Library addRestriction(OperatingSystem[] operatingSystems) {
         if (this.os == null) this.os = new ArrayList();
         if (operatingSystems != null) Collections.addAll(this.os, operatingSystems);
         return this;
-    }
+    }*/
 
     public Library addNative(OperatingSystem operatingSystem, String name) {
         if ((operatingSystem == null) || (!operatingSystem.isSupported()))
@@ -41,8 +42,24 @@ public class Library {
         return this;
     }
 
-    public List<OperatingSystem> getRestrictedOperatingSystems() {
+   /* public List<OperatingSystem> getRestrictedOperatingSystems() {
         return this.os;
+    }*/
+
+    public List<Rule> getRules() {
+        return this.rules;
+    }
+
+    public boolean appliesToCurrentEnvironment() {
+        if (this.rules == null) return true;
+        Rule.Action lastAction = Rule.Action.DISALLOW;
+
+        for (Rule rule : this.rules) {
+            Rule.Action action = rule.getAppliedAction();
+            if (action != null) lastAction = action;
+        }
+
+        return lastAction == Rule.Action.ALLOW;
     }
 
     public Map<OperatingSystem, String> getNatives() {
@@ -89,7 +106,8 @@ public class Library {
     }
 
     public String toString() {
-        return "Library{name='" + this.name + '\'' + ", os=" + this.os + ", natives=" + this.natives + ", extract=" + this.extract + '}';
+        return "Library{name='" + this.name + '\'' + ", rules=" + this.rules + ", natives=" + this.natives + ", extract=" + this.extract + '}';
+//        return "Library{name='" + this.name + '\'' + ", os=" + this.os + ", natives=" + this.natives + ", extract=" + this.extract + '}';
     }
 
     public String getDownloadUrl() {
