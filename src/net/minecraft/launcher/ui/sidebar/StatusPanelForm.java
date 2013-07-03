@@ -14,14 +14,24 @@ import java.awt.*;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
-
+//Status Format
+// [{"minecraft.net":"green"},{"login.minecraft.net":"green"},{"session.minecraft.net":"green"},{"account.mojang.com":"green"},{"auth.mojang.com":"green"},{"skins.minecraft.net":"green"}]
 
 public class StatusPanelForm extends SidebarGridForm {
+    private static final String SERVER_WEBSITE = "minecraft.net";
+    private static final String SERVER_ACCOUNT = "account.mojang.com";
+    private static final String SERVER_AUTH = "auth.mojang.com";
+    private static final String SERVER_SKINS = "skins.minecraft.net";
+
     private static final String SERVER_SESSION = "session.minecraft.net";
     private static final String SERVER_LOGIN = "login.minecraft.net";
     private final Launcher launcher;
     private final JLabel sessionStatus = new JLabel("???");
     private final JLabel loginStatus = new JLabel("???");
+    private final JLabel websiteStatus = new JLabel("???");
+    private final JLabel accountStatus = new JLabel("???");
+    private final JLabel authStatus = new JLabel("???");
+    private final JLabel skinsStatus = new JLabel("???");
     private final Gson gson = new GsonBuilder().registerTypeAdapterFactory(new LowerCaseEnumTypeAdapterFactory()).create();
 
 
@@ -38,7 +48,6 @@ public class StatusPanelForm extends SidebarGridForm {
 
     }
 
-
     protected void populateGrid(GridBagConstraints constraints) {
 
         add(new JLabel("Multiplayer:", 2), constraints, 0, 0, 0, 1, 17);
@@ -50,8 +59,27 @@ public class StatusPanelForm extends SidebarGridForm {
 
         add(this.loginStatus, constraints, 1, 1, 1, 1);
 
-    }
 
+        add(new JLabel("Website:", 2), constraints, 0, 2, 0, 1, 17);
+
+        add(this.websiteStatus, constraints, 1, 2, 1, 1);
+
+
+        add(new JLabel("Account:", 2), constraints, 0, 3, 0, 1, 17);
+
+        add(this.accountStatus, constraints, 1, 3, 1, 1);
+
+
+        add(new JLabel("Auth:", 2), constraints, 0, 4, 0, 1, 17);
+
+        add(this.authStatus, constraints, 1, 4, 1, 1);
+
+
+        add(new JLabel("Skins:", 2), constraints, 0, 5, 0, 1, 17);
+
+        add(this.skinsStatus, constraints, 1, 5, 1, 1);
+
+    }
 
     public JLabel getSessionStatus() {
 
@@ -59,13 +87,27 @@ public class StatusPanelForm extends SidebarGridForm {
 
     }
 
-
     public JLabel getLoginStatus() {
 
         return this.loginStatus;
 
     }
 
+    public JLabel getWebsiteStatus() {
+        return websiteStatus;
+    }
+
+    public JLabel getAccountStatus() {
+        return accountStatus;
+    }
+
+    public JLabel getAuthStatus() {
+        return authStatus;
+    }
+
+    public JLabel getSkinsStatus() {
+        return skinsStatus;
+    }
 
     public void refreshStatuses() {
         this.launcher.getVersionManager().getExecutorService().submit(new Runnable() {
@@ -77,10 +119,18 @@ public class StatusPanelForm extends SidebarGridForm {
                     List<Map> statuses = (List<Map>) StatusPanelForm.this.gson.fromJson(Http.performGet(new URL("http://status.mojang.com/check"), StatusPanelForm.this.launcher.getProxy()), token.getType());
 
                     for (Map serverStatusInformation : (List<Map>) statuses)
-                        if (serverStatusInformation.containsKey("login.minecraft.net"))
-                            StatusPanelForm.this.loginStatus.setText(ServerStatus.valueOf(serverStatusInformation.get("login.minecraft.net").toString().toUpperCase()).title);
-                        else if (serverStatusInformation.containsKey("session.minecraft.net"))
-                            StatusPanelForm.this.sessionStatus.setText(ServerStatus.valueOf(serverStatusInformation.get("session.minecraft.net").toString().toUpperCase()).title);
+                        if (serverStatusInformation.containsKey(SERVER_LOGIN))
+                            StatusPanelForm.this.loginStatus.setText(ServerStatus.valueOf(serverStatusInformation.get(SERVER_LOGIN).toString().toUpperCase()).title);
+                        else if (serverStatusInformation.containsKey(SERVER_SESSION))
+                            StatusPanelForm.this.sessionStatus.setText(ServerStatus.valueOf(serverStatusInformation.get(SERVER_SESSION).toString().toUpperCase()).title);
+                        else if (serverStatusInformation.containsKey(SERVER_WEBSITE))
+                            StatusPanelForm.this.websiteStatus.setText(ServerStatus.valueOf(serverStatusInformation.get(SERVER_WEBSITE).toString().toUpperCase()).title);
+                        else if (serverStatusInformation.containsKey(SERVER_ACCOUNT))
+                            StatusPanelForm.this.accountStatus.setText(ServerStatus.valueOf(serverStatusInformation.get(SERVER_ACCOUNT).toString().toUpperCase()).title);
+                        else if (serverStatusInformation.containsKey(SERVER_AUTH))
+                            StatusPanelForm.this.authStatus.setText(ServerStatus.valueOf(serverStatusInformation.get(SERVER_AUTH).toString().toUpperCase()).title);
+                        else if (serverStatusInformation.containsKey(SERVER_SKINS))
+                            StatusPanelForm.this.skinsStatus.setText(ServerStatus.valueOf(serverStatusInformation.get(SERVER_SKINS).toString().toUpperCase()).title);
                 } catch (Exception e) {
                     Launcher.getInstance().println("Couldn't get server status", e);
                 }
@@ -93,7 +143,6 @@ public class StatusPanelForm extends SidebarGridForm {
         GREEN("Online, no problems detected."),
         YELLOW("May be experiencing issues."),
         RED("Offline, experiencing problems.");
-
         private final String title;
 
 
