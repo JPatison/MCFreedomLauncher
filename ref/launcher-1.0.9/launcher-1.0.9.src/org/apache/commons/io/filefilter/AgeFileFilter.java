@@ -1,0 +1,35 @@
+package org.apache.commons.io.filefilter;
+
+import java.io.File;
+import java.io.Serializable;
+import org.apache.commons.io.FileUtils;
+
+public class AgeFileFilter extends AbstractFileFilter
+  implements Serializable
+{
+  private final long cutoff;
+  private final boolean acceptOlder;
+
+  public AgeFileFilter(long cutoff)
+  {
+    this(cutoff, true);
+  }
+
+  public AgeFileFilter(long cutoff, boolean acceptOlder)
+  {
+    this.acceptOlder = acceptOlder;
+    this.cutoff = cutoff;
+  }
+
+  public boolean accept(File file)
+  {
+    boolean newer = FileUtils.isFileNewer(file, this.cutoff);
+    return this.acceptOlder ? false : !newer ? true : newer;
+  }
+
+  public String toString()
+  {
+    String condition = this.acceptOlder ? "<=" : ">";
+    return super.toString() + "(" + condition + this.cutoff + ")";
+  }
+}
