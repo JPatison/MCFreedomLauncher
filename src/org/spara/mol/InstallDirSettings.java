@@ -12,9 +12,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class InstallDirSettings {
+    public static String fileLocation = "./FreeLauncher.properties";
     public static File loadAtStartup(JFrame frame, File defaultWorkingDir) {
         Properties prop = new Properties();
-        File file = new File("./MOL_Properties.properties");
+
+        File file = new File(fileLocation);
         File workingDirectory;
 
 
@@ -33,7 +35,7 @@ public class InstallDirSettings {
 
     public static File changeDir(JFrame frame, File currentWorkingDir) {
         Properties prop = new Properties();
-        File file = new File("./MOL_Properties.properties");
+        File file = new File(fileLocation);
         return changeDirInternal(frame, currentWorkingDir, prop, file);
     }
 

@@ -1,6 +1,7 @@
 package net.minecraft.launcher.ui.popups.profile;
 
 import net.minecraft.launcher.events.RefreshedVersionsListener;
+import net.minecraft.launcher.locale.LocaleHelper;
 import net.minecraft.launcher.profile.Profile;
 import net.minecraft.launcher.updater.VersionManager;
 import net.minecraft.launcher.updater.VersionSyncInfo;
@@ -12,11 +13,14 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 
 public class ProfileInfoPanel extends JPanel
         implements RefreshedVersionsListener {
@@ -29,6 +33,7 @@ public class ProfileInfoPanel extends JPanel
     private final JTextField resolutionWidth = new JTextField();
     private final JTextField resolutionHeight = new JTextField();
     private final JCheckBox allowSnapshots = new JCheckBox("Enable experimental development versions (\"snapshots\")");
+    private final JComboBox<Locale> langList =new JComboBox<Locale>(LocaleHelper.getLocales());
 
     public ProfileInfoPanel(ProfileEditorPopup editor) {
         this.editor = editor;
@@ -106,6 +111,15 @@ public class ProfileInfoPanel extends JPanel
         constraints.fill = 2;
         constraints.weightx = 1.0D;
         add(resolutionPanel, constraints);
+        constraints.weightx = 0.0D;
+        constraints.fill = 0;
+
+        constraints.gridy += 1;
+
+        add(new JLabel("Language:"), constraints);
+        constraints.fill = 2;
+        constraints.weightx = 1.0D;
+        add(this.langList, constraints);
         constraints.weightx = 0.0D;
         constraints.fill = 0;
 
@@ -201,6 +215,13 @@ public class ProfileInfoPanel extends JPanel
         {
             public void itemStateChanged(ItemEvent e) {
                 ProfileInfoPanel.this.updateCustomVersionFilter();
+            }
+        });
+
+        this.langList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ProfileInfoPanel.this.editor.getProfile().setLocale((Locale)langList.getSelectedItem());
             }
         });
     }

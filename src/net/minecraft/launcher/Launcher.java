@@ -3,6 +3,7 @@ package net.minecraft.launcher;
 
 import net.minecraft.launcher.authentication.LegacyAuthenticationService;
 import net.minecraft.launcher.authentication.OldAuthentication;
+import net.minecraft.launcher.locale.LocaleHelper;
 import net.minecraft.launcher.profile.Profile;
 import net.minecraft.launcher.profile.ProfileManager;
 import net.minecraft.launcher.ui.LauncherPanel;
@@ -41,12 +42,16 @@ public class Launcher {
     private final ProfileManager profileManager;
     private final OldAuthentication authentication;
     private UUID clientToken = UUID.randomUUID();
+    private Locale locale;
 
     public Launcher(JFrame frame, File workingDirectory, Proxy proxy, PasswordAuthentication proxyAuth, String[] args) {
         this(frame, workingDirectory, proxy, proxyAuth, args, Integer.valueOf(0));
     }
 
     public Launcher(JFrame frame, File workingDirectory, Proxy proxy, PasswordAuthentication proxyAuth, String[] args, Integer bootstrapVersion) {
+       // this.locale=new Locale("en","US");
+        //LocaleHelper.setCurrentLocale(this.locale);
+
         this.bootstrapVersion = bootstrapVersion;
         instance = this;
         setLookAndFeel();
@@ -60,6 +65,10 @@ public class Launcher {
         this.versionManager = new VersionManager(new LocalVersionList(this.workingDirectory), new RemoteVersionList(proxy));
         this.launcherPanel = new LauncherPanel(this);
         this.authentication = new OldAuthentication(this, proxy);
+      //  this.locale=this.profileManager.getSelectedProfile().getLocale();
+
+
+
         initializeFrame();
         for (String line : delayedSysout) {
             this.launcherPanel.getTabPanel().getConsole().print(line + "\n");
@@ -70,6 +79,7 @@ public class Launcher {
         refreshVersions();
         println("Launcher 1.0.9 (through bootstrap " + bootstrapVersion + ") started on " + OperatingSystem.getCurrentPlatform().getName() + "...");
         println("Current time is " + DateFormat.getDateTimeInstance(2, 2, Locale.US).format(new Date()));
+        println("Current Locale is"+LocaleHelper.getCurrentLocale());
         if (!OperatingSystem.getCurrentPlatform().isSupported()) {
             println("This operating system is unknown or unsupported, we cannot guarantee that the game will launch.");
         }
@@ -234,6 +244,14 @@ public class Launcher {
         this.frame.add(this.launcherPanel);
         this.frame.pack();
         this.frame.setVisible(true);
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
     }
 
     public VersionManager getVersionManager() {

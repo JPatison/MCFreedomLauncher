@@ -9,6 +9,7 @@ import net.minecraft.launcher.versions.ReleaseType;
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 public class Profile {
@@ -25,9 +26,12 @@ public class Profile {
     private String javaArgs;
     private Resolution resolution;
     private Set<ReleaseType> allowedReleaseTypes;
+    private Locale locale;
 
     public Profile() {
     }
+
+
 
     public Profile(Profile copy) {
         this.name = copy.name;
@@ -39,8 +43,17 @@ public class Profile {
         //this.resolution = copy.resolution;
         this.resolution = (copy.resolution == null ? null : new Resolution(copy.resolution));
         this.allowedReleaseTypes = (copy.allowedReleaseTypes == null ? null : new HashSet(copy.allowedReleaseTypes));
+        this.locale=copy.locale;
+        this.SPMode=copy.SPMode;
     }
 
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
     public Profile(String name) {
         this.name = name;
     }

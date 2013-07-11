@@ -5,17 +5,27 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 import net.minecraft.launcher.Launcher;
+import net.minecraft.launcher.locale.LocaleHelper;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Authenticator;
 import java.net.InetSocketAddress;
 import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
+    Locale currentLocale;
     public static void main(String[] args)
             throws IOException {
         System.setProperty("java.net.preferIPv4Stack", "true");
@@ -83,10 +93,70 @@ public class Main {
 
         JFrame frame = new JFrame();
 
+        new LangSelectionDialog();
+
         new Launcher(frame, workingDirectory, proxy, passwordAuthentication, args);
     }
 
     public static boolean stringHasValue(String string) {
         return (string != null) && (!string.isEmpty());
     }
+}
+
+class LangSelectionDialog extends JFrame{
+    static final String Select = "Select Language";
+    static Locale locale=new Locale("en_US");
+
+    public static Locale loadLocale() {
+        Properties prop = new Properties();
+        String fileLocation=InstallDirSettings.fileLocation;
+        File file = new File(fileLocation);
+
+
+
+        if (!file.exists()) {
+          /*  if (ret == 0) {
+                File dir = fileChooser.getSelectedFile();
+                prop.setProperty("installation_dir", dir.getAbsolutePath());
+                workingDirectory = dir;
+            } else if (ret == 1) {
+                prop.setProperty("installation_dir", workingDirectory.getAbsolutePath());
+            }
+            try {
+                prop.store(new FileOutputStream(settingFile), "");
+            } catch (IOException ex) {
+                Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, null, ex);
+            }*/
+            return locale;
+
+        } else {
+            try {
+                prop.load(new FileInputStream(file));
+            } catch (IOException ex) {
+                Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            locale = new Locale(prop.getProperty("locale"));
+        }
+        return locale;
+    }
+
+    public LangSelectionDialog() {
+
+     //   JButton button=new JButton("Add");
+
+        Locale[] locales= LocaleHelper.getLocales();
+        locale = (Locale) JOptionPane.showInputDialog(LangSelectionDialog.this,
+                "Please select your language",Select, JOptionPane.INFORMATION_MESSAGE,
+                null, locales,locales[0]);
+        LocaleHelper.setCurrentLocale(locale);
+        JOptionPane.showMessageDialog(null,"You have selected: "+locale);
+        System.out.println(locale);
+       // button.addActionListener(lst);
+       // add(button);
+
+
+    }
+
+
+
 }
