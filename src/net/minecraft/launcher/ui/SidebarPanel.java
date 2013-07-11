@@ -1,6 +1,7 @@
 package net.minecraft.launcher.ui;
 
 import net.minecraft.launcher.Launcher;
+import net.minecraft.launcher.ui.sidebar.OptionPanelForm;
 import net.minecraft.launcher.ui.sidebar.ProfileSelection;
 import net.minecraft.launcher.ui.sidebar.StatusPanelForm;
 import net.minecraft.launcher.ui.sidebar.login.LoginContainerForm;
@@ -14,6 +15,7 @@ public class SidebarPanel extends JPanel {
     private final LoginContainerForm loginForm;
     private final ProfileSelection profileSelection;
     private final StatusPanelForm serverStatus;
+    private final OptionPanelForm optionPanelForm;
 
     public SidebarPanel(Launcher launcher) {
         this.launcher = launcher;
@@ -26,6 +28,7 @@ public class SidebarPanel extends JPanel {
         this.loginForm = new LoginContainerForm(launcher);
         this.profileSelection = new ProfileSelection(launcher);
         this.serverStatus = new StatusPanelForm(launcher);
+        this.optionPanelForm=new OptionPanelForm(launcher);
 
         createInterface();
     }
@@ -34,6 +37,7 @@ public class SidebarPanel extends JPanel {
         setLayout(new BoxLayout(this, 1));
         add(this.profileSelection);
         add(this.serverStatus);
+        add(this.optionPanelForm);
 
        // add(new Box.Filler(new Dimension(0, 0), new Dimension(0, 0), new Dimension(2147483647, 2147483647)));
         add(new Box.Filler(new Dimension(0, 0), new Dimension(0, 32767), new Dimension(0, 32767)));

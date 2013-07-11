@@ -23,7 +23,7 @@ public class Downloadable
     private final Proxy proxy;
     private final ProgressContainer monitor;
     private int numAttempts;
-    private long expectedSize = 0L;
+    private long expectedSize;
 
     public Downloadable(Proxy proxy, URL remoteFile, File localFile, boolean forceDownload) {
         this.proxy = proxy;

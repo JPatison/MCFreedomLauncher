@@ -26,9 +26,9 @@ public class YggdrasilAuthenticationService extends BaseAuthenticationService {
     private static final String STORAGE_KEY_ACCESS_TOKEN = "accessToken";
     private final Gson gson = new Gson();
     private final Agent agent = Agent.MINECRAFT;
-    private GameProfile[] profiles = null;
-    private String accessToken = null;
-    private boolean isOnline = false;
+    private GameProfile[] profiles ;
+    private String accessToken ;
+    private boolean isOnline;
 
     public boolean canLogIn() {
         return (!canPlayOnline()) && (StringUtils.isNotBlank(getUsername())) && ((StringUtils.isNotBlank(getPassword())) || (StringUtils.isNotBlank(getAccessToken())));

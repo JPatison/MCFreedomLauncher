@@ -21,9 +21,9 @@ public abstract class BaseAuthenticationService
     private static final String LEGACY_LASTLOGIN_PASSWORD = "passwordfile";
     private static final int LEGACY_LASTLOGIN_SEED = 43287234;
     private final List<AuthenticationChangedListener> listeners = new ArrayList();
-    private String username = null;
-    private String password = null;
-    private GameProfile selectedProfile = null;
+    private String username ;
+    private String password ;
+    private GameProfile selectedProfile ;
     private boolean shouldRememberMe = true;
 
     public boolean canLogIn() {

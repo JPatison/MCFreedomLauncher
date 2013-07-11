@@ -16,7 +16,7 @@ public class LoggedInForm extends BaseLogInForm {
     private final JButton playButton = new JButton(messages.getString("play"));
     private final JButton logOutButton = new JButton(messages.getString("log.out"));
     private final JLabel welcomeText = new JLabel(messages.getString("html.oh.no.panic.html"));
-    private AuthenticationService previousAuthentication = null;
+    private AuthenticationService previousAuthentication;
 
     public LoggedInForm(LoginContainerForm container) {
         super(container, LocaleHelper.getMessages().getString("play.game"));

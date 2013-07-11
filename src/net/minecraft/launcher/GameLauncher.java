@@ -201,7 +201,9 @@ public class GameLauncher
         if (profileArgs != null)
             processLauncher.addSplitCommands(profileArgs);
         else {
-            processLauncher.addSplitCommands("-Xmx1G");
+            boolean is32Bit = "32".equals(System.getProperty("sun.arch.data.model"));
+            String defaultArgument = is32Bit ? "-Xmx512M" : "-Xmx1G";
+            processLauncher.addSplitCommands(defaultArgument);
         }
 
         processLauncher.addCommands(new String[]{"-Djava.library.path=" + this.nativeDir.getAbsolutePath()});
@@ -408,7 +410,8 @@ public class GameLauncher
 
                         reader.close();
 
-                        this.launcher.getLauncherPanel().getTabPanel().setCrashReport(new CrashReportTab(this.version, file, result.toString()));
+                        this.launcher.getLauncherPanel().getTabPanel().setCrashReport(new CrashReportTab(this.launcher, this.version, file, result.toString()));
+                        //this.launcher.getLauncherPanel().getTabPanel().setCrashReport(new CrashReportTab(this.version, file, result.toString()));
                     } catch (IOException e) {
                         Launcher.getInstance().println("Couldn't open crash report", e);
                     } finally {

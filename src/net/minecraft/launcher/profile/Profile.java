@@ -12,7 +12,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Profile {
-    public static final String DEFAULT_JRE_ARGUMENTS = "-Xmx1G";
+    public static final String DEFAULT_JRE_ARGUMENTS_64BIT = "-Xmx1G";
+    public static final String DEFAULT_JRE_ARGUMENTS_32BIT = "-Xmx512M";
     public static final Resolution DEFAULT_RESOLUTION = new Resolution(854, 480);
     public static final Set<ReleaseType> DEFAULT_RELEASE_TYPES = new HashSet(Arrays.asList(new ReleaseType[]{ReleaseType.RELEASE}));
     private static boolean SPMode = true;

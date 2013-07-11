@@ -18,7 +18,7 @@ public class LegacyAuthenticationService extends BaseAuthenticationService {
     private static final int RESPONSE_PART_PROFILE_NAME = 2;
     private static final int RESPONSE_PART_SESSION_TOKEN = 3;
     private static final int RESPONSE_PART_PROFILE_ID = 4;
-    private String sessionToken = null;
+    private String sessionToken ;
 
     public void logIn() throws AuthenticationException {
         if (StringUtils.isBlank(getUsername())) {

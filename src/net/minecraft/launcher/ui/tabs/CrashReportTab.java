@@ -3,13 +3,17 @@ package net.minecraft.launcher.ui.tabs;
 import net.minecraft.launcher.Http;
 import net.minecraft.launcher.Launcher;
 import net.minecraft.launcher.OperatingSystem;
+import net.minecraft.launcher.hopper.HopperService;
+import net.minecraft.launcher.hopper.SubmitResponse;
 import net.minecraft.launcher.versions.CompleteVersion;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,16 +22,18 @@ public class CrashReportTab extends JPanel {
     private final CompleteVersion version;
     private final File reportFile;
     private final String report;
+    private final HopperService hopper = new HopperService();
     private final JEditorPane reportEditor = new JEditorPane();
     private final JScrollPane scrollPane = new JScrollPane(this.reportEditor);
-    private final CrashInfoPane crashInfoPane = new CrashInfoPane();
+    private final CrashInfoPane crashInfoPane;
     private final boolean isModded;
 
-    public CrashReportTab(CompleteVersion version, File reportFile, String report) {
+    public CrashReportTab(final Launcher launcher, final CompleteVersion version, File reportFile, final String report){
         super(true);
         this.version = version;
         this.reportFile = reportFile;
         this.report = report;
+        this.crashInfoPane = new CrashInfoPane(launcher);
 
         if ((report.contains("Is Modded: Probably not")) || (report.contains("Is Modded: Unknown")))
             this.isModded = (!report.contains("Suspicious classes: No suspicious classes found."));
@@ -37,6 +43,18 @@ public class CrashReportTab extends JPanel {
 
         setLayout(new BorderLayout());
         createInterface();
+
+        launcher.getVersionManager().getExecutorService().submit(new Runnable()
+        {
+            public void run() {
+                try {
+                    SubmitResponse response = CrashReportTab.this.hopper.submitReport(report, version.getId());
+                    launcher.println("Reported crash to Mojang (ID " + response.getReport().getId() + ")");
+                } catch (IOException e) {
+                    launcher.println("Couldn't report crash to Mojang", e);
+                }
+            }
+        });
     }
 
     protected void createInterface() {
@@ -46,17 +64,17 @@ public class CrashReportTab extends JPanel {
         this.reportEditor.setText(this.report);
 
         this.crashInfoPane.createInterface();
+
     }
 
     private class CrashInfoPane extends JPanel
             implements ActionListener {
-        public static final String INFO_NORMAL = "<html><div style='width: 100%'><p><b>Uhoh, it looks like the game has crashed! Sorry for the inconvenience :(</b></p><p>Using magic and love, we've managed to gather some details about the crash and we can hopefully try to fix it if you report it to us.</p><p>You can see the full report below, and we'd really appreciate it if you send it to us to take a look at. Click 'Report to Mojang' and copy paste the information from below into the issue.</p></div></html>";
-        //public static final String INFO_NORMAL = "<html><div style='width: 100%'><p><b>Uhoh, it looks like the game has crashed! Sorry for the inconvenience :(</b></p><p>Using magic and love, we've managed to gather some details about the crash and we can hopefully try to fix it if you report it to us.</p><p>You can see the full report below, and we'd really appreciate it if you send it to us to take a look at.</p></div></html>";
+        public static final String INFO_NORMAL = "<html><div style='width: 100%'><p><b>Uhoh, it looks like the game has crashed! Sorry for the inconvenience :(</b></p><p>Using magic and love, we've managed to gather some details about the crash and we will investigate this as soon as we can.</p><p>You can see the full report below.</p></div></html>";        //public static final String INFO_NORMAL = "<html><div style='width: 100%'><p><b>Uhoh, it looks like the game has crashed! Sorry for the inconvenience :(</b></p><p>Using magic and love, we've managed to gather some details about the crash and we can hopefully try to fix it if you report it to us.</p><p>You can see the full report below, and we'd really appreciate it if you send it to us to take a look at.</p></div></html>";
         public static final String INFO_MODDED = "<html><div style='width: 100%'><p><b>Uhoh, it looks like the game has crashed! Sorry for the inconvenience :(</b></p><p>We think your game may be modded, and as such we can't accept this crash report.</p><p>However, if you do indeed use mods, please send this to the mod authors to take a look at!</p></div></html>";
         private final JButton submitButton = new JButton("Report to Mojang");
         private final JButton openFileButton = new JButton("Open report file");
 
-        protected CrashInfoPane() {
+        protected CrashInfoPane(Launcher launcher) {
             this.submitButton.addActionListener(this);
             this.openFileButton.addActionListener(this);
         }
@@ -80,8 +98,7 @@ public class CrashReportTab extends JPanel {
             constraints.weighty = 1.0D;
             constraints.gridheight = 2;
            // add(new JLabel(CrashReportTab.this.isModded ? "<html><div style='width: 100%'><p><b>Uhoh, it looks like the game has crashed! Sorry for the inconvenience :(</b></p><p>We think your game may be modded, and as such we can't accept this crash report.</p><p>However, if you do indeed use mods, please send this to the mod authors to take a look at!</p></div></html>" : "<html><div style='width: 100%'><p><b>Uhoh, it looks like the game has crashed! Sorry for the inconvenience :(</b></p><p>Using magic and love, we've managed to gather some details about the crash and we can hopefully try to fix it if you report it to us.</p><p>You can see the full report below, and we'd really appreciate it if you send it to us to take a look at.</p></div></html>"), constraints);
-            add(new JLabel(CrashReportTab.this.isModded ? "<html><div style='width: 100%'><p><b>Uhoh, it looks like the game has crashed! Sorry for the inconvenience :(</b></p><p>We think your game may be modded, and as such we can't accept this crash report.</p><p>However, if you do indeed use mods, please send this to the mod authors to take a look at!</p></div></html>" : "<html><div style='width: 100%'><p><b>Uhoh, it looks like the game has crashed! Sorry for the inconvenience :(</b></p><p>Using magic and love, we've managed to gather some details about the crash and we can hopefully try to fix it if you report it to us.</p><p>You can see the full report below, and we'd really appreciate it if you send it to us to take a look at. Click 'Report to Mojang' and copy paste the information from below into the issue.</p></div></html>"), constraints);
-
+            add(new JLabel(CrashReportTab.this.isModded ? "<html><div style='width: 100%'><p><b>Uhoh, it looks like the game has crashed! Sorry for the inconvenience :(</b></p><p>We think your game may be modded, and as such we can't accept this crash report.</p><p>However, if you do indeed use mods, please send this to the mod authors to take a look at!</p></div></html>" : "<html><div style='width: 100%'><p><b>Uhoh, it looks like the game has crashed! Sorry for the inconvenience :(</b></p><p>Using magic and love, we've managed to gather some details about the crash and we will investigate this as soon as we can.</p><p>You can see the full report below.</p></div></html>"), constraints);
             if (CrashReportTab.this.isModded)
                 this.submitButton.setEnabled(false);
         }
@@ -119,7 +136,7 @@ public class CrashReportTab extends JPanel {
             result.append(" (by ");
             result.append(System.getProperty("java.vendor"));
             result.append(")\nLauncher: ");
-            result.append("1.0.8");
+            result.append("1.0.9");
             result.append(" (bootstrap ");
             result.append(Launcher.getInstance().getBootstrapVersion());
             result.append(")\nMinecraft: ");
