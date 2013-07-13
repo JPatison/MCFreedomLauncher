@@ -15,10 +15,13 @@ public class LangSelection {
     public static Locale getLocale() {
         String localeValue = Util.getProperties("locale");
 
+
        if (localeValue!=null&&!localeValue.equals(""))
        {
 
-           locale = new Locale(localeValue);
+           String[] localeSetting = localeValue.split("_");
+           locale = new Locale(localeSetting[0], localeSetting[1]);
+          // JOptionPane.showMessageDialog(null, "You have selected: " + locale);
 
        } else {
            return selectLang();
@@ -39,7 +42,7 @@ public class LangSelection {
                 null, locales, locales[0]);
         LocaleHelper.setCurrentLocale(locale);
         JOptionPane.showMessageDialog(null, "You have selected: " + locale);
-        Util.setProperties("locale",locale.toLanguageTag());
+        Util.setProperties("locale",locale.toString());
         System.out.println(locale);
         // button.addActionListener(lst);
         // add(button);

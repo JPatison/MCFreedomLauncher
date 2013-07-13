@@ -25,18 +25,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class NotLoggedInForm extends BaseLogInForm {
-   private Locale currentLocale= LocaleHelper.getCurrentLocale();
-  private ResourceBundle messages= LocaleHelper.getMessages();
+    private Locale currentLocale = LocaleHelper.getCurrentLocale();
+    private ResourceBundle messages = LocaleHelper.getMessages();
     private final JTextField usernameField = new JTextField(20);
     private final JPasswordField passwordField = new JPasswordField(20);
-   private final JButton playButton = new JButton(messages.getString("play"));
+    private final JButton playButton = new JButton(messages.getString("play"));
     //private final JButton playButton = new JButton("Play");
     // private final JButton registerButton = new JButton("Register");
-   // private final JButton installButton = new JButton("Install Location");
+    // private final JButton installButton = new JButton("Install Location");
     private final JButton installButton = new JButton(messages.getString("installLocation"));
     private final JCheckBox rememberMeCheckbox = new JCheckBox(messages.getString("log.me.in.automatically"));
-//    private final JCheckBox onlineModeCheckbox = new JCheckBox("Online Mode");
-private final JCheckBox onlineModeCheckbox = new JCheckBox(messages.getString("onlineMode"));
+    //    private final JCheckBox onlineModeCheckbox = new JCheckBox("Online Mode");
+    private final JCheckBox onlineModeCheckbox = new JCheckBox(messages.getString("onlineMode"));
+
 
 
     public NotLoggedInForm(LoginContainerForm container) {
@@ -60,7 +61,7 @@ private final JCheckBox onlineModeCheckbox = new JCheckBox(messages.getString("o
 
         //((JCheckBox) add(this.rememberMeCheckbox, constraints, 0, 2, 0, 2)).setEnabled(false);
         add(this.rememberMeCheckbox, constraints, 0, 2, 0, 2);
-        add(this.onlineModeCheckbox,constraints,0,3,0,2) ;
+        add(this.onlineModeCheckbox, constraints, 0, 3, 0, 2);
 
         this.onlineModeCheckbox.addItemListener(this);
 
@@ -104,13 +105,12 @@ private final JCheckBox onlineModeCheckbox = new JCheckBox(messages.getString("o
         return this.installButton;
     }
 
-
     public void checkLoginState() {
         boolean canLogIn = true;
         Profile profile = getLauncher().getProfileManager().getSelectedProfile();
 
 
-       // if (getLauncher().getGameLauncher().isWorking()) canLogIn = false;
+        // if (getLauncher().getGameLauncher().isWorking()) canLogIn = false;
         if (getLauncher().getVersionManager().getVersions(profile.getVersionFilter()).size() <= 0) canLogIn = false;
         if (getLauncher().getVersionManager().getVersions().size() <= 0) canLogIn = false;
 
@@ -125,8 +125,8 @@ private final JCheckBox onlineModeCheckbox = new JCheckBox(messages.getString("o
             Profile.setSPMode(false);
         }
 
-        if (e.getStateChange() == ItemEvent.DESELECTED){
-         if (source == onlineModeCheckbox) {
+        if (e.getStateChange() == ItemEvent.DESELECTED) {
+            if (source == onlineModeCheckbox) {
                 Profile.setSPMode(true);
             }
         }
@@ -141,13 +141,14 @@ private final JCheckBox onlineModeCheckbox = new JCheckBox(messages.getString("o
                 getLauncher().getGameLauncher().playGame();
             else
                 tryLogIn(true, true);
-        }else
+        } else {
             InstallDirSettings.changeDir(Launcher.getInstance().getFrame(), Launcher.getInstance().getWorkingDirectory());
-        Launcher.getInstance().getFrame().getWindowListeners()[0].windowClosing(null);
-        try {
-            Main.main(new String[0]);
-        } catch (IOException ex) {
-            Logger.getLogger(NotLoggedInForm.class.getName()).log(Level.SEVERE, null, ex);
+            Launcher.getInstance().getFrame().getWindowListeners()[0].windowClosing(null);
+            try {
+                Main.main(new String[0]);
+            } catch (IOException ex) {
+                Logger.getLogger(NotLoggedInForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
        /*try {
          OperatingSystem.openLink(new URI("https://account.mojang.com/register"));
@@ -211,7 +212,7 @@ private final JCheckBox onlineModeCheckbox = new JCheckBox(messages.getString("o
                     }
 
                     NotLoggedInForm.this.getLauncher().println("Logged in successfully");
-                   // NotLoggedInForm.this.saveAuthenticationDetails(profile);
+                    // NotLoggedInForm.this.saveAuthenticationDetails(profile);
                     NotLoggedInForm.this.saveAuthenticationDetails();
 
                     if (launchOnSuccess)

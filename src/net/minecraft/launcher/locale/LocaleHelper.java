@@ -31,7 +31,7 @@ public class LocaleHelper {
 
     public static void setCurrentLocale(Locale currentLocale) {
         LocaleHelper.currentLocale = currentLocale;
-        messages = ResourceBundle.getBundle("res.locale.MessagesBundle", LocaleHelper.getCurrentLocale());
+        messages = ResourceBundle.getBundle("res.locale.MessagesBundle", currentLocale);
     }
 
     public static ResourceBundle getMessages() {

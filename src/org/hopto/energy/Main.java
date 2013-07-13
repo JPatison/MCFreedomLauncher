@@ -25,6 +25,8 @@ public class Main {
     Locale currentLocale;
     public static void main(String[] args)
             throws IOException {
+
+        LocaleHelper.setCurrentLocale(LangSelection.getLocale());
         Launcher.setLookAndFeel();
 
         System.setProperty("java.net.preferIPv4Stack", "true");
@@ -90,9 +92,11 @@ public class Main {
 
         boolean force = optionSet.has("force");
 
+       // JOptionPane.showMessageDialog(null, "You have selected: " + LocaleHelper.getCurrentLocale());
+
         JFrame frame = new JFrame();
 
-       System.out.println(LangSelection.getLocale());
+
 
 
         new Launcher(frame, workingDirectory, proxy, passwordAuthentication, args);
