@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import net.minecraft.launcher.Http;
 import net.minecraft.launcher.Launcher;
+import net.minecraft.launcher.locale.LocaleHelper;
 import net.minecraft.launcher.updater.LowerCaseEnumTypeAdapterFactory;
 
 import javax.swing.*;
@@ -14,10 +15,13 @@ import java.awt.*;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 //Status Format
 // [{"minecraft.net":"green"},{"login.minecraft.net":"green"},{"session.minecraft.net":"green"},{"account.mojang.com":"green"},{"auth.mojang.com":"green"},{"skins.minecraft.net":"green"}]
 
 public class StatusPanelForm extends SidebarGridForm {
+
+    private static ResourceBundle resourceBundle = LocaleHelper.getMessages();
     private static final String SERVER_WEBSITE = "minecraft.net";
     private static final String SERVER_ACCOUNT = "account.mojang.com";
     private static final String SERVER_AUTH = "auth.mojang.com";
@@ -37,7 +41,7 @@ public class StatusPanelForm extends SidebarGridForm {
 
     public StatusPanelForm(Launcher launcher) {
 
-        super("Service Status");
+        super(resourceBundle.getString("service.status"));
 
         this.launcher = launcher;
 
@@ -50,32 +54,32 @@ public class StatusPanelForm extends SidebarGridForm {
 
     protected void populateGrid(GridBagConstraints constraints) {
 
-        add(new JLabel("Multiplayer:", 2), constraints, 0, 0, 0, 1, 17);
+        add(new JLabel(resourceBundle.getString("multiplayer"), 2), constraints, 0, 0, 0, 1, 17);
 
         add(this.sessionStatus, constraints, 1, 0, 1, 1);
 
 
-        add(new JLabel("Login:", 2), constraints, 0, 1, 0, 1, 17);
+        add(new JLabel(resourceBundle.getString("login"), 2), constraints, 0, 1, 0, 1, 17);
 
         add(this.loginStatus, constraints, 1, 1, 1, 1);
 
 
-        add(new JLabel("Website:", 2), constraints, 0, 2, 0, 1, 17);
+        add(new JLabel(resourceBundle.getString("website"), 2), constraints, 0, 2, 0, 1, 17);
 
         add(this.websiteStatus, constraints, 1, 2, 1, 1);
 
 
-        add(new JLabel("Account:", 2), constraints, 0, 3, 0, 1, 17);
+        add(new JLabel(resourceBundle.getString("account"), 2), constraints, 0, 3, 0, 1, 17);
 
         add(this.accountStatus, constraints, 1, 3, 1, 1);
 
 
-        add(new JLabel("Auth:", 2), constraints, 0, 4, 0, 1, 17);
+        add(new JLabel(resourceBundle.getString("auth"), 2), constraints, 0, 4, 0, 1, 17);
 
         add(this.authStatus, constraints, 1, 4, 1, 1);
 
 
-        add(new JLabel("Skins:", 2), constraints, 0, 5, 0, 1, 17);
+        add(new JLabel(resourceBundle.getString("skins"), 2), constraints, 0, 5, 0, 1, 17);
 
         add(this.skinsStatus, constraints, 1, 5, 1, 1);
 
@@ -140,9 +144,9 @@ public class StatusPanelForm extends SidebarGridForm {
 
 
     public static enum ServerStatus {
-        GREEN("Online, no problems detected."),
-        YELLOW("May be experiencing issues."),
-        RED("Offline, experiencing problems.");
+        GREEN(resourceBundle.getString("online.no.problems.detected")),
+        YELLOW(resourceBundle.getString("may.be.experiencing.issues")),
+        RED(resourceBundle.getString("offline.experiencing.problems"));
         private final String title;
 
 

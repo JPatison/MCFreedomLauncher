@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,6 +55,38 @@ public class Util {
         }
 
         return finalValue;
+    }
+
+    public static void restartApplication() throws URISyntaxException,IOException
+    {
+        final String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
+        final File currentJar = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+       System.out.println(currentJar.getAbsolutePath());
+  /* is it a jar file? */
+        if(currentJar.getName().endsWith("exe")) {
+
+            final ArrayList<String> command = new ArrayList<String>();
+           // command.add(javaBin);
+            //command.add("-jar");
+            command.add(currentJar.getPath());
+
+            final ProcessBuilder builder = new ProcessBuilder(command);
+            builder.start();
+            System.exit(0);
+        }
+
+        if(!currentJar.getName().endsWith(".jar"))
+            return;
+
+  /* Build command: java -jar application.jar */
+        final ArrayList<String> command = new ArrayList<String>();
+        command.add(javaBin);
+        command.add("-jar");
+        command.add(currentJar.getPath());
+
+        final ProcessBuilder builder = new ProcessBuilder(command);
+        builder.start();
+        System.exit(0);
     }
 
     public static OS getPlatform() {

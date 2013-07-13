@@ -3,6 +3,7 @@ package net.minecraft.launcher.ui.sidebar;
 import net.minecraft.launcher.Launcher;
 import net.minecraft.launcher.events.RefreshedProfilesListener;
 import net.minecraft.launcher.events.RefreshedVersionsListener;
+import net.minecraft.launcher.locale.LocaleHelper;
 import net.minecraft.launcher.profile.Profile;
 import net.minecraft.launcher.profile.ProfileManager;
 import net.minecraft.launcher.ui.popups.profile.ProfileEditorPopup;
@@ -19,25 +20,27 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Collection;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class ProfileSelection extends SidebarGridForm
         implements ActionListener, ItemListener, RefreshedProfilesListener, RefreshedVersionsListener {
+    private static ResourceBundle resourceBundle = LocaleHelper.getMessages();
     private final JComboBox profileList = new JComboBox();
     private final JLabel versionLabel = new JLabel();
     private final JLabel statusLabel = new JLabel();
-    private final JButton newProfileButton = new JButton("New Profile");
-    private final JButton editProfileButton = new JButton("Edit Profile");
+    private final JButton newProfileButton = new JButton(resourceBundle.getString("new.profile"));
+    private final JButton editProfileButton = new JButton(resourceBundle.getString("edit.profile"));
     private final Launcher launcher;
     private boolean skipSelectionUpdate;
 
     public ProfileSelection(Launcher launcher) {
-        super("Profile Selection");
+        super(resourceBundle.getString("profile.selection"));
         this.launcher = launcher;
         //setMaximumSize(new Dimension(2147483647, 300));
 
         this.profileList.setRenderer(new ProfileListRenderer());
         this.profileList.addItemListener(this);
-        this.profileList.addItem("Loading profiles...");
+        this.profileList.addItem(resourceBundle.getString("loading.profiles"));
 
         this.newProfileButton.addActionListener(this);
         this.editProfileButton.addActionListener(this);
@@ -50,13 +53,13 @@ public class ProfileSelection extends SidebarGridForm
 
     protected void populateGrid(GridBagConstraints constraints) {
         constraints.fill = 2;
-        add(new JLabel("Profile:", 4), constraints, 0, 0, 0, 1);
+        add(new JLabel(resourceBundle.getString("profile"), 4), constraints, 0, 0, 0, 1);
         add(this.profileList, constraints, 1, 0, 1, 1);
 
-        add(new JLabel("Version:", 4), constraints, 0, 1, 0, 1);
+        add(new JLabel(resourceBundle.getString("version"), 4), constraints, 0, 1, 0, 1);
         add(this.versionLabel, constraints, 1, 1, 1, 1);
 
-        add(new JLabel("Status:", 4), constraints, 0, 2, 0, 1);
+        add(new JLabel(resourceBundle.getString("status"), 4), constraints, 0, 2, 0, 1);
         add(this.statusLabel, constraints, 1, 2, 1, 1);
 
         JPanel buttonPanel = new JPanel();
@@ -137,19 +140,19 @@ public class ProfileSelection extends SidebarGridForm
         }
 
         if ((syncInfo == null) || (syncInfo.getLatestVersion() == null)) {
-            this.versionLabel.setText("??? (Latest Version)");
-            this.statusLabel.setText("Updating profile & version list...");
+            this.versionLabel.setText(resourceBundle.getString("latest.version"));
+            this.statusLabel.setText(resourceBundle.getString("updating.profile.version.list"));
         } else {
             Version version = syncInfo.getLatestVersion();
             this.versionLabel.setText(version.getType().getName() + " " + version.getId());
 
             if (syncInfo.isInstalled()) {
                 if (syncInfo.isUpToDate())
-                    this.statusLabel.setText("Up to date.");
+                    this.statusLabel.setText(resourceBundle.getString("up.to.date"));
                 else
-                    this.statusLabel.setText("<html><b>Will be updated.</b></html>");
+                    this.statusLabel.setText(resourceBundle.getString("html.b.will.be.updated.b.html"));
             } else
-                this.statusLabel.setText("<html><b>Will be installed.</b></html>");
+                this.statusLabel.setText(resourceBundle.getString("html.b.will.be.installed.b.html"));
         }
     }
 

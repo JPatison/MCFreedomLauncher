@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 
 public class NotLoggedInForm extends BaseLogInForm {
     private Locale currentLocale = LocaleHelper.getCurrentLocale();
-    private ResourceBundle messages = LocaleHelper.getMessages();
+    private static ResourceBundle messages = LocaleHelper.getMessages();
     private final JTextField usernameField = new JTextField(20);
     private final JPasswordField passwordField = new JPasswordField(20);
     private final JButton playButton = new JButton(messages.getString("play"));

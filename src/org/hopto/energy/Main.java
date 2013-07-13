@@ -25,9 +25,9 @@ public class Main {
     Locale currentLocale;
     public static void main(String[] args)
             throws IOException {
-
-        LocaleHelper.setCurrentLocale(LangSelection.getLocale());
         Launcher.setLookAndFeel();
+        LocaleHelper.setCurrentLocale(LangSelection.getLocale());
+
 
         System.setProperty("java.net.preferIPv4Stack", "true");
 

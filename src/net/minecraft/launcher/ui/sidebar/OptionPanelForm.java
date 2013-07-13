@@ -4,13 +4,16 @@ import net.minecraft.launcher.Launcher;
 import net.minecraft.launcher.locale.LocaleHelper;
 import org.hopto.energy.LangSelection;
 import org.hopto.energy.Main;
+import org.hopto.energy.Util;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,13 +22,14 @@ import java.util.logging.Logger;
  */
 public class OptionPanelForm  extends SidebarGridForm{
     private final Launcher launcher;
+    private static ResourceBundle resourceBundle = LocaleHelper.getMessages();
 
     private  JComboBox<Locale> langList =new JComboBox<Locale>(LocaleHelper.getLocales());
-    private JButton btnChangeLang=new JButton("Change Language");
+    private JButton btnChangeLang=new JButton(resourceBundle.getString("change.language"));
 
 
     public OptionPanelForm(Launcher launcher) {
-        super("Options");
+        super(resourceBundle.getString("options"));
 
         this.launcher = launcher;
 
@@ -43,11 +47,24 @@ public class OptionPanelForm  extends SidebarGridForm{
             @Override
             public void actionPerformed(ActionEvent e) {
                 LangSelection.selectLang();
-                Launcher.getInstance().getFrame().getWindowListeners()[0].windowClosing(null);
-                try {
+                //Launcher.getInstance().getFrame().getRootPane().updateUI();
+                //SwingUtilities.updateComponentTreeUI(Launcher.getInstance().getFrame());
+               // Launcher.getInstance().getFrame().getWindowListeners()[0].windowClosing(null);
+
+
+
+            /*    try {
                     Main.main(new String[0]);
                 } catch (IOException ex) {
-                    Logger.getLogger(OptionPanelForm.class.getName()).log(Level.SEVERE, null, ex);
+                    //Logger.getLogger(OptionPanelForm.class.getName()).log(Level.SEVERE, null, ex);
+                }*/
+
+                try {
+                    Util.restartApplication();
+                } catch (URISyntaxException e1) {
+                    e1.printStackTrace();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
                 }
             }
         });
@@ -65,7 +82,7 @@ public class OptionPanelForm  extends SidebarGridForm{
 
     @Override
     protected void populateGrid(GridBagConstraints constraints) {
-        add(new JLabel("Language:", 2), constraints, 0, 0, 0, 1, 17);
+        add(new JLabel(resourceBundle.getString("language"), 2), constraints, 0, 0, 0, 1, 17);
 
         add(this.langList, constraints, 1, 0, 1, 1);
 

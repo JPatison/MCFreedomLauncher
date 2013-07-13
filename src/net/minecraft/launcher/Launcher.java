@@ -66,6 +66,7 @@ public class Launcher {
         this.launcherPanel = new LauncherPanel(this);
         this.authentication = new OldAuthentication(this, proxy);
       //  this.locale=this.profileManager.getSelectedProfile().getLocale();
+        this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 
 
