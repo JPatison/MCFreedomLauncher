@@ -1,5 +1,6 @@
 package net.minecraft.launcher;
 
+import net.minecraft.hopper.Util;
 import org.apache.commons.io.Charsets;
 
 import java.io.*;
@@ -34,9 +35,11 @@ public class Http {
     }
 
     public static String performPost(URL url, Map<String, Object> query, Proxy proxy) throws IOException {
-        return performPost(url, buildQuery(query), proxy, "application/x-www-form-urlencoded", false);
+        //return performPost(url, buildQuery(query), proxy, "application/x-www-form-urlencoded", false);
+        return Util.performPost(url, buildQuery(query), proxy, "application/x-www-form-urlencoded", false);
     }
 
+/*
     public static String performPost(URL url, String parameters, Proxy proxy, String contentType, boolean returnErrorPage) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);
         byte[] paramAsBytes = parameters.getBytes(Charsets.UTF_8);
@@ -85,6 +88,7 @@ public class Http {
         reader.close();
         return response.toString();
     }
+*/
 
     public static String performGet(URL url, Proxy proxy) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);

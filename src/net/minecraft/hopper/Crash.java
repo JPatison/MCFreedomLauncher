@@ -1,4 +1,4 @@
-package net.minecraft.launcher.hopper;
+package net.minecraft.hopper;
 
 public class Crash
 {

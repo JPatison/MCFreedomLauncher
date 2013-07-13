@@ -183,7 +183,12 @@ public class CompleteVersion
 
             if (file != null) {
                 URL url = new URL(library.getDownloadUrl() + file);
-                neededFiles.add(new Downloadable(proxy, url, new File(targetDirectory, "libraries/" + file), ignoreLocalFiles));
+                //neededFiles.add(new Downloadable(proxy, url, new File(targetDirectory, "libraries/" + file), ignoreLocalFiles));
+                File local = new File(targetDirectory, "libraries/" + file);
+
+                if ((!local.isFile()) || (!library.hasCustomUrl())) {
+                    neededFiles.add(new Downloadable(proxy, url, local, ignoreLocalFiles));
+                }
             }
         }
 

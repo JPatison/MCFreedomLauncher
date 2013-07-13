@@ -1,4 +1,4 @@
-package org.spara.mol;
+package org.hopto.energy;
 
 import joptsimple.OptionException;
 import joptsimple.OptionParser;
@@ -8,11 +8,8 @@ import net.minecraft.launcher.Launcher;
 import net.minecraft.launcher.locale.LocaleHelper;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Authenticator;
 import java.net.InetSocketAddress;
@@ -105,7 +102,7 @@ public class Main {
 
 class LangSelectionDialog extends JFrame{
     static final String Select = "Select Language";
-    static Locale locale=new Locale("en_US");
+    static Locale locale=new Locale("en","US");
 
     public static Locale loadLocale() {
         Properties prop = new Properties();

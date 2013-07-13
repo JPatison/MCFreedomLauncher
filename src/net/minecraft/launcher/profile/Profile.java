@@ -26,6 +26,8 @@ public class Profile {
     private String javaArgs;
     private Resolution resolution;
     private Set<ReleaseType> allowedReleaseTypes;
+    private Boolean useHopperCrashService;
+
     private Locale locale;
 
     public Profile() {
@@ -43,6 +45,8 @@ public class Profile {
         //this.resolution = copy.resolution;
         this.resolution = (copy.resolution == null ? null : new Resolution(copy.resolution));
         this.allowedReleaseTypes = (copy.allowedReleaseTypes == null ? null : new HashSet(copy.allowedReleaseTypes));
+        this.useHopperCrashService = copy.useHopperCrashService;
+
         this.locale=copy.locale;
         this.SPMode=copy.SPMode;
     }
@@ -132,6 +136,14 @@ public class Profile {
 
     public void setAllowedReleaseTypes(Set<ReleaseType> allowedReleaseTypes) {
         this.allowedReleaseTypes = allowedReleaseTypes;
+    }
+
+    public boolean getUseHopperCrashService() {
+        return this.useHopperCrashService == null;
+    }
+
+    public void setUseHopperCrashService(boolean useHopperCrashService) {
+        this.useHopperCrashService = (useHopperCrashService ? null : Boolean.valueOf(false));
     }
 
     public VersionFilter getVersionFilter() {

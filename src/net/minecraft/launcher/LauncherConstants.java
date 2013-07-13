@@ -4,7 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class LauncherConstants {
-    public static final String VERSION_NAME = "1.0.9";
+    public static final String VERSION_NAME = "1.0.10";
     public static final int VERSION_NUMERIC = 4;
     public static final String URL_REGISTER = "https://account.mojang.com/register";
     public static final String URL_DOWNLOAD_BASE = "https://s3.amazonaws.com/Minecraft.Download/";
@@ -24,13 +24,7 @@ public class LauncherConstants {
     public static final int MAX_NATIVES_LIFE_IN_SECONDS = 3600;
     public static final String DEFAULT_VERSION_INCOMPATIBILITY_REASON = "This version is incompatible with your computer. Please try another one by going into Edit Profile and selecting one through the dropdown. Sorry!";
 
-    public static URL constantURL(String input) {
-        try {
-            return new URL(input);
-        } catch (MalformedURLException e) {
-            throw new Error(e);
-        }
-    }
+
 }
 
 

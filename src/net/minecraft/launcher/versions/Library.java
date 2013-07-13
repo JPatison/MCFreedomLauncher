@@ -110,6 +110,12 @@ public class Library {
 //        return "Library{name='" + this.name + '\'' + ", os=" + this.os + ", natives=" + this.natives + ", extract=" + this.extract + '}';
     }
 
+
+    public boolean hasCustomUrl()
+    {
+        return this.url != null;
+    }
+
     public String getDownloadUrl() {
         if (this.url != null) return this.url;
         //return "https://s3.amazonaws.com/Minecraft.Download/";

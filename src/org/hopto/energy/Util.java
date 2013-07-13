@@ -1,4 +1,4 @@
-package org.spara.mol;
+package org.hopto.energy;
 
 import java.io.File;
 

@@ -1,24 +1,41 @@
 package net.minecraft.launcher.ui.tabs;
 
-import net.minecraft.launcher.Http;
-import net.minecraft.launcher.Launcher;
-import net.minecraft.launcher.OperatingSystem;
-import net.minecraft.launcher.hopper.HopperService;
-import net.minecraft.launcher.hopper.SubmitResponse;
-import net.minecraft.launcher.versions.CompleteVersion;
 
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadPoolExecutor;
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import net.minecraft.hopper.HopperService;
+import net.minecraft.hopper.Problem;
+import net.minecraft.hopper.PublishResponse;
+import net.minecraft.hopper.Report;
+import net.minecraft.hopper.SubmitResponse;
+import net.minecraft.launcher.Http;
+import net.minecraft.launcher.Launcher;
+import net.minecraft.launcher.OperatingSystem;
+import net.minecraft.launcher.profile.Profile;
+import net.minecraft.launcher.profile.ProfileManager;
+import net.minecraft.launcher.updater.VersionManager;
+import net.minecraft.launcher.versions.CompleteVersion;
 
 public class CrashReportTab extends JPanel {
+    private final Launcher launcher;
     private final CompleteVersion version;
     private final File reportFile;
     private final String report;
@@ -27,9 +44,11 @@ public class CrashReportTab extends JPanel {
     private final JScrollPane scrollPane = new JScrollPane(this.reportEditor);
     private final CrashInfoPane crashInfoPane;
     private final boolean isModded;
+    private SubmitResponse hopperServiceResponse;
 
     public CrashReportTab(final Launcher launcher, final CompleteVersion version, File reportFile, final String report){
         super(true);
+        this.launcher = launcher;
         this.version = version;
         this.reportFile = reportFile;
         this.report = report;
@@ -44,17 +63,45 @@ public class CrashReportTab extends JPanel {
         setLayout(new BorderLayout());
         createInterface();
 
-        launcher.getVersionManager().getExecutorService().submit(new Runnable()
-        {
-            public void run() {
-                try {
-                    SubmitResponse response = CrashReportTab.this.hopper.submitReport(report, version.getId());
-                    launcher.println("Reported crash to Mojang (ID " + response.getReport().getId() + ")");
-                } catch (IOException e) {
-                    launcher.println("Couldn't report crash to Mojang", e);
+        if (launcher.getProfileManager().getSelectedProfile().getUseHopperCrashService())
+            launcher.getVersionManager().getExecutorService().submit(new Runnable()
+            {
+                public void run() {
+                    try {
+                        Map environment = new HashMap();
+                        environment.put("launcher.version", "1.0.10");
+                        environment.put("launcher.title", launcher.getFrame().getTitle());
+                        environment.put("bootstrap.version", String.valueOf(launcher.getBootstrapVersion()));
+                        CrashReportTab.this.hopperServiceResponse = HopperService.submitReport(launcher.getProxy(), report, version.getId(), "Minecraft", environment);
+                        launcher.println("Reported crash to Mojang (ID " + CrashReportTab.this.hopperServiceResponse.getReport().getId() + ")");
+
+                        if (CrashReportTab.this.hopperServiceResponse.getProblem() != null)
+                            CrashReportTab.this.showKnownProblemPopup();
+                        else if (CrashReportTab.this.hopperServiceResponse.getReport().canBePublished())
+                            CrashReportTab.this.showPublishReportPrompt();
+                    }
+                    catch (IOException e) {
+                        launcher.println("Couldn't report crash to Mojang", e);
+                    }
                 }
+            });
+    }
+
+    private void showPublishReportPrompt()
+    {
+        String[] options = { "Publish Crash Report", "Cancel" };
+        JLabel message = new JLabel();
+
+        message.setText("<html><p>Sorry, but it looks like the game crashed and we don't know why.</p><p>Would you mind publishing this report so that " + (this.isModded ? "the mod authors" : "Mojang") + " can fix it?</p></html>");
+
+        int result = JOptionPane.showOptionDialog(this, message, "Uhoh, something went wrong!", 0, 1, null, options, options[0]);
+
+        if (result == 0)
+            try {
+                PublishResponse localPublishResponse = HopperService.publishReport(this.launcher.getProxy(), this.hopperServiceResponse.getReport());
+            } catch (IOException e) {
+                this.launcher.println("Couldn't publish report " + this.hopperServiceResponse.getReport().getId(), e);
             }
-        });
     }
 
     protected void createInterface() {
@@ -65,6 +112,25 @@ public class CrashReportTab extends JPanel {
 
         this.crashInfoPane.createInterface();
 
+    }
+
+    private void showKnownProblemPopup()
+    {
+        if (this.hopperServiceResponse.getProblem().getUrl() == null) {
+            JOptionPane.showMessageDialog(this, this.hopperServiceResponse.getProblem().getDescription(), this.hopperServiceResponse.getProblem().getTitle(), 1);
+        }
+        else
+        {
+            String[] options = { "Fix The Problem", "Cancel" };
+            int result = JOptionPane.showOptionDialog(this, this.hopperServiceResponse.getProblem().getDescription(), this.hopperServiceResponse.getProblem().getTitle(), 0, 1, null, options, options[0]);
+
+            if (result == 0)
+                try {
+                    OperatingSystem.openLink(new URI(this.hopperServiceResponse.getProblem().getUrl()));
+                } catch (URISyntaxException e) {
+                    this.launcher.println("Couldn't open help page ( " + this.hopperServiceResponse.getProblem().getUrl() + "  ) for crash", e);
+                }
+        }
     }
 
     private class CrashInfoPane extends JPanel
@@ -104,20 +170,28 @@ public class CrashReportTab extends JPanel {
         }
 
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == this.submitButton)
-                try {
-                    Map args = new HashMap();
-
-                    args.put("pid", Integer.valueOf(10400));
-                    args.put("issuetype", Integer.valueOf(1));
-                    args.put("description", "Put the summary of the bug you're having here\n\n*What I expected to happen was...:*\nDescribe what you thought should happen here\n\n*What actually happened was...:*\nDescribe what happened here\n\n*Steps to Reproduce:*\n1. Put a step by step guide on how to trigger the bug here\n2. ...\n3. ...");
-
-                    args.put("environment", buildEnvironmentInfo());
-
-                    OperatingSystem.openLink(URI.create("https://mojang.atlassian.net/secure/CreateIssueDetails!init.jspa?" + Http.buildQuery(args)));
-                } catch (Throwable ex) {
-                    Launcher.getInstance().println("Couldn't open bugtracker", ex);
+            if (e.getSource() == this.submitButton) {
+                if (CrashReportTab.this.hopperServiceResponse != null) {
+                    if (CrashReportTab.this.hopperServiceResponse.getProblem() != null)
+                        CrashReportTab.this.showKnownProblemPopup();
+                    else if (CrashReportTab.this.hopperServiceResponse.getReport().canBePublished())
+                        CrashReportTab.this.showPublishReportPrompt();
                 }
+                else
+                    try {
+                        Map args = new HashMap();
+
+                        args.put("pid", Integer.valueOf(10400));
+                        args.put("issuetype", Integer.valueOf(1));
+                        args.put("description", "Put the summary of the bug you're having here\n\n*What I expected to happen was...:*\nDescribe what you thought should happen here\n\n*What actually happened was...:*\nDescribe what happened here\n\n*Steps to Reproduce:*\n1. Put a step by step guide on how to trigger the bug here\n2. ...\n3. ...");
+
+                        args.put("environment", buildEnvironmentInfo());
+
+                        OperatingSystem.openLink(URI.create("https://mojang.atlassian.net/secure/CreateIssueDetails!init.jspa?" + Http.buildQuery(args)));
+                    } catch (Throwable ex) {
+                        Launcher.getInstance().println("Couldn't open bugtracker", ex);
+                    }
+            }
             else if (e.getSource() == this.openFileButton)
                 OperatingSystem.openLink(CrashReportTab.this.reportFile.toURI());
         }
@@ -136,7 +210,7 @@ public class CrashReportTab extends JPanel {
             result.append(" (by ");
             result.append(System.getProperty("java.vendor"));
             result.append(")\nLauncher: ");
-            result.append("1.0.9");
+            result.append("1.0.10");
             result.append(" (bootstrap ");
             result.append(Launcher.getInstance().getBootstrapVersion());
             result.append(")\nMinecraft: ");

@@ -34,6 +34,8 @@ public class ProfileInfoPanel extends JPanel
     private final JTextField resolutionHeight = new JTextField();
     private final JCheckBox allowSnapshots = new JCheckBox("Enable experimental development versions (\"snapshots\")");
     private final JComboBox<Locale> langList =new JComboBox<Locale>(LocaleHelper.getLocales());
+    private final JCheckBox useHopper = new JCheckBox("Automatically ask Mojang for assistance with fixing crashes");
+
 
     public ProfileInfoPanel(ProfileEditorPopup editor) {
         this.editor = editor;
@@ -116,6 +118,17 @@ public class ProfileInfoPanel extends JPanel
 
         constraints.gridy += 1;
 
+        constraints.fill = 2;
+        constraints.weightx = 1.0D;
+        constraints.gridwidth = 0;
+        add(this.useHopper, constraints);
+        constraints.gridwidth = 1;
+        constraints.weightx = 0.0D;
+        constraints.fill = 0;
+
+        constraints.gridy += 1;
+
+
         add(new JLabel("Language:"), constraints);
         constraints.fill = 2;
         constraints.weightx = 1.0D;
@@ -150,6 +163,12 @@ public class ProfileInfoPanel extends JPanel
 
 
         this.allowSnapshots.setSelected(this.editor.getProfile().getVersionFilter().getTypes().contains(ReleaseType.SNAPSHOT));
+
+        this.useHopper.setSelected(this.editor.getProfile().getUseHopperCrashService());
+
+        this.langList.setSelectedIndex(0);
+
+
     }
 
     protected void addEventHandlers() {
@@ -218,12 +237,31 @@ public class ProfileInfoPanel extends JPanel
             }
         });
 
+
+
+        this.useHopper.addItemListener(new ItemListener()
+        {
+            public void itemStateChanged(ItemEvent e) {
+                ProfileInfoPanel.this.updateHopper();
+            }
+        });
+
         this.langList.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 ProfileInfoPanel.this.editor.getProfile().setLocale((Locale)langList.getSelectedItem());
             }
         });
+    }
+
+
+    private void updateHopper() {
+        Profile profile = this.editor.getProfile();
+
+        if (this.useHopper.isSelected())
+            profile.setUseHopperCrashService(true);
+        else
+            profile.setUseHopperCrashService(false);
     }
 
     private void updateCustomVersionFilter() {

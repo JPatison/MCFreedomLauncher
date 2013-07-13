@@ -1,6 +1,7 @@
 package net.minecraft.launcher.authentication.yggdrasil;
 
 import com.google.gson.Gson;
+import net.minecraft.hopper.Util;
 import net.minecraft.launcher.Http;
 import net.minecraft.launcher.Launcher;
 import net.minecraft.launcher.LauncherConstants;
@@ -18,12 +19,11 @@ import java.util.Map;
 
 public class YggdrasilAuthenticationService extends BaseAuthenticationService {
     private static final String BASE_URL = "https://authserver.mojang.com/";
-    private static final URL ROUTE_AUTHENTICATE = LauncherConstants.constantURL("https://authserver.mojang.com/authenticate");
-    private static final URL ROUTE_REFRESH = LauncherConstants.constantURL("https://authserver.mojang.com/refresh");
-    private static final URL ROUTE_VALIDATE = LauncherConstants.constantURL("https://authserver.mojang.com/validate");
-    private static final URL ROUTE_INVALIDATE = LauncherConstants.constantURL("https://authserver.mojang.com/invalidate");
-    private static final URL ROUTE_SIGNOUT = LauncherConstants.constantURL("https://authserver.mojang.com/signout");
-    private static final String STORAGE_KEY_ACCESS_TOKEN = "accessToken";
+    private static final URL ROUTE_AUTHENTICATE = Util.constantURL("https://authserver.mojang.com/authenticate");
+    private static final URL ROUTE_REFRESH = Util.constantURL("https://authserver.mojang.com/refresh");
+    private static final URL ROUTE_VALIDATE = Util.constantURL("https://authserver.mojang.com/validate");
+    private static final URL ROUTE_INVALIDATE = Util.constantURL("https://authserver.mojang.com/invalidate");
+    private static final URL ROUTE_SIGNOUT = Util.constantURL("https://authserver.mojang.com/signout"); private static final String STORAGE_KEY_ACCESS_TOKEN = "accessToken";
     private final Gson gson = new Gson();
     private final Agent agent = Agent.MINECRAFT;
     private GameProfile[] profiles ;
@@ -105,7 +105,7 @@ public class YggdrasilAuthenticationService extends BaseAuthenticationService {
 
     protected <T extends Response> T makeRequest(URL url, Object input, Class<T> classOfT) throws AuthenticationException {
         try {
-            String jsonResult = Http.performPost(url, this.gson.toJson(input), Launcher.getInstance().getProxy(), "application/json", true);
+            String jsonResult = Util.performPost(url, this.gson.toJson(input), Launcher.getInstance().getProxy(), "application/json", true);
             Response result = (Response) this.gson.fromJson(jsonResult, classOfT);
 
             if (result == null) return null;

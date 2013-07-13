@@ -1,6 +1,6 @@
-package net.minecraft.launcher.hopper;
+package net.minecraft.hopper;
 
-public class SubmitResponse extends Response
+public class PublishResponse extends Response
 {
   private Report report;
   private Crash crash;

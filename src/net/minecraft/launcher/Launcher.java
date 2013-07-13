@@ -11,7 +11,7 @@ import net.minecraft.launcher.updater.LocalVersionList;
 import net.minecraft.launcher.updater.RemoteVersionList;
 import net.minecraft.launcher.updater.VersionManager;
 import net.minecraft.launcher.updater.download.DownloadJob;
-import org.spara.mol.InstallDirSettings;
+import org.hopto.energy.InstallDirSettings;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -77,7 +77,7 @@ public class Launcher {
         downloadResources();
         refreshProfiles();
         refreshVersions();
-        println("Launcher 1.0.9 (through bootstrap " + bootstrapVersion + ") started on " + OperatingSystem.getCurrentPlatform().getName() + "...");
+        println("Launcher 1.0.10 (through bootstrap " + bootstrapVersion + ") started on " + OperatingSystem.getCurrentPlatform().getName() + "...");
         println("Current time is " + DateFormat.getDateTimeInstance(2, 2, Locale.US).format(new Date()));
         println("Current Locale is"+LocaleHelper.getCurrentLocale());
         if (!OperatingSystem.getCurrentPlatform().isSupported()) {
@@ -225,7 +225,7 @@ public class Launcher {
 
     protected void initializeFrame() {
         this.frame.getContentPane().removeAll();
-        this.frame.setTitle("Minecraft Freedom Launcher 1.0.9 [modified by Energy]( Inspired by Sparamoule's Minecraft Open Launcher)");
+        this.frame.setTitle("Minecraft Freedom Launcher 1.0.10 [modified by Energy]( Inspired by Sparamoule's Minecraft Open Launcher)");
         this.frame.setPreferredSize(new Dimension(925, 525));
         this.frame.setDefaultCloseOperation(2);
         this.frame.addWindowListener(new WindowAdapter() {

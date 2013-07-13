@@ -8,8 +8,8 @@ import net.minecraft.launcher.profile.Profile;
 import net.minecraft.launcher.profile.ProfileManager;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.spara.mol.InstallDirSettings;
-import org.spara.mol.Main;
+import org.hopto.energy.InstallDirSettings;
+import org.hopto.energy.Main;
 
 import javax.swing.*;
 import java.awt.*;
