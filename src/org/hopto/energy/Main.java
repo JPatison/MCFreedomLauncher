@@ -25,6 +25,8 @@ public class Main {
     Locale currentLocale;
     public static void main(String[] args)
             throws IOException {
+        Launcher.setLookAndFeel();
+
         System.setProperty("java.net.preferIPv4Stack", "true");
 
         OptionParser optionParser = new OptionParser();
@@ -90,7 +92,8 @@ public class Main {
 
         JFrame frame = new JFrame();
 
-        new LangSelectionDialog();
+       System.out.println(LangSelection.getLocale());
+
 
         new Launcher(frame, workingDirectory, proxy, passwordAuthentication, args);
     }
@@ -100,6 +103,7 @@ public class Main {
     }
 }
 
+/*
 class LangSelectionDialog extends JFrame{
     static final String Select = "Select Language";
     static Locale locale=new Locale("en","US");
@@ -112,7 +116,8 @@ class LangSelectionDialog extends JFrame{
 
 
         if (!file.exists()) {
-          /*  if (ret == 0) {
+          */
+/*  if (ret == 0) {
                 File dir = fileChooser.getSelectedFile();
                 prop.setProperty("installation_dir", dir.getAbsolutePath());
                 workingDirectory = dir;
@@ -123,7 +128,8 @@ class LangSelectionDialog extends JFrame{
                 prop.store(new FileOutputStream(settingFile), "");
             } catch (IOException ex) {
                 Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            }*//*
+
             return locale;
 
         } else {
@@ -157,3 +163,4 @@ class LangSelectionDialog extends JFrame{
 
 
 }
+*/

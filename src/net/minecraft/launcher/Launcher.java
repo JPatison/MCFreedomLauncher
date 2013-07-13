@@ -79,7 +79,7 @@ public class Launcher {
         refreshVersions();
         println("Launcher 1.0.10 (through bootstrap " + bootstrapVersion + ") started on " + OperatingSystem.getCurrentPlatform().getName() + "...");
         println("Current time is " + DateFormat.getDateTimeInstance(2, 2, Locale.US).format(new Date()));
-        println("Current Locale is"+LocaleHelper.getCurrentLocale());
+        println("Current Locale is "+LocaleHelper.getCurrentLocale());
         if (!OperatingSystem.getCurrentPlatform().isSupported()) {
             println("This operating system is unknown or unsupported, we cannot guarantee that the game will launch.");
         }
@@ -90,7 +90,7 @@ public class Launcher {
         println("System.getProperty('java.vendor') == '" + System.getProperty("java.vendor") + "'");
     }
 
-    private static void setLookAndFeel() {
+     public static void setLookAndFeel() {
         JFrame frame = new JFrame();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

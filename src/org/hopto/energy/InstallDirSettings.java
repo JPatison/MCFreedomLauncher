@@ -28,7 +28,10 @@ public class InstallDirSettings {
             } catch (IOException ex) {
                 Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, null, ex);
             }
-            workingDirectory = new File(prop.getProperty("installation_dir"));
+            if (prop.getProperty("installation_dir")!=null)
+                workingDirectory = new File(prop.getProperty("installation_dir"));
+            else
+                workingDirectory = changeDirInternal(frame, defaultWorkingDir, prop, file);
         }
         return workingDirectory;
     }
@@ -54,7 +57,7 @@ public class InstallDirSettings {
             prop.setProperty("installation_dir", workingDirectory.getAbsolutePath());
         }
         try {
-            prop.store(new FileOutputStream(settingFile), "");
+            prop.store(new FileOutputStream(settingFile), "MCFreeLauncher");
         } catch (IOException ex) {
             Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, null, ex);
         }
