@@ -1,10 +1,13 @@
 package net.minecraft.launcher.authentication.exceptions;
 
-public class AuthenticationException extends Exception {
-    public AuthenticationException() {
+public class AuthenticationException extends Exception
+{
+  public AuthenticationException()
+  {
     }
 
-    public AuthenticationException(String message) {
+  public AuthenticationException(String message)
+  {
         super(message);
     }
 
@@ -16,5 +19,3 @@ public class AuthenticationException extends Exception {
         super(cause);
     }
 }
-
-

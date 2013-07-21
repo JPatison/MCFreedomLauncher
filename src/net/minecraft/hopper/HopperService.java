@@ -12,12 +12,19 @@ public final class HopperService
   private static final String BASE_URL = "http://hopper.minecraft.net/crashes/";
   private static final URL ROUTE_SUBMIT = Util.constantURL("http://hopper.minecraft.net/crashes/submit_report/");
   private static final URL ROUTE_PUBLISH = Util.constantURL("http://hopper.minecraft.net/crashes/publish_report/");
-  private static final String[] INTERESTING_SYSTEM_PROPERTY_KEYS = { "os.version", "os.name", "os.arch", "java.version", "java.vendor" };
+  private static final String[] INTERESTING_SYSTEM_PROPERTY_KEYS = { "os.version", "os.name", "os.arch", "java.version", "java.vendor", "sun.arch.data.model" };
 
   private static final Gson GSON = new Gson();
 
-  public static SubmitResponse submitReport(Proxy proxy, String report, String version, String product, Map<String, String> env) throws IOException {
-    Map environment = new HashMap(env);
+  public static SubmitResponse submitReport(Proxy proxy, String report, String product, String version) throws IOException {
+    return submitReport(proxy, report, product, version, null);
+  }
+
+  public static SubmitResponse submitReport(Proxy proxy, String report, String product, String version, Map<String, String> env) throws IOException {
+    Map environment = new HashMap();
+    if (env != null) {
+      environment.putAll(env);
+    }
 
     for (String key : INTERESTING_SYSTEM_PROPERTY_KEYS) {
       String value = System.getProperty(key);
@@ -27,7 +34,7 @@ public final class HopperService
       }
     }
 
-    SubmitRequest request = new SubmitRequest(report, version, product, environment);
+    SubmitRequest request = new SubmitRequest(report, product, version, environment);
 
     return (SubmitResponse)makeRequest(proxy, ROUTE_SUBMIT, request, SubmitResponse.class);
   }

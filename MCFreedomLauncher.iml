@@ -11,8 +11,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="Minecraft-trim" level="project" />
-    <orderEntry type="library" exported="" name="launcher-1.0.8-trim" level="project" />
+    <orderEntry type="library" name="Launcher" level="project" />
+    <orderEntry type="library" name="Minecraft-trim" level="project" />
   </component>
 </module>
 

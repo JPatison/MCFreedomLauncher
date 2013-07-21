@@ -2,12 +2,14 @@ package net.minecraft.launcher.authentication.yggdrasil;
 
 import net.minecraft.launcher.authentication.GameProfile;
 
-public class RefreshRequest {
+public class RefreshRequest
+{
     private String clientToken;
     private String accessToken;
     private GameProfile selectedProfile;
 
-    public RefreshRequest(YggdrasilAuthenticationService authenticationService) {
+  public RefreshRequest(YggdrasilAuthenticationService authenticationService)
+  {
         this(authenticationService, null);
     }
 
@@ -17,5 +19,3 @@ public class RefreshRequest {
         this.selectedProfile = profile;
     }
 }
-
-

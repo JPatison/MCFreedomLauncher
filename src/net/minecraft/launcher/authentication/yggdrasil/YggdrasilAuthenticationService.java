@@ -1,10 +1,14 @@
 package net.minecraft.launcher.authentication.yggdrasil;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.UUID;
 import net.minecraft.hopper.Util;
-import net.minecraft.launcher.Http;
 import net.minecraft.launcher.Launcher;
-import net.minecraft.launcher.LauncherConstants;
 import net.minecraft.launcher.authentication.BaseAuthenticationService;
 import net.minecraft.launcher.authentication.GameProfile;
 import net.minecraft.launcher.authentication.exceptions.AuthenticationException;
@@ -12,29 +16,28 @@ import net.minecraft.launcher.authentication.exceptions.InvalidCredentialsExcept
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.Map;
-
-public class YggdrasilAuthenticationService extends BaseAuthenticationService {
+public class YggdrasilAuthenticationService extends BaseAuthenticationService
+{
     private static final String BASE_URL = "https://authserver.mojang.com/";
     private static final URL ROUTE_AUTHENTICATE = Util.constantURL("https://authserver.mojang.com/authenticate");
     private static final URL ROUTE_REFRESH = Util.constantURL("https://authserver.mojang.com/refresh");
     private static final URL ROUTE_VALIDATE = Util.constantURL("https://authserver.mojang.com/validate");
     private static final URL ROUTE_INVALIDATE = Util.constantURL("https://authserver.mojang.com/invalidate");
-    private static final URL ROUTE_SIGNOUT = Util.constantURL("https://authserver.mojang.com/signout"); private static final String STORAGE_KEY_ACCESS_TOKEN = "accessToken";
+  private static final URL ROUTE_SIGNOUT = Util.constantURL("https://authserver.mojang.com/signout");
+  private static final String STORAGE_KEY_ACCESS_TOKEN = "accessToken";
     private final Gson gson = new Gson();
     private final Agent agent = Agent.MINECRAFT;
     private GameProfile[] profiles ;
     private String accessToken ;
     private boolean isOnline;
 
-    public boolean canLogIn() {
+  public boolean canLogIn()
+  {
         return (!canPlayOnline()) && (StringUtils.isNotBlank(getUsername())) && ((StringUtils.isNotBlank(getPassword())) || (StringUtils.isNotBlank(getAccessToken())));
     }
 
-    public void logIn() throws AuthenticationException {
+  public void logIn() throws AuthenticationException
+  {
         if (StringUtils.isBlank(getUsername())) {
             throw new InvalidCredentialsException("Invalid username");
         }
@@ -47,7 +50,8 @@ public class YggdrasilAuthenticationService extends BaseAuthenticationService {
             throw new InvalidCredentialsException("Invalid password");
     }
 
-    protected void logInWithPassword() throws AuthenticationException {
+  protected void logInWithPassword() throws AuthenticationException
+  {
         if (StringUtils.isBlank(getUsername())) {
             throw new InvalidCredentialsException("Invalid username");
         }
@@ -122,39 +126,39 @@ public class YggdrasilAuthenticationService extends BaseAuthenticationService {
             return (T) result;
         } catch (IOException e) {
             throw new AuthenticationException("Cannot contact authentication server", e);
+    } catch (IllegalStateException e) {
+      throw new AuthenticationException("Cannot contact authentication server", e);
+    } catch (JsonParseException e) {
+      throw new AuthenticationException("Cannot contact authentication server", e);
         }
     }
 
-    public void logOut() {
+  public void logOut()
+  {
         super.logOut();
-
-        if ((StringUtils.isNotBlank(getClientToken())) && (StringUtils.isNotBlank(getAccessToken()))) {
-            Launcher.getInstance().println("Invalidating accessToken with server...");
-            try {
-                makeRequest(ROUTE_INVALIDATE, new InvalidateRequest(this), Response.class);
-            } catch (AuthenticationException e) {
-                Launcher.getInstance().println("Couldn't invalidate token on server", e);
-            }
-        }
 
         this.accessToken = null;
         this.profiles = null;
         this.isOnline = false;
     }
 
-    public GameProfile[] getAvailableProfiles() {
+  public GameProfile[] getAvailableProfiles()
+  {
         return this.profiles;
     }
 
-    public boolean isLoggedIn() {
+  public boolean isLoggedIn()
+  {
         return StringUtils.isNotBlank(this.accessToken);
     }
 
-    public boolean canPlayOnline() {
+  public boolean canPlayOnline()
+  {
         return (isLoggedIn()) && (getSelectedProfile() != null) && (this.isOnline);
     }
 
-    public void selectGameProfile(GameProfile profile) throws AuthenticationException {
+  public void selectGameProfile(GameProfile profile) throws AuthenticationException
+  {
         if (!isLoggedIn()) {
             throw new AuthenticationException("Cannot change game profile whilst not logged in");
         }
@@ -178,13 +182,15 @@ public class YggdrasilAuthenticationService extends BaseAuthenticationService {
         fireAuthenticationChangedEvent();
     }
 
-    public void loadFromStorage(Map<String, String> credentials) {
+  public void loadFromStorage(Map<String, String> credentials)
+  {
         super.loadFromStorage(credentials);
 
         this.accessToken = ((String) credentials.get("accessToken"));
     }
 
-    public Map<String, String> saveForStorage() {
+  public Map<String, String> saveForStorage()
+  {
         Map result = super.saveForStorage();
         if (!shouldRememberMe()) return result;
 
@@ -195,14 +201,16 @@ public class YggdrasilAuthenticationService extends BaseAuthenticationService {
         return result;
     }
 
-    public String getSessionToken() {
+  public String getSessionToken()
+  {
         if ((isLoggedIn()) && (getSelectedProfile() != null) && (canPlayOnline())) {
             return String.format("token:%s:%s", new Object[]{getAccessToken(), getSelectedProfile().getId()});
         }
         return null;
     }
 
-    public String getAccessToken() {
+  public String getAccessToken()
+  {
         return this.accessToken;
     }
 
@@ -214,7 +222,8 @@ public class YggdrasilAuthenticationService extends BaseAuthenticationService {
         return this.agent;
     }
 
-    public String toString() {
+  public String toString()
+  {
         return "YggdrasilAuthenticationService{agent=" + this.agent + ", profiles=" + Arrays.toString(this.profiles) + ", selectedProfile=" + getSelectedProfile() + ", sessionToken='" + getSessionToken() + '\'' + ", username='" + getUsername() + '\'' + ", isLoggedIn=" + isLoggedIn() + ", canPlayOnline=" + canPlayOnline() + ", accessToken='" + this.accessToken + '\'' + ", clientToken='" + getClientToken() + '\'' + '}';
     }
 }
