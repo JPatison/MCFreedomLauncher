@@ -359,7 +359,7 @@ public class Launcher {
 
     protected void initializeFrame() {
         this.frame.getContentPane().removeAll();
-        this.frame.setTitle("Minecraft Freedom Launcher 1.0.10 [modified by Energy]( Inspired by Sparamoule's Minecraft Open Launcher)");
+        this.frame.setTitle("Minecraft Freedom Launcher 1.1.1 [modified by Energy]( Inspired by Sparamoule's Minecraft Open Launcher)");
         this.frame.setPreferredSize(new Dimension(925, 525));
         this.frame.setDefaultCloseOperation(2);
 
