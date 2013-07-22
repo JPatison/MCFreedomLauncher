@@ -61,5 +61,3 @@ public class JavaProcessLauncher {
         return "JavaProcessLauncher[commands=" + this.commands + ", java=" + this.jvmPath + "]";
     }
 }
-
-

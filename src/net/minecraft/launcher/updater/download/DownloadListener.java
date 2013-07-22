@@ -5,5 +5,3 @@ public abstract interface DownloadListener {
 
     public abstract void onDownloadJobProgressChanged(DownloadJob paramDownloadJob);
 }
-
-

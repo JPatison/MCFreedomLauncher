@@ -132,7 +132,7 @@ public class VersionManager {
             for (Version version : this.localVersionList.getVersions()) {
                 if ((version.getType() != null) && (version.getUpdatedTime() != null)) {
                     VersionSyncInfo syncInfo = getVersionSyncInfo(version, this.remoteVersionList.getVersion(version.getId()));
-                    ((Map)lookup).put(version.getId(), syncInfo);
+                    ((Map) lookup).put(version.getId(), syncInfo);
                     result.add(syncInfo);
                 }
             }
@@ -229,7 +229,6 @@ public class VersionManager {
         }*/
 
         job.addDownloadables(version.getRequiredDownloadables(OperatingSystem.getCurrentPlatform(), proxy, baseDirectory, false));
-
 
 
         String jarFile = "versions/" + version.getId() + "/" + version.getId() + ".jar";

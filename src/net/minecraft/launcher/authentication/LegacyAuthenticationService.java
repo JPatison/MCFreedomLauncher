@@ -3,7 +3,6 @@ package net.minecraft.launcher.authentication;
 import net.minecraft.hopper.Util;
 import net.minecraft.launcher.Http;
 import net.minecraft.launcher.Launcher;
-import net.minecraft.launcher.LauncherConstants;
 import net.minecraft.launcher.authentication.exceptions.AuthenticationException;
 import net.minecraft.launcher.authentication.exceptions.InvalidCredentialsException;
 import org.apache.commons.lang3.StringUtils;
@@ -14,13 +13,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LegacyAuthenticationService extends BaseAuthenticationService {
-    private static final URL AUTHENTICATION_URL = Util.constantURL("https://login.minecraft.net");    private static final int AUTHENTICATION_VERSION = 14;
+    private static final URL AUTHENTICATION_URL = Util.constantURL("https://login.minecraft.net");
+    private static final int AUTHENTICATION_VERSION = 14;
     private static final int RESPONSE_PART_PROFILE_NAME = 2;
     private static final int RESPONSE_PART_SESSION_TOKEN = 3;
     private static final int RESPONSE_PART_PROFILE_ID = 4;
-    private String sessionToken ;
+    private String sessionToken;
 
-    public void logIn() throws AuthenticationException {
+    public void logIn()
+            throws AuthenticationException {
         if (StringUtils.isBlank(getUsername())) {
             throw new InvalidCredentialsException("Invalid username");
         }

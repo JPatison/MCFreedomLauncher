@@ -2,6 +2,8 @@ package net.minecraft.launcher.ui.tabs;
 
 import net.minecraft.launcher.Launcher;
 import net.minecraft.launcher.LauncherConstants;
+import net.minecraft.launcher.authentication.AuthenticationDatabase;
+import net.minecraft.launcher.authentication.AuthenticationService;
 import net.minecraft.launcher.events.RefreshedProfilesListener;
 import net.minecraft.launcher.profile.Profile;
 import net.minecraft.launcher.profile.ProfileManager;
@@ -197,15 +199,25 @@ public class ProfileListTab extends JScrollPane
 
         public Object getValueAt(int rowIndex, int columnIndex) {
             Profile profile = (Profile) this.profiles.get(rowIndex);
+            AuthenticationDatabase authDatabase = ProfileListTab.this.launcher.getProfileManager().getAuthDatabase();
+            AuthenticationService auth = authDatabase.getByUUID(profile.getPlayerUUID());
 
             switch (columnIndex) {
                 case 0:
                     return profile.getName();
                 case 2:
-                    if (profile.getAuthentication() == null) {
+                    if ((auth != null) && (auth.getSelectedProfile() != null)) {
+                        return auth.getSelectedProfile().getName();
+                    }
+                    return "(Not logged in)";
+
+                 /*   
+if (profile.getAuthentication() == null) {
                         return "(Not logged in)";
                     }
                     return profile.getAuthentication().getUsername();
+*/
+
          /*if (profile.getAuthentication().isLoggedIn()) {
            if (profile.getAuthentication().getSelectedProfile() != null) {
              return profile.getAuthentication().getSelectedProfile().getName();

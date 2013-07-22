@@ -4,57 +4,51 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class MonitoringInputStream extends FilterInputStream
-{
-  private final ProgressContainer monitor;
+public class MonitoringInputStream extends FilterInputStream {
+    private final ProgressContainer monitor;
 
-  protected MonitoringInputStream(InputStream in, ProgressContainer monitor)
-  {
-    super(in);
-    this.monitor = monitor;
-  }
-
-  public int read() throws IOException
-  {
-    int result = this.in.read();
-
-    if (result >= 0) {
-      this.monitor.addProgress(1L);
+    protected MonitoringInputStream(InputStream in, ProgressContainer monitor) {
+        super(in);
+        this.monitor = monitor;
     }
 
-    return result;
-  }
+    public int read() throws IOException {
+        int result = this.in.read();
 
-  public int read(byte[] buffer) throws IOException
-  {
-    int size = this.in.read(buffer);
+        if (result >= 0) {
+            this.monitor.addProgress(1L);
+        }
 
-    if (size >= 0) {
-      this.monitor.addProgress(size);
+        return result;
     }
 
-    return size;
-  }
+    public int read(byte[] buffer) throws IOException {
+        int size = this.in.read(buffer);
 
-  public int read(byte[] buffer, int off, int len) throws IOException
-  {
-    int size = this.in.read(buffer, off, len);
+        if (size >= 0) {
+            this.monitor.addProgress(size);
+        }
 
-    if (size > 0) {
-      this.monitor.addProgress(size);
+        return size;
     }
 
-    return size;
-  }
+    public int read(byte[] buffer, int off, int len) throws IOException {
+        int size = this.in.read(buffer, off, len);
 
-  public long skip(long size) throws IOException
-  {
-    long skipped = super.skip(size);
+        if (size > 0) {
+            this.monitor.addProgress(size);
+        }
 
-    if (skipped > 0L) {
-      this.monitor.addProgress(skipped);
+        return size;
     }
 
-    return skipped;
-  }
+    public long skip(long size) throws IOException {
+        long skipped = super.skip(size);
+
+        if (skipped > 0L) {
+            this.monitor.addProgress(skipped);
+        }
+
+        return skipped;
+    }
 }

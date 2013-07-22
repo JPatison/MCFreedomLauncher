@@ -52,5 +52,3 @@ public abstract interface AuthenticationService {
 
     public abstract boolean shouldRememberMe();
 }
-
-

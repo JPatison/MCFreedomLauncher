@@ -68,7 +68,10 @@ public class ProfileEditorPopup extends JPanel
                     while (profiles.containsKey(this.profile.getName())) {
                         this.profile.setName(this.profile.getName() + "_");
                     }
+
                 }
+
+                this.profile.refreshUUID();
 
                 profiles.put(this.profile.getName(), this.profile);
 
@@ -101,5 +104,3 @@ public class ProfileEditorPopup extends JPanel
         dialog.setVisible(true);
     }
 }
-
-

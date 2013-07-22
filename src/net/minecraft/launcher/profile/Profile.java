@@ -1,24 +1,20 @@
 package net.minecraft.launcher.profile;
 
-import net.minecraft.launcher.authentication.AuthenticationService;
-import net.minecraft.launcher.authentication.SPAuthenticationService;
-import net.minecraft.launcher.authentication.yggdrasil.YggdrasilAuthenticationService;
 import net.minecraft.launcher.updater.VersionFilter;
 import net.minecraft.launcher.versions.ReleaseType;
+import org.hopto.energy.HashUtil;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 
 public class Profile {
     public static final String DEFAULT_JRE_ARGUMENTS_64BIT = "-Xmx1G";
     public static final String DEFAULT_JRE_ARGUMENTS_32BIT = "-Xmx512M";
     public static final Resolution DEFAULT_RESOLUTION = new Resolution(854, 480);
+    public static final LauncherVisibilityRule DEFAULT_LAUNCHER_VISIBILITY = LauncherVisibilityRule.CLOSE_LAUNCHER;
     public static final Set<ReleaseType> DEFAULT_RELEASE_TYPES = new HashSet(Arrays.asList(new ReleaseType[]{ReleaseType.RELEASE}));
     private static boolean SPMode = true;
-    private AuthenticationService authentication = SPMode ? new SPAuthenticationService() : new YggdrasilAuthenticationService();
+    //private AuthenticationService authentication = SPMode ? new SPAuthenticationService() : new YggdrasilAuthenticationService();
     private String name;
     private File gameDir;
     private String lastVersionId;
@@ -26,18 +22,21 @@ public class Profile {
     private String javaArgs;
     private Resolution resolution;
     private Set<ReleaseType> allowedReleaseTypes;
+    private String playerUUID;
     private Boolean useHopperCrashService;
-
+    private LauncherVisibilityRule launcherVisibilityOnGameClose;
+    @Deprecated
+    private Map<String, String> authentication;
     private Locale locale;
+
 
     public Profile() {
     }
 
-
-
     public Profile(Profile copy) {
         this.name = copy.name;
         this.gameDir = copy.gameDir;
+        this.playerUUID = copy.playerUUID;
         this.authentication = copy.authentication;
         this.lastVersionId = copy.lastVersionId;
         this.javaDir = copy.javaDir;
@@ -46,9 +45,10 @@ public class Profile {
         this.resolution = (copy.resolution == null ? null : new Resolution(copy.resolution));
         this.allowedReleaseTypes = (copy.allowedReleaseTypes == null ? null : new HashSet(copy.allowedReleaseTypes));
         this.useHopperCrashService = copy.useHopperCrashService;
+        this.launcherVisibilityOnGameClose = copy.launcherVisibilityOnGameClose;
 
-        this.locale=copy.locale;
-        this.SPMode=copy.SPMode;
+        this.locale = copy.locale;
+        this.SPMode = copy.SPMode;
     }
 
     public Locale getLocale() {
@@ -58,6 +58,7 @@ public class Profile {
     public void setLocale(Locale locale) {
         this.locale = locale;
     }
+
     public Profile(String name) {
         this.name = name;
     }
@@ -66,9 +67,9 @@ public class Profile {
         return javaDir;
     }
 
-    public void setAuthentication(AuthenticationService authentication) {
+  /*  public void setAuthentication(AuthenticationService authentication) {
         this.authentication = authentication;
-    }
+    }*/
 
     public static boolean isSPMode() {
         return SPMode;
@@ -126,8 +127,22 @@ public class Profile {
         this.resolution = resolution;
     }
 
-    public AuthenticationService getAuthentication() {
-        return this.authentication;
+
+    /*
+ public AuthenticationService getAuthentication() {
+         return this.authentication;
+     }
+ */
+    public String getPlayerUUID() {
+        return this.playerUUID;
+    }
+
+    public void setPlayerUUID(String playerUUID) {
+        this.playerUUID = playerUUID;
+    }
+
+    public void refreshUUID() {
+        this.playerUUID = HashUtil.getMD5(this.getName());
     }
 
     public Set<ReleaseType> getAllowedReleaseTypes() {
@@ -158,6 +173,24 @@ public class Profile {
         return filter;
     }
 
+    public LauncherVisibilityRule getLauncherVisibilityOnGameClose() {
+        return this.launcherVisibilityOnGameClose;
+    }
+
+    public void setLauncherVisibilityOnGameClose(LauncherVisibilityRule launcherVisibilityOnGameClose) {
+        this.launcherVisibilityOnGameClose = launcherVisibilityOnGameClose;
+    }
+
+    @Deprecated
+    public Map<String, String> getAuthentication() {
+        return this.authentication;
+    }
+
+    @Deprecated
+    public void setAuthentication(Map<String, String> authentication) {
+        this.authentication = authentication;
+    }
+
     public static class Resolution {
         private int width;
         private int height;
@@ -183,5 +216,3 @@ public class Profile {
         }
     }
 }
-
-

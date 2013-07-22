@@ -5,6 +5,7 @@ import net.minecraft.launcher.authentication.exceptions.AuthenticationException;
 import net.minecraft.launcher.authentication.exceptions.InvalidCredentialsException;
 import net.minecraft.launcher.events.AuthenticationChangedListener;
 import org.apache.commons.lang3.StringUtils;
+import org.hopto.energy.HashUtil;
 
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
@@ -25,9 +26,10 @@ public class SPAuthenticationService implements AuthenticationService {
     private static final String LEGACY_LASTLOGIN_PASSWORD = "passwordfile";
     private static final int LEGACY_LASTLOGIN_SEED = 43287234;
     private final List<AuthenticationChangedListener> listeners = new ArrayList();
-    private String sessionToken = null;
-    private String username = null;
-    private String password = null;
+    private String sessionToken = "";
+    private String username = "";
+    private String password = "";
+    private String uuid = "";
     private GameProfile selectedProfile = null;
     private boolean shouldRememberMe = true;
 
@@ -77,7 +79,8 @@ public class SPAuthenticationService implements AuthenticationService {
         args.put("user", getUsername());
         args.put("password", getPassword());
         args.put("version", Integer.valueOf(14));
-        String response = "0:0:" + getUsername() + ":0:0";
+        uuid = HashUtil.getMD5(getUsername());
+        String response = "0:0:" + getUsername() + ":0:" + uuid;
         /*try { response = Http.performPost(AUTHENTICATION_URL, args, Launcher.getInstance().getProxy()).trim();
         } catch (IOException e) {
             throw new AuthenticationException("Authentication server is not responding", e);
@@ -86,7 +89,8 @@ public class SPAuthenticationService implements AuthenticationService {
         String[] split = response.split(":");
 
         if (split.length == 5) {
-            String profileId = Long.toString(System.currentTimeMillis());
+            //  String profileId = Long.toString(System.currentTimeMillis());
+            String profileId = split[4];
             String profileName = split[2];
             String sessionToken = split[3];
 
@@ -128,6 +132,14 @@ public class SPAuthenticationService implements AuthenticationService {
         return new GameProfile[0];
     }
 
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
     @Override
     public GameProfile getSelectedProfile() {
         return this.selectedProfile;
@@ -147,7 +159,7 @@ public class SPAuthenticationService implements AuthenticationService {
         logOut();
 
         if (credentials.containsKey("rememberMe")) {
-            setRememberMe(Boolean.getBoolean((String)credentials.get("rememberMe")));
+            setRememberMe(Boolean.getBoolean((String) credentials.get("rememberMe")));
         }
 
         setUsername((String) credentials.get("username"));
@@ -177,16 +189,13 @@ public class SPAuthenticationService implements AuthenticationService {
         return result;
     }
 
-    public boolean shouldRememberMe()
-    {
+    public boolean shouldRememberMe() {
         return this.shouldRememberMe;
     }
 
-    public void setRememberMe(boolean rememberMe)
-    {
+    public void setRememberMe(boolean rememberMe) {
         this.shouldRememberMe = rememberMe;
     }
-
 
 
     @Override

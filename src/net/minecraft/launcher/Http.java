@@ -1,9 +1,11 @@
 package net.minecraft.launcher;
 
 import net.minecraft.hopper.Util;
-import org.apache.commons.io.Charsets;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.*;
 import java.util.Map;
 
@@ -114,5 +116,3 @@ public class Http {
         return new URL(url.getProtocol(), url.getHost(), url.getFile() + "&" + args);
     }
 }
-
-

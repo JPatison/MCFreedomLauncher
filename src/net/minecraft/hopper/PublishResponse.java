@@ -1,21 +1,19 @@
 package net.minecraft.hopper;
 
-public class PublishResponse extends Response
-{
-  private Report report;
-  private Crash crash;
-  private Problem problem;
+public class PublishResponse extends Response {
+    private Report report;
+    private Crash crash;
+    private Problem problem;
 
-  public Report getReport()
-  {
-    return this.report;
-  }
+    public Report getReport() {
+        return this.report;
+    }
 
-  public Crash getCrash() {
-    return this.crash;
-  }
+    public Crash getCrash() {
+        return this.crash;
+    }
 
-  public Problem getProblem() {
-    return this.problem;
-  }
+    public Problem getProblem() {
+        return this.problem;
+    }
 }

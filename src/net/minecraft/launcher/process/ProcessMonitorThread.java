@@ -43,5 +43,3 @@ public class ProcessMonitorThread extends Thread {
             onExit.onJavaProcessEnded(this.process);
     }
 }
-
-

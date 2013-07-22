@@ -1,18 +1,13 @@
-package net.minecraft.launcher.ui.sidebar;
+package net.minecraft.launcher.ui.bottombar;
 
+import javax.swing.*;
 import java.awt.*;
 
-public abstract class SidebarGridForm extends SidebarForm {
-    protected SidebarGridForm(String name) {
-        super(name);
-    }
-
+public abstract class SidebarGridForm extends JPanel {
     protected void createInterface() {
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints constraints = new GridBagConstraints();
         setLayout(layout);
-
-        constraints.insets = new Insets(2, 2, 2, 2);
 
         populateGrid(constraints);
     }
@@ -35,5 +30,3 @@ public abstract class SidebarGridForm extends SidebarForm {
         return component;
     }
 }
-
-

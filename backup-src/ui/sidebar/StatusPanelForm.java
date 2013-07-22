@@ -10,8 +10,6 @@ import net.minecraft.launcher.Launcher;
 import net.minecraft.launcher.locale.LocaleHelper;
 import net.minecraft.launcher.updater.LowerCaseEnumTypeAdapterFactory;
 
-import javax.swing.*;
-import java.awt.*;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -142,22 +140,15 @@ public class StatusPanelForm extends SidebarGridForm {
         });
     }
 
-
     public static enum ServerStatus {
         GREEN(resourceBundle.getString("online.no.problems.detected")),
         YELLOW(resourceBundle.getString("may.be.experiencing.issues")),
         RED(resourceBundle.getString("offline.experiencing.problems"));
-        private final String title;
-
+        
+private final String title;
 
         private ServerStatus(String title) {
-
             this.title = title;
-
         }
-
     }
-
 }
-
-

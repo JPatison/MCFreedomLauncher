@@ -23,5 +23,3 @@ public class AuthenticationSerializer
         return context.serialize(map);
     }
 }
-
-

@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 public class InstallDirSettings {
     public static String fileLocation = "./FreeLauncher.properties";
+
     public static File loadAtStartup(JFrame frame, File defaultWorkingDir) {
         Properties prop = new Properties();
 
@@ -28,7 +29,7 @@ public class InstallDirSettings {
             } catch (IOException ex) {
                 Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if (prop.getProperty("installation_dir")!=null)
+            if (prop.getProperty("installation_dir") != null)
                 workingDirectory = new File(prop.getProperty("installation_dir"));
             else
                 workingDirectory = changeDirInternal(frame, defaultWorkingDir, prop, file);

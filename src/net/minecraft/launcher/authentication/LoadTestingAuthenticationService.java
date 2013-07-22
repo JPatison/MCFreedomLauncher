@@ -11,7 +11,7 @@ import java.util.Map;
 public class LoadTestingAuthenticationService
         implements AuthenticationService {
     private final AuthenticationService primary = new LegacyAuthenticationService();
-    private final AuthenticationService secondary = new YggdrasilAuthenticationService();
+    private final AuthenticationService secondary = Launcher.isSPMode() ? new SPAuthenticationService() : new YggdrasilAuthenticationService();
 
     public void logIn() throws AuthenticationException {
         this.primary.logIn();
@@ -95,16 +95,12 @@ public class LoadTestingAuthenticationService
         return this.primary.guessPasswordFromSillyOldFormat(lastlogin);
     }
 
-    public void setRememberMe(boolean rememberMe)
-    {
+    public void setRememberMe(boolean rememberMe) {
         this.primary.setRememberMe(rememberMe);
         this.secondary.setRememberMe(rememberMe);
     }
 
-    public boolean shouldRememberMe()
-    {
+    public boolean shouldRememberMe() {
         return this.primary.shouldRememberMe();
     }
 }
-
-

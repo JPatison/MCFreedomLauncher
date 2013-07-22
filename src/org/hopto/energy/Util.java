@@ -16,10 +16,10 @@ public class Util {
     public static final String APPLICATION_NAME = "minecraft";
     public static String propFileLocation = "./FreeLauncher.properties";
 
-    public static String getProperties(String key){
-        String value="";
-       File propFile= new File(propFileLocation);
-        Properties prop=new Properties();
+    public static String getProperties(String key) {
+        String value = "";
+        File propFile = new File(propFileLocation);
+        Properties prop = new Properties();
         if (!propFile.exists()) {
             return value;
         } else {
@@ -34,10 +34,10 @@ public class Util {
         return value;
     }
 
-    public static Object setProperties(String key,String value){
-        Object finalValue="";
-        File propFile= new File(propFileLocation);
-        Properties prop=new Properties();
+    public static Object setProperties(String key, String value) {
+        Object finalValue = "";
+        File propFile = new File(propFileLocation);
+        Properties prop = new Properties();
         if (!propFile.exists()) {
             return finalValue;
         } else {
@@ -48,7 +48,7 @@ public class Util {
             }
             finalValue = prop.setProperty(key, value);
             try {
-                prop.store(new FileOutputStream(propFile),"MCFreeLauncher");
+                prop.store(new FileOutputStream(propFile), "MCFreeLauncher");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -57,16 +57,15 @@ public class Util {
         return finalValue;
     }
 
-    public static void restartApplication() throws URISyntaxException,IOException
-    {
+    public static void restartApplication() throws URISyntaxException, IOException {
         final String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
         final File currentJar = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-       System.out.println(currentJar.getAbsolutePath());
+        System.out.println(currentJar.getAbsolutePath());
   /* is it a jar file? */
-        if(currentJar.getName().endsWith("exe")) {
+        if (currentJar.getName().endsWith("exe")) {
 
             final ArrayList<String> command = new ArrayList<String>();
-           // command.add(javaBin);
+            // command.add(javaBin);
             //command.add("-jar");
             command.add(currentJar.getPath());
 
@@ -75,7 +74,7 @@ public class Util {
             System.exit(0);
         }
 
-        if(!currentJar.getName().endsWith(".jar"))
+        if (!currentJar.getName().endsWith(".jar"))
             return;
 
   /* Build command: java -jar application.jar */

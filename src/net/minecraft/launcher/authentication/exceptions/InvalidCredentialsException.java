@@ -1,13 +1,10 @@
 package net.minecraft.launcher.authentication.exceptions;
 
-public class InvalidCredentialsException extends AuthenticationException
-{
-  public InvalidCredentialsException()
-  {
+public class InvalidCredentialsException extends AuthenticationException {
+    public InvalidCredentialsException() {
     }
 
-  public InvalidCredentialsException(String message)
-  {
+    public InvalidCredentialsException(String message) {
         super(message);
     }
 

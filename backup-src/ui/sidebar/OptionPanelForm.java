@@ -3,7 +3,6 @@ package net.minecraft.launcher.ui.sidebar;
 import net.minecraft.launcher.Launcher;
 import net.minecraft.launcher.locale.LocaleHelper;
 import org.hopto.energy.LangSelection;
-import org.hopto.energy.Main;
 import org.hopto.energy.Util;
 
 import javax.swing.*;
@@ -14,8 +13,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by Energy on 13年7月4日.

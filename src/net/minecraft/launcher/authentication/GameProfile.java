@@ -44,5 +44,3 @@ public class GameProfile {
         return "GameProfile{id='" + this.id + '\'' + ", name='" + this.name + '\'' + '}';
     }
 }
-
-

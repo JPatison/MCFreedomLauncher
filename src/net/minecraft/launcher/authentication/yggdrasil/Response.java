@@ -1,12 +1,10 @@
 package net.minecraft.launcher.authentication.yggdrasil;
 
-public class Response
-{
+public class Response {
     private String error;
     private String errorMessage;
 
-  public String getError()
-  {
+    public String getError() {
         return this.error;
     }
 

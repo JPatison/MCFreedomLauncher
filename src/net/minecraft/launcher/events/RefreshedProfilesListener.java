@@ -7,5 +7,3 @@ public abstract interface RefreshedProfilesListener {
 
     public abstract boolean shouldReceiveEventsInUIThread();
 }
-
-

@@ -4,8 +4,6 @@ import net.minecraft.launcher.Launcher;
 import net.minecraft.launcher.authentication.AuthenticationService;
 import net.minecraft.launcher.locale.LocaleHelper;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ResourceBundle;
 
 public class LoginContainerForm extends JPanel {

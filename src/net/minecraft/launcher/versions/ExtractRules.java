@@ -28,5 +28,3 @@ public class ExtractRules {
         return true;
     }
 }
-
-

@@ -22,5 +22,3 @@ public abstract class FileBasedVersionList extends VersionList {
     protected abstract InputStream getFileInputStream(String paramString)
             throws FileNotFoundException;
 }
-
-

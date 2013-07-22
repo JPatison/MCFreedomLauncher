@@ -7,5 +7,3 @@ public abstract interface AuthenticationChangedListener {
 
     public abstract boolean shouldReceiveEventsInUIThread();
 }
-
-

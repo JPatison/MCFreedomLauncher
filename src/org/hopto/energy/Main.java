@@ -9,7 +9,6 @@ import net.minecraft.launcher.locale.LocaleHelper;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Authenticator;
 import java.net.InetSocketAddress;
@@ -17,12 +16,10 @@ import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.util.List;
 import java.util.Locale;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Main {
     Locale currentLocale;
+
     public static void main(String[] args)
             throws IOException {
         Launcher.setLookAndFeel();
@@ -92,11 +89,9 @@ public class Main {
 
         boolean force = optionSet.has("force");
 
-       // JOptionPane.showMessageDialog(null, "You have selected: " + LocaleHelper.getCurrentLocale());
+        // JOptionPane.showMessageDialog(null, "You have selected: " + LocaleHelper.getCurrentLocale());
 
         JFrame frame = new JFrame();
-
-
 
 
         new Launcher(frame, workingDirectory, proxy, passwordAuthentication, args);

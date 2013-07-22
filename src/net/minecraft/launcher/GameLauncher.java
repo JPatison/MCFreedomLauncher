@@ -4,6 +4,7 @@ import net.minecraft.launcher.authentication.AuthenticationService;
 import net.minecraft.launcher.process.JavaProcess;
 import net.minecraft.launcher.process.JavaProcessLauncher;
 import net.minecraft.launcher.process.JavaProcessRunnable;
+import net.minecraft.launcher.profile.LauncherVisibilityRule;
 import net.minecraft.launcher.profile.Profile;
 import net.minecraft.launcher.ui.tabs.CrashReportTab;
 import net.minecraft.launcher.updater.LocalVersionList;
@@ -34,6 +35,7 @@ public class GameLauncher
     private final Launcher launcher;
     private final List<DownloadJob> jobs = new ArrayList();
     private CompleteVersion version;
+    private LauncherVisibilityRule visibilityRule;
     private boolean isWorking;
     private File nativeDir;
 
@@ -58,7 +60,8 @@ public class GameLauncher
             this.isWorking = working;
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
-                    GameLauncher.this.launcher.getLauncherPanel().getSidebar().getLoginForm().checkLoginState();
+                    GameLauncher.this.launcher.getLauncherPanel().getBottomBar().getPlayButtonPanel().checkState();
+                    //GameLauncher.this.launcher.getLauncherPanel().getSidebar().getLoginForm().checkLoginState();
                 }
             });
         }
@@ -87,13 +90,18 @@ public class GameLauncher
 
         Profile profile = this.launcher.getProfileManager().getSelectedProfile();
         String lastVersionId = profile.getLastVersionId();
+
+        if (profile.getLauncherVisibilityOnGameClose() == null)
+            this.visibilityRule = Profile.DEFAULT_LAUNCHER_VISIBILITY;
+        else
+            this.visibilityRule = profile.getLauncherVisibilityOnGameClose();
         VersionSyncInfo syncInfo;
 
         if (lastVersionId != null)
             syncInfo = this.launcher.getVersionManager().getVersionSyncInfo(lastVersionId);
         else {
             //syncInfo = (VersionSyncInfo) this.launcher.getVersionManager().getVersions().get(0);
-            syncInfo = (VersionSyncInfo)this.launcher.getVersionManager().getVersions(profile.getVersionFilter()).get(0);
+            syncInfo = (VersionSyncInfo) this.launcher.getVersionManager().getVersions(profile.getVersionFilter()).get(0);
         }
 
         if (syncInfo == null) {
@@ -198,9 +206,9 @@ public class GameLauncher
 
         String profileArgs = selectedProfile.getJavaArgs();
 
-        if (profileArgs != null)
+        if (profileArgs != null) {
             processLauncher.addSplitCommands(profileArgs);
-        else {
+        } else {
             boolean is32Bit = "32".equals(System.getProperty("sun.arch.data.model"));
             String defaultArgument = is32Bit ? "-Xmx512M" : "-Xmx1G";
             processLauncher.addSplitCommands(defaultArgument);
@@ -210,7 +218,9 @@ public class GameLauncher
         processLauncher.addCommands(new String[]{"-cp", constructClassPath(this.version)});
         processLauncher.addCommands(new String[]{this.version.getMainClass()});
 
-        String[] args = getMinecraftArguments(this.version, selectedProfile, gameDirectory, assetsDirectory);
+        AuthenticationService auth = this.launcher.getProfileManager().getAuthDatabase().getByUUID(selectedProfile.getPlayerUUID());
+
+        String[] args = getMinecraftArguments(this.version, selectedProfile, gameDirectory, assetsDirectory, auth);
         if (args == null) return;
         processLauncher.addCommands(args);
 
@@ -248,10 +258,9 @@ public class GameLauncher
             Launcher.getInstance().println("Running " + full.toString());
             JavaProcess process = processLauncher.start();
             process.safeSetExitRunnable(this);
-            Launcher.getInstance().println("---- YOU CAN CLOSE THIS LAUNCHER IF THE GAME STARTED OK ----");
-            Launcher.getInstance().println("---- YOU CAN CLOSE THIS LAUNCHER IF THE GAME STARTED OK ----");
-            Launcher.getInstance().println("---- YOU CAN CLOSE THIS LAUNCHER IF THE GAME STARTED OK ----");
-            Launcher.getInstance().println("---- (We'll do this automatically later ;D) ----");
+
+            if (this.visibilityRule != LauncherVisibilityRule.DO_NOTHING)
+                this.launcher.getFrame().setVisible(false);
         } catch (IOException e) {
             Launcher.getInstance().println("Couldn't launch game", e);
             setWorking(false);
@@ -259,7 +268,7 @@ public class GameLauncher
         }
     }
 
-    private String[] getMinecraftArguments(CompleteVersion version, Profile selectedProfile, File gameDirectory, File assetsDirectory) {
+    private String[] getMinecraftArguments(CompleteVersion version, Profile selectedProfile, File gameDirectory, File assetsDirectory, AuthenticationService authentication) {
         if (version.getMinecraftArguments() == null) {
             Launcher.getInstance().println("Can't run version, missing minecraftArguments");
             setWorking(false);
@@ -269,7 +278,7 @@ public class GameLauncher
         Map map = new HashMap();
         StrSubstitutor substitutor = new StrSubstitutor(map);
         String[] split = version.getMinecraftArguments().split(" ");
-        AuthenticationService authentication = selectedProfile.getAuthentication();
+        //AuthenticationService authentication = selectedProfile.getAuthentication();
 
         map.put("auth_username", authentication.getUsername());
         map.put("auth_session", (authentication.getSessionToken() == null) && (authentication.canPlayOnline()) ? "-" : authentication.getSessionToken());
@@ -318,7 +327,7 @@ public class GameLauncher
             Map nativesPerOs = library.getNatives();
 
             if ((nativesPerOs != null) && (nativesPerOs.get(os) != null)) {
-                File file = new File(this.launcher.getWorkingDirectory(), "libraries/" +library.getArtifactPath((String) nativesPerOs.get(os)));
+                File file = new File(this.launcher.getWorkingDirectory(), "libraries/" + library.getArtifactPath((String) nativesPerOs.get(os)));
                 ZipFile zip = new ZipFile(file);
                 ExtractRules extractRules = library.getExtractRules();
                 try {
@@ -375,9 +384,29 @@ public class GameLauncher
 
         if (exitCode == 0) {
             Launcher.getInstance().println("Game ended with no troubles detected (exit code " + exitCode + ")");
+
+            if (this.visibilityRule == LauncherVisibilityRule.CLOSE_LAUNCHER)
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        GameLauncher.this.launcher.println("Following visibility rule and exiting launcher as the game has ended");
+                        GameLauncher.this.launcher.closeLauncher();
+                    }
+                });
+            else if (this.visibilityRule == LauncherVisibilityRule.HIDE_LAUNCHER)
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        GameLauncher.this.launcher.println("Following visibility rule and showing launcher as the game has ended");
+                        GameLauncher.this.launcher.getFrame().setVisible(true);
+                    }
+                });
         } else {
             Launcher.getInstance().println("Game ended with bad state (exit code " + exitCode + ")");
-
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    GameLauncher.this.launcher.println("Ignoring visibility rule and showing launcher due to a game crash");
+                    GameLauncher.this.launcher.getFrame().setVisible(true);
+                }
+            });
             String errorText = null;
             String[] sysOut = (String[]) process.getSysOutLines().getItems();
 
@@ -461,35 +490,35 @@ public class GameLauncher
         });
     }
 
- /*   protected float getProgress() {
+    /*   protected float getProgress() {
+           synchronized (this.lock) {
+               float max = this.jobs.size();
+               float result = 0.0F;
+
+               for (DownloadJob job : this.jobs) {
+                   result += job.getProgress();
+               }
+
+               return result / max;
+           }
+       }*/
+    protected float getProgress() {
         synchronized (this.lock) {
-            float max = this.jobs.size();
+            float max = 0.0F;
             float result = 0.0F;
 
             for (DownloadJob job : this.jobs) {
-                result += job.getProgress();
+                float progress = job.getProgress();
+
+                if (progress >= 0.0F) {
+                    result += progress;
+                    max += 1.0F;
+                }
             }
 
             return result / max;
         }
-    }*/
- protected float getProgress() {
-     synchronized (this.lock) {
-         float max = 0.0F;
-         float result = 0.0F;
-
-         for (DownloadJob job : this.jobs) {
-             float progress = job.getProgress();
-
-             if (progress >= 0.0F) {
-                 result += progress;
-                 max += 1.0F;
-             }
-         }
-
-         return result / max;
-     }
- }
+    }
 
     public boolean hasRemainingJobs() {
         synchronized (this.lock) {

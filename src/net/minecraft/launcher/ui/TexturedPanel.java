@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.io.IOException;
 
-public abstract class TexturedPanel extends JPanel {
+public class TexturedPanel extends JPanel {
     private static final long serialVersionUID = 1L;
     private Image image;
     private Image bgImage;

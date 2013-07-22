@@ -7,5 +7,3 @@ public abstract interface RefreshedVersionsListener {
 
     public abstract boolean shouldReceiveEventsInUIThread();
 }
-
-

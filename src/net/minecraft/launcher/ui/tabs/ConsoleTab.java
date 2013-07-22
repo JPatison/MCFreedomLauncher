@@ -52,5 +52,3 @@ public class ConsoleTab extends JScrollPane {
             scrollBar.setValue(2147483647);
     }
 }
-
-

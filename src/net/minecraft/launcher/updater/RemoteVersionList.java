@@ -27,5 +27,3 @@ public class RemoteVersionList extends VersionList {
         return this.proxy;
     }
 }
-
-

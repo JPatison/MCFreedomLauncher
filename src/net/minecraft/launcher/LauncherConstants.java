@@ -1,12 +1,12 @@
 package net.minecraft.launcher;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class LauncherConstants {
-    public static final String VERSION_NAME = "1.0.10";
-    public static final int VERSION_NUMERIC = 4;
-    public static final String URL_REGISTER = "https://account.mojang.com/register";
+    public static final String VERSION_NAME = "1.1.1";
+    public static final int VERSION_NUMERIC = 5;
+    public static final URI URL_REGISTER = constantURI("https://account.mojang.com/register");
     public static final String URL_DOWNLOAD_BASE = "https://s3.amazonaws.com/Minecraft.Download/";
     public static final String URL_RESOURCE_BASE = "https://s3.amazonaws.com/Minecraft.Resources/";
     public static final String URL_BLOG = "http://mcupdate.tumblr.com";
@@ -18,13 +18,18 @@ public class LauncherConstants {
     public static final String[] BOOTSTRAP_OUT_OF_DATE_BUTTONS = {"Go to URL", "Close"};
 
     public static final String[] CONFIRM_PROFILE_DELETION_OPTIONS = {"Delete profile", "Cancel"};
-    public static final String URL_FORGOT_PASSWORD_MOJANG = "https://account.mojang.com/resetpassword/request";
-    public static final String URL_FORGOT_PASSWORD_MINECRAFT = "https://minecraft.net/resetpassword";
-    public static final String URL_FORGOT_MIGRATED_EMAIL = "http://help.mojang.com/customer/portal/articles/1205055-minecraft-launcher-error---migrated-account";
+
+    public static final URI URL_FORGOT_PASSWORD_MOJANG = constantURI("https://account.mojang.com/resetpassword/request");
+    public static final URI URL_FORGOT_PASSWORD_MINECRAFT = constantURI("https://minecraft.net/resetpassword");
+    public static final URI URL_FORGOT_MIGRATED_EMAIL = constantURI("http://help.mojang.com/customer/portal/articles/1205055-minecraft-launcher-error---migrated-account");
     public static final int MAX_NATIVES_LIFE_IN_SECONDS = 3600;
     public static final String DEFAULT_VERSION_INCOMPATIBILITY_REASON = "This version is incompatible with your computer. Please try another one by going into Edit Profile and selecting one through the dropdown. Sorry!";
 
-
+    public static URI constantURI(String input) {
+        try {
+            return new URI(input);
+        } catch (URISyntaxException e) {
+            throw new Error(e);
+        }
+    }
 }
-
-

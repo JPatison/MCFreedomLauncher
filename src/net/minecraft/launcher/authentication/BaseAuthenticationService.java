@@ -21,9 +21,9 @@ public abstract class BaseAuthenticationService
     private static final String LEGACY_LASTLOGIN_PASSWORD = "passwordfile";
     private static final int LEGACY_LASTLOGIN_SEED = 43287234;
     private final List<AuthenticationChangedListener> listeners = new ArrayList();
-    private String username ;
-    private String password ;
-    private GameProfile selectedProfile ;
+    private String username;
+    private String password;
+    private GameProfile selectedProfile;
     private boolean shouldRememberMe = true;
 
     public boolean canLogIn() {
@@ -100,9 +100,8 @@ public abstract class BaseAuthenticationService
         logOut();
 
         if (credentials.containsKey("rememberMe")) {
-            setRememberMe(Boolean.getBoolean((String)credentials.get("rememberMe")));
+            setRememberMe(Boolean.getBoolean((String) credentials.get("rememberMe")));
         }
-
 
         setUsername((String) credentials.get("username"));
 
@@ -118,7 +117,6 @@ public abstract class BaseAuthenticationService
             return result;
         }
 
-
         if (getUsername() != null) {
             result.put("username", getUsername());
         }
@@ -131,13 +129,11 @@ public abstract class BaseAuthenticationService
         return result;
     }
 
-    public boolean shouldRememberMe()
-    {
+    public boolean shouldRememberMe() {
         return this.shouldRememberMe;
     }
 
-    public void setRememberMe(boolean rememberMe)
-    {
+    public void setRememberMe(boolean rememberMe) {
         this.shouldRememberMe = rememberMe;
     }
 
@@ -226,5 +222,3 @@ public abstract class BaseAuthenticationService
         return cipher;
     }
 }
-
-

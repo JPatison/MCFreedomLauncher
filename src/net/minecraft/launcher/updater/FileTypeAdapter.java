@@ -26,5 +26,3 @@ public class FileTypeAdapter extends TypeAdapter<File> {
         return null;
     }
 }
-
-

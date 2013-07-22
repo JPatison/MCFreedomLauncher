@@ -141,5 +141,3 @@ public class VersionListTab extends JScrollPane
         }
     }
 }
-
-

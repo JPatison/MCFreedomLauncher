@@ -76,5 +76,3 @@ public class JavaProcess {
         this.process.destroy();
     }
 }
-
-

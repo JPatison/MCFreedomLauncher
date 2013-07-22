@@ -55,5 +55,3 @@ public class LimitedCapacityList<T> {
         return (T[]) result;
     }
 }
-
-

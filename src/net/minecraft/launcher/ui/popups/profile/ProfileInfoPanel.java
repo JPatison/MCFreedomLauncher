@@ -2,6 +2,7 @@ package net.minecraft.launcher.ui.popups.profile;
 
 import net.minecraft.launcher.events.RefreshedVersionsListener;
 import net.minecraft.launcher.locale.LocaleHelper;
+import net.minecraft.launcher.profile.LauncherVisibilityRule;
 import net.minecraft.launcher.profile.Profile;
 import net.minecraft.launcher.updater.VersionManager;
 import net.minecraft.launcher.updater.VersionSyncInfo;
@@ -33,9 +34,10 @@ public class ProfileInfoPanel extends JPanel
     private final JTextField resolutionWidth = new JTextField();
     private final JTextField resolutionHeight = new JTextField();
     private final JCheckBox allowSnapshots = new JCheckBox("Enable experimental development versions (\"snapshots\")");
-    private final JComboBox<Locale> langList =new JComboBox<Locale>(LocaleHelper.getLocales());
+    private final JComboBox<Locale> langList = new JComboBox<Locale>(LocaleHelper.getLocales());
     private final JCheckBox useHopper = new JCheckBox("Automatically ask Mojang for assistance with fixing crashes");
-
+    private final JCheckBox launcherVisibilityCustom = new JCheckBox("Launcher Visibility:");
+    private final JComboBox launcherVisibilityOption = new JComboBox();
 
     public ProfileInfoPanel(ProfileEditorPopup editor) {
         this.editor = editor;
@@ -91,7 +93,6 @@ public class ProfileInfoPanel extends JPanel
 
         constraints.gridy += 1;
 
-
         add(new JLabel("Use version:"), constraints);
         constraints.fill = 2;
         constraints.weightx = 1.0D;
@@ -128,6 +129,14 @@ public class ProfileInfoPanel extends JPanel
 
         constraints.gridy += 1;
 
+        add(this.launcherVisibilityCustom, constraints);
+        constraints.fill = 2;
+        constraints.weightx = 1.0D;
+        add(this.launcherVisibilityOption, constraints);
+        constraints.weightx = 0.0D;
+        constraints.fill = 0;
+
+        constraints.gridy += 1;
 
         add(new JLabel("Language:"), constraints);
         constraints.fill = 2;
@@ -139,6 +148,9 @@ public class ProfileInfoPanel extends JPanel
         constraints.gridy += 1;
 
         this.versionList.setRenderer(new VersionListRenderer());
+
+        for (LauncherVisibilityRule value : LauncherVisibilityRule.values())
+            this.launcherVisibilityOption.addItem(value);
     }
 
     protected void fillDefaultValues() {
@@ -161,13 +173,22 @@ public class ProfileInfoPanel extends JPanel
         this.resolutionHeight.setText(String.valueOf(resolution.getHeight()));
         updateResolutionState();
 
-
         this.allowSnapshots.setSelected(this.editor.getProfile().getVersionFilter().getTypes().contains(ReleaseType.SNAPSHOT));
 
         this.useHopper.setSelected(this.editor.getProfile().getUseHopperCrashService());
 
-        this.langList.setSelectedIndex(0);
+        LauncherVisibilityRule visibility = this.editor.getProfile().getLauncherVisibilityOnGameClose();
 
+        if (visibility != null) {
+            this.launcherVisibilityCustom.setSelected(true);
+            this.launcherVisibilityOption.setSelectedItem(visibility);
+        } else {
+            this.launcherVisibilityCustom.setSelected(false);
+            this.launcherVisibilityOption.setSelectedItem(Profile.DEFAULT_LAUNCHER_VISIBILITY);
+        }
+        updateLauncherVisibilityState();
+
+        this.langList.setSelectedIndex(0);
 
     }
 
@@ -229,31 +250,52 @@ public class ProfileInfoPanel extends JPanel
         this.resolutionWidth.getDocument().addDocumentListener(resolutionListener);
         this.resolutionHeight.getDocument().addDocumentListener(resolutionListener);
 
-
-        this.allowSnapshots.addItemListener(new ItemListener()
-        {
+        this.allowSnapshots.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 ProfileInfoPanel.this.updateCustomVersionFilter();
             }
         });
-
-
-
-        this.useHopper.addItemListener(new ItemListener()
-        {
+        this.useHopper.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 ProfileInfoPanel.this.updateHopper();
             }
         });
-
+        this.launcherVisibilityCustom.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                ProfileInfoPanel.this.updateLauncherVisibilityState();
+            }
+        });
+        this.launcherVisibilityOption.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                ProfileInfoPanel.this.updateLauncherVisibilitySelection();
+            }
+        });
         this.langList.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                ProfileInfoPanel.this.editor.getProfile().setLocale((Locale)langList.getSelectedItem());
+                ProfileInfoPanel.this.editor.getProfile().setLocale((Locale) langList.getSelectedItem());
             }
         });
     }
 
+    private void updateLauncherVisibilityState() {
+        Profile profile = this.editor.getProfile();
+
+        if ((this.launcherVisibilityCustom.isSelected()) && ((this.launcherVisibilityOption.getSelectedItem() instanceof LauncherVisibilityRule))) {
+            profile.setLauncherVisibilityOnGameClose((LauncherVisibilityRule) this.launcherVisibilityOption.getSelectedItem());
+            this.launcherVisibilityOption.setEnabled(true);
+        } else {
+            profile.setLauncherVisibilityOnGameClose(null);
+            this.launcherVisibilityOption.setEnabled(false);
+        }
+    }
+
+    private void updateLauncherVisibilitySelection() {
+        Profile profile = this.editor.getProfile();
+
+        if ((this.launcherVisibilityOption.getSelectedItem() instanceof LauncherVisibilityRule))
+            profile.setLauncherVisibilityOnGameClose((LauncherVisibilityRule) this.launcherVisibilityOption.getSelectedItem());
+    }
 
     private void updateHopper() {
         Profile profile = this.editor.getProfile();

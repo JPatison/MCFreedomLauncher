@@ -1,11 +1,9 @@
 package net.minecraft.hopper;
 
-public class Response
-{
-  private String error;
+public class Response {
+    private String error;
 
-  public String getError()
-  {
-    return this.error;
-  }
+    public String getError() {
+        return this.error;
+    }
 }

@@ -1,12 +1,16 @@
 
 package net.minecraft.launcher;
 
-import net.minecraft.launcher.authentication.LegacyAuthenticationService;
+import net.minecraft.launcher.authentication.AuthenticationService;
 import net.minecraft.launcher.authentication.OldAuthentication;
+import net.minecraft.launcher.authentication.SPAuthenticationService;
+import net.minecraft.launcher.authentication.exceptions.AuthenticationException;
+import net.minecraft.launcher.authentication.yggdrasil.YggdrasilAuthenticationService;
 import net.minecraft.launcher.locale.LocaleHelper;
 import net.minecraft.launcher.profile.Profile;
 import net.minecraft.launcher.profile.ProfileManager;
 import net.minecraft.launcher.ui.LauncherPanel;
+import net.minecraft.launcher.ui.popups.login.LogInPopup;
 import net.minecraft.launcher.updater.LocalVersionList;
 import net.minecraft.launcher.updater.RemoteVersionList;
 import net.minecraft.launcher.updater.VersionManager;
@@ -28,8 +32,8 @@ import java.util.*;
 import java.util.List;
 
 public class Launcher {
-    private static final List<String> delayedSysout = new ArrayList();
     private static Launcher instance;
+    private static final List<String> delayedSysout = new ArrayList();
     private final VersionManager versionManager;
     private final JFrame frame;
     private final LauncherPanel launcherPanel;
@@ -43,18 +47,20 @@ public class Launcher {
     private final OldAuthentication authentication;
     private UUID clientToken = UUID.randomUUID();
     private Locale locale;
+    private static boolean SPMode = true;
 
     public Launcher(JFrame frame, File workingDirectory, Proxy proxy, PasswordAuthentication proxyAuth, String[] args) {
         this(frame, workingDirectory, proxy, proxyAuth, args, Integer.valueOf(0));
     }
 
     public Launcher(JFrame frame, File workingDirectory, Proxy proxy, PasswordAuthentication proxyAuth, String[] args, Integer bootstrapVersion) {
-       // this.locale=new Locale("en","US");
+        // this.locale=new Locale("en","US");
         //LocaleHelper.setCurrentLocale(this.locale);
 
         this.bootstrapVersion = bootstrapVersion;
         instance = this;
         setLookAndFeel();
+
         this.proxy = proxy;
         this.proxyAuth = proxyAuth;
         this.additionalArgs = args;
@@ -65,22 +71,24 @@ public class Launcher {
         this.versionManager = new VersionManager(new LocalVersionList(this.workingDirectory), new RemoteVersionList(proxy));
         this.launcherPanel = new LauncherPanel(this);
         this.authentication = new OldAuthentication(this, proxy);
-      //  this.locale=this.profileManager.getSelectedProfile().getLocale();
+        //  this.locale=this.profileManager.getSelectedProfile().getLocale();
         this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 
-
         initializeFrame();
+
         for (String line : delayedSysout) {
             this.launcherPanel.getTabPanel().getConsole().print(line + "\n");
         }
 
         downloadResources();
-        refreshProfiles();
-        refreshVersions();
-        println("Launcher 1.0.10 (through bootstrap " + bootstrapVersion + ") started on " + OperatingSystem.getCurrentPlatform().getName() + "...");
+        //refreshProfiles();
+        //refreshVersions();
+        refreshVersionsAndProfiles();
+
+        println("Launcher 1.1.1 (through bootstrap " + bootstrapVersion + ") started on " + OperatingSystem.getCurrentPlatform().getName() + "...");
         println("Current time is " + DateFormat.getDateTimeInstance(2, 2, Locale.US).format(new Date()));
-        println("Current Locale is "+LocaleHelper.getCurrentLocale());
+        println("Current Locale is " + LocaleHelper.getCurrentLocale());
         if (!OperatingSystem.getCurrentPlatform().isSupported()) {
             println("This operating system is unknown or unsupported, we cannot guarantee that the game will launch.");
         }
@@ -91,7 +99,7 @@ public class Launcher {
         println("System.getProperty('java.vendor') == '" + System.getProperty("java.vendor") + "'");
     }
 
-     public static void setLookAndFeel() {
+    public static void setLookAndFeel() {
         JFrame frame = new JFrame();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -153,7 +161,27 @@ public class Launcher {
         });
     }
 
-    public void refreshVersions() {
+    public void refreshVersionsAndProfiles() {
+        this.versionManager.getExecutorService().submit(new Runnable() {
+            public void run() {
+                try {
+                    Launcher.this.versionManager.refreshVersions();
+                } catch (Throwable e) {
+                    Launcher.getInstance().println("Unexpected exception refreshing version list", e);
+                }
+                try {
+                    Launcher.this.profileManager.loadProfiles();
+                    Launcher.this.println("Loaded " + Launcher.this.profileManager.getProfiles().size() + " profile(s); selected '" + Launcher.this.profileManager.getSelectedProfile().getName() + "'");
+                } catch (Throwable e) {
+                    Launcher.getInstance().println("Unexpected exception refreshing profile list", e);
+                }
+
+                Launcher.this.ensureLoggedIn();
+            }
+        });
+    }
+
+   /* public void refreshVersions() {
         this.versionManager.getExecutorService().submit(new Runnable() {
             public void run() {
                 try {
@@ -163,9 +191,9 @@ public class Launcher {
                 }
             }
         });
-    }
+    }*/
 
-    public void refreshProfiles() {
+    /*public void refreshProfiles() {
         this.versionManager.getExecutorService().submit(new Runnable() {
             public void run() {
                 try {
@@ -193,7 +221,7 @@ public class Launcher {
                 }
             }
         });
-    }
+    }*/
 
     /*public void refreshProfiles() {
         this.versionManager.getExecutorService().submit(new Runnable() {
@@ -224,11 +252,117 @@ public class Launcher {
         });
     }*/
 
+    public void ensureLoggedIn() {
+        Profile selectedProfile = this.profileManager.getSelectedProfile();
+        AuthenticationService auth = this.profileManager.getAuthDatabase().getByUUID(selectedProfile.getPlayerUUID());
+
+        if (auth == null)
+            showLoginPrompt();
+        else if (!auth.isLoggedIn()) {
+            if (auth.canLogIn())
+                try {
+                    auth.logIn();
+                    try {
+                        this.profileManager.saveProfiles();
+                    } catch (IOException e) {
+                        println("Couldn't save profiles after refreshing auth!", e);
+                    }
+                    this.profileManager.fireRefreshEvent();
+                } catch (AuthenticationException e) {
+                    println(e);
+                    showLoginPrompt();
+                }
+            else
+                showLoginPrompt();
+        } else if (!auth.canPlayOnline())
+            try {
+                println("Refreshing auth...");
+                auth.logIn();
+                try {
+                    this.profileManager.saveProfiles();
+                } catch (IOException e) {
+                    println("Couldn't save profiles after refreshing auth!", e);
+                }
+                this.profileManager.fireRefreshEvent();
+            } catch (AuthenticationException e) {
+                println(e);
+                showLoginPrompt();
+            }
+    }
+
+    public void showLoginPrompt() {
+        try {
+            this.profileManager.saveProfiles();
+        } catch (IOException e) {
+            println("Couldn't save profiles before logging in!", e);
+        }
+
+        for (Profile profile : this.profileManager.getProfiles().values()) {
+            Map credentials = profile.getAuthentication();
+
+            if (credentials != null) {
+                AuthenticationService auth = SPMode ? new SPAuthenticationService() : new YggdrasilAuthenticationService();
+                auth.loadFromStorage(credentials);
+
+                if (auth.isLoggedIn()) {
+                    String uuid = auth.getSelectedProfile() == null ? "demo-" + auth.getUsername() : auth.getSelectedProfile().getId();
+                    if (this.profileManager.getAuthDatabase().getByUUID(uuid) == null) {
+                        this.profileManager.getAuthDatabase().register(uuid, auth);
+                    }
+                }
+
+                profile.setAuthentication(null);
+            }
+        }
+
+        final Profile selectedProfile = this.profileManager.getSelectedProfile();
+        LogInPopup.showLoginPrompt(this, new LogInPopup.Callback() {
+            public void onLogIn(String uuid) {
+                AuthenticationService auth = Launcher.this.profileManager.getAuthDatabase().getByUUID(uuid);
+                selectedProfile.setPlayerUUID(uuid);
+
+                if ((selectedProfile.getName().equals("(Default)")) && (auth.getSelectedProfile() != null)) {
+                    String playerName = auth.getSelectedProfile().getName();
+                    String profileName = auth.getSelectedProfile().getName();
+                    int count = 1;
+
+                    while (Launcher.this.profileManager.getProfiles().containsKey(profileName)) {
+                        profileName = playerName + " " + ++count;
+                    }
+
+                    Profile newProfile = new Profile(selectedProfile);
+                    newProfile.setName(profileName);
+                    Launcher.this.profileManager.getProfiles().put(profileName, newProfile);
+                    Launcher.this.profileManager.getProfiles().remove("(Default)");
+                    Launcher.this.profileManager.setSelectedProfile(profileName);
+                }
+                try {
+                    Launcher.this.profileManager.saveProfiles();
+                } catch (IOException e) {
+                    Launcher.this.println("Couldn't save profiles after logging in!", e);
+                }
+
+                if (uuid == null)
+                    Launcher.this.closeLauncher();
+                else {
+                    Launcher.this.profileManager.fireRefreshEvent();
+                }
+
+                Launcher.this.launcherPanel.setCard("launcher", null);
+            }
+        });
+    }
+
+    public void closeLauncher() {
+        this.frame.dispatchEvent(new WindowEvent(this.frame, 201));
+    }
+
     protected void initializeFrame() {
         this.frame.getContentPane().removeAll();
         this.frame.setTitle("Minecraft Freedom Launcher 1.0.10 [modified by Energy]( Inspired by Sparamoule's Minecraft Open Launcher)");
         this.frame.setPreferredSize(new Dimension(925, 525));
         this.frame.setDefaultCloseOperation(2);
+
         this.frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Launcher.this.frame.setVisible(false);
@@ -243,6 +377,7 @@ public class Launcher {
         } catch (IOException localIOException) {
         }
         this.frame.add(this.launcherPanel);
+
         this.frame.pack();
         this.frame.setVisible(true);
     }
@@ -289,6 +424,7 @@ public class Launcher {
 
     public void println(String line) {
         System.out.println(line);
+
         if (this.launcherPanel == null)
             delayedSysout.add(line);
         else
@@ -337,6 +473,18 @@ public class Launcher {
 
     public OldAuthentication getAuthentication() {
         return this.authentication;
+    }
+
+    public static boolean isSPMode() {
+        return SPMode;
+    }
+
+    public static void setSPMode(boolean SPMode) {
+        Launcher.SPMode = SPMode;
+    }
+
+    public static void setInstance(Launcher instance) {
+        Launcher.instance = instance;
     }
 }
 

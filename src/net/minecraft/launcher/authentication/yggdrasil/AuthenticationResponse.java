@@ -2,15 +2,13 @@ package net.minecraft.launcher.authentication.yggdrasil;
 
 import net.minecraft.launcher.authentication.GameProfile;
 
-public class AuthenticationResponse extends Response
-{
+public class AuthenticationResponse extends Response {
     private String accessToken;
     private String clientToken;
     private GameProfile selectedProfile;
     private GameProfile[] availableProfiles;
 
-  public String getAccessToken()
-  {
+    public String getAccessToken() {
         return this.accessToken;
     }
 

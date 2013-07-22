@@ -2,7 +2,9 @@ package net.minecraft.launcher.versions;
 
 import net.minecraft.launcher.OperatingSystem;
 
-import java.util.*;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 
 public class Library {
     private static final String LIBRARY_DOWNLOAD_BASE = "https://s3.amazonaws.com/Minecraft.Download/libraries/";
@@ -78,8 +80,8 @@ public class Library {
     public String getArtifactBaseDir() {
         if (this.name == null) throw new IllegalStateException("Cannot get artifact dir of empty/blank artifact");
         String[] parts = this.name.split(":", 3);
-       // return String.format("libraries/%s/%s/%s", new Object[]{parts[0].replaceAll("\\.", "/"), parts[1], parts[2]});
-        return String.format("%s/%s/%s", new Object[] { parts[0].replaceAll("\\.", "/"), parts[1], parts[2] });
+        // return String.format("libraries/%s/%s/%s", new Object[]{parts[0].replaceAll("\\.", "/"), parts[1], parts[2]});
+        return String.format("%s/%s/%s", new Object[]{parts[0].replaceAll("\\.", "/"), parts[1], parts[2]});
     }
 
     public String getArtifactPath() {
@@ -110,9 +112,7 @@ public class Library {
 //        return "Library{name='" + this.name + '\'' + ", os=" + this.os + ", natives=" + this.natives + ", extract=" + this.extract + '}';
     }
 
-
-    public boolean hasCustomUrl()
-    {
+    public boolean hasCustomUrl() {
         return this.url != null;
     }
 

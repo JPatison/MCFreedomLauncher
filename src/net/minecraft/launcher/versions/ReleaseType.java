@@ -28,5 +28,3 @@ public enum ReleaseType {
             lookup.put(type.getName(), type);
     }
 }
-
-

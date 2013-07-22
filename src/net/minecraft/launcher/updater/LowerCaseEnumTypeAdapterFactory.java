@@ -48,5 +48,3 @@ public class LowerCaseEnumTypeAdapterFactory
         return o.toString().toLowerCase(Locale.US);
     }
 }
-
-

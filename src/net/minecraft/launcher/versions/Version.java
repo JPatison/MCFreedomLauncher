@@ -17,5 +17,3 @@ public abstract interface Version {
 
     public abstract void setReleaseTime(Date paramDate);
 }
-
-

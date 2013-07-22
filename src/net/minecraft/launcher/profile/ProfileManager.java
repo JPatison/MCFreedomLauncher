@@ -3,8 +3,8 @@ package net.minecraft.launcher.profile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.launcher.Launcher;
+import net.minecraft.launcher.authentication.AuthenticationDatabase;
 import net.minecraft.launcher.authentication.AuthenticationSerializer;
-import net.minecraft.launcher.authentication.AuthenticationService;
 import net.minecraft.launcher.authentication.SPAuthenticationService;
 import net.minecraft.launcher.events.RefreshedProfilesListener;
 import net.minecraft.launcher.updater.DateTypeAdapter;
@@ -25,6 +25,7 @@ public class ProfileManager {
     private final File profileFile;
     private final List<RefreshedProfilesListener> refreshedProfilesListeners = Collections.synchronizedList(new ArrayList());
     private String selectedProfile;
+    private AuthenticationDatabase authDatabase = new AuthenticationDatabase();
 
     public ProfileManager(Launcher launcher) {
         this.launcher = launcher;
@@ -34,7 +35,8 @@ public class ProfileManager {
         builder.registerTypeAdapterFactory(new LowerCaseEnumTypeAdapterFactory());
         builder.registerTypeAdapter(Date.class, new DateTypeAdapter());
         builder.registerTypeAdapter(File.class, new FileTypeAdapter());
-        builder.registerTypeAdapter(AuthenticationService.class, new AuthenticationSerializer());
+        builder.registerTypeAdapter(AuthenticationDatabase.class, new AuthenticationDatabase.Serializer());
+        //builder.registerTypeAdapter(AuthenticationService.class, new AuthenticationSerializer());
         builder.registerTypeAdapter(SPAuthenticationService.class, new AuthenticationSerializer());
         builder.enableComplexMapKeySerialization();
         builder.setPrettyPrinting();
@@ -46,6 +48,7 @@ public class ProfileManager {
         rawProfileList.profiles = this.profiles;
         rawProfileList.selectedProfile = getSelectedProfile().getName();
         rawProfileList.clientToken = this.launcher.getClientToken();
+        rawProfileList.authenticationDatabase = this.authDatabase;
 
         FileUtils.writeStringToFile(this.profileFile, this.gson.toJson(rawProfileList));
     }
@@ -59,6 +62,7 @@ public class ProfileManager {
 
             this.profiles.putAll(rawProfileList.profiles);
             this.selectedProfile = rawProfileList.selectedProfile;
+            this.authDatabase = rawProfileList.authenticationDatabase;
             this.launcher.setClientToken(rawProfileList.clientToken);
 
             fireRefreshEvent();
@@ -123,11 +127,25 @@ public class ProfileManager {
             fireRefreshEvent();
     }
 
+    public AuthenticationDatabase getAuthDatabase() {
+        return this.authDatabase;
+    }
+
+    public void trimAuthDatabase() {
+        Set uuids = new HashSet(this.authDatabase.getknownUUIDs());
+
+        for (Profile profile : this.profiles.values()) {
+            uuids.remove(profile.getPlayerUUID());
+        }
+
+        for (String uuid : (Set<String>) uuids)
+            this.authDatabase.removeUUID(uuid);
+    }
+
     private static class RawProfileList {
         public Map<String, Profile> profiles = new HashMap();
         public String selectedProfile;
         public UUID clientToken = UUID.randomUUID();
+        public AuthenticationDatabase authenticationDatabase = new AuthenticationDatabase();
     }
 }
-
-

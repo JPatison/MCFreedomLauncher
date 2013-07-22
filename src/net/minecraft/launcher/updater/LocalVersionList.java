@@ -92,5 +92,3 @@ public class LocalVersionList extends FileBasedVersionList {
         return true;
     }
 }
-
-

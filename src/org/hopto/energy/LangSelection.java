@@ -16,16 +16,15 @@ public class LangSelection {
         String localeValue = Util.getProperties("locale");
 
 
-       if (localeValue!=null&&!localeValue.equals(""))
-       {
+        if (localeValue != null && !localeValue.equals("")) {
 
-           String[] localeSetting = localeValue.split("_");
-           locale = new Locale(localeSetting[0], localeSetting[1]);
-          // JOptionPane.showMessageDialog(null, "You have selected: " + locale);
+            String[] localeSetting = localeValue.split("_");
+            locale = new Locale(localeSetting[0], localeSetting[1]);
+            // JOptionPane.showMessageDialog(null, "You have selected: " + locale);
 
-       } else {
-           return selectLang();
-       }
+        } else {
+            return selectLang();
+        }
 
         return locale;
 
@@ -42,7 +41,7 @@ public class LangSelection {
                 null, locales, locales[0]);
         LocaleHelper.setCurrentLocale(locale);
         JOptionPane.showMessageDialog(null, "You have selected: " + locale);
-        Util.setProperties("locale",locale.toString());
+        Util.setProperties("locale", locale.toString());
         System.out.println(locale);
         // button.addActionListener(lst);
         // add(button);
