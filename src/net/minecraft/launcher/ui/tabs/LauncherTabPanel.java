@@ -9,6 +9,7 @@ public class LauncherTabPanel extends JTabbedPane {
     private final Launcher launcher;
     private final WebsiteTab blog;
     private final ConsoleTab console;
+    private final ReadmeTab readme;
     private CrashReportTab crashReportTab;
 
     public LauncherTabPanel(Launcher launcher) {
@@ -17,6 +18,7 @@ public class LauncherTabPanel extends JTabbedPane {
         this.launcher = launcher;
         this.blog = new WebsiteTab(launcher);
         this.console = new ConsoleTab(launcher);
+        this.readme=new ReadmeTab(launcher);
 
         createInterface();
     }
@@ -26,6 +28,7 @@ public class LauncherTabPanel extends JTabbedPane {
         addTab("Development Console", this.console);
         addTab("Profile Editor", new ProfileListTab(this.launcher));
         addTab("Local Version Editor (NYI)", new VersionListTab(this.launcher));
+        addTab("Readme",this.readme);
     }
 
     public Launcher getLauncher() {
@@ -34,6 +37,10 @@ public class LauncherTabPanel extends JTabbedPane {
 
     public WebsiteTab getBlog() {
         return this.blog;
+    }
+
+    public ReadmeTab getReadme() {
+        return readme;
     }
 
     public ConsoleTab getConsole() {

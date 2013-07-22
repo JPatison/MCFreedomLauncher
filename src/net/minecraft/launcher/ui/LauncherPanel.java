@@ -43,6 +43,7 @@ public class LauncherPanel extends JPanel {
         JPanel result = new JPanel(new BorderLayout());
 
         this.tabPanel.getBlog().setPage("http://mcupdate.tumblr.com");
+        this.tabPanel.getReadme().setPage("http://energy0124.github.io/MCFreedomLauncher/");
 
         JPanel topWrapper = new JPanel();
         topWrapper.setLayout(new BorderLayout());
