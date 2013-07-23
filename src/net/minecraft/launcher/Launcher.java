@@ -5,6 +5,7 @@ import net.minecraft.launcher.authentication.AuthenticationService;
 import net.minecraft.launcher.authentication.OldAuthentication;
 import net.minecraft.launcher.authentication.SPAuthenticationService;
 import net.minecraft.launcher.authentication.exceptions.AuthenticationException;
+import net.minecraft.launcher.authentication.exceptions.InvalidCredentialsException;
 import net.minecraft.launcher.authentication.yggdrasil.YggdrasilAuthenticationService;
 import net.minecraft.launcher.locale.LocaleHelper;
 import net.minecraft.launcher.profile.Profile;
@@ -86,7 +87,7 @@ public class Launcher {
         //refreshVersions();
         refreshVersionsAndProfiles();
 
-        println("Launcher 1.1.1 (through bootstrap " + bootstrapVersion + ") started on " + OperatingSystem.getCurrentPlatform().getName() + "...");
+        println("Launcher "+LauncherConstants.VERSION_NAME+" (through bootstrap " + bootstrapVersion + ") started on " + OperatingSystem.getCurrentPlatform().getName() + "...");
         println("Current time is " + DateFormat.getDateTimeInstance(2, 2, Locale.US).format(new Date()));
         println("Current Locale is " + LocaleHelper.getCurrentLocale());
         if (!OperatingSystem.getCurrentPlatform().isSupported()) {
@@ -284,9 +285,11 @@ public class Launcher {
                     println("Couldn't save profiles after refreshing auth!", e);
                 }
                 this.profileManager.fireRefreshEvent();
-            } catch (AuthenticationException e) {
+            } catch (InvalidCredentialsException e) {
                 println(e);
                 showLoginPrompt();
+            } catch (AuthenticationException e) {
+                println(e);
             }
     }
 
@@ -359,7 +362,7 @@ public class Launcher {
 
     protected void initializeFrame() {
         this.frame.getContentPane().removeAll();
-        this.frame.setTitle("Minecraft Freedom Launcher 1.1.1 [modified by Energy]( Inspired by Sparamoule's Minecraft Open Launcher)");
+        this.frame.setTitle("Minecraft Freedom Launcher "+LauncherConstants.VERSION_NAME+" [modified by Energy]( Inspired by Sparamoule's Minecraft Open Launcher)");
         this.frame.setPreferredSize(new Dimension(925, 525));
         this.frame.setDefaultCloseOperation(2);
 

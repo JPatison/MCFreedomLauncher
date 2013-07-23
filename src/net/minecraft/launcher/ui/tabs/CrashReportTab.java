@@ -5,6 +5,7 @@ import net.minecraft.hopper.PublishResponse;
 import net.minecraft.hopper.SubmitResponse;
 import net.minecraft.launcher.Http;
 import net.minecraft.launcher.Launcher;
+import net.minecraft.launcher.LauncherConstants;
 import net.minecraft.launcher.OperatingSystem;
 import net.minecraft.launcher.versions.CompleteVersion;
 
@@ -53,7 +54,7 @@ public class CrashReportTab extends JPanel {
                 public void run() {
                     try {
                         Map environment = new HashMap();
-                        environment.put("launcher.version", "1.1.1");
+                        environment.put("launcher.version", LauncherConstants.VERSION_NAME);
                         environment.put("launcher.title", launcher.getFrame().getTitle());
                         environment.put("bootstrap.version", String.valueOf(launcher.getBootstrapVersion()));
                         CrashReportTab.this.hopperServiceResponse = HopperService.submitReport(launcher.getProxy(), report, "Minecraft", version.getId(), environment);
