@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>Energy</groupId>
+  <groupId>org.hopto.energy</groupId>
   <artifactId>MCFreedomLauncher</artifactId>
-  <version>1.1.2</version>
+  <version>1.1.2-SNAPSHOT</version>
+  <description>Minecraft Freedom Launcher-Free the New Minecraft Launcher with Energy!</description>
+  <url>http://energy0124.github.io/MCFreedomLauncher/</url>
+  <scm>
+    <connection>scm:git:git://github.com/Energy0124/MCFreedomLauncher.git</connection>
+    <developerConnection>scm:git:git@github.com:Energy0124/MCFreedomLauncher.git</developerConnection>
+    <url>https://github.com/Energy0124/MCFreedomLauncher</url>
+  </scm>
   <build>
     <resources>
       <resource>
