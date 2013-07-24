@@ -176,18 +176,18 @@
         </plugins>
     </build>
     <!-- Build profiles -->
-    <profiles>
-    <!-- Package for Windows -->
+   <!-- <profiles>
+    &lt;!&ndash; Package for Windows &ndash;&gt;
     <profile>
         <id>package-win</id>
         <activation>
             <activeByDefault>true</activeByDefault>
         </activation>
-        <!--<activation>
+        &lt;!&ndash;<activation>
             <os>
                 <family>windows</family>
             </os>
-        </activation>-->
+        </activation>&ndash;&gt;
         <build>
             <plugins>
                 <plugin>
@@ -233,5 +233,5 @@
             </plugins>
         </build>
     </profile>
-    </profiles>
+    </profiles>-->
 </project>
