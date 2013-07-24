@@ -109,7 +109,7 @@
                     <minimizeJar>true</minimizeJar>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>osxappbundle-maven-plugin</artifactId>
                 <version>1.0-alpha-2</version>
@@ -159,7 +159,7 @@
                                 <maxHeapSize>1024</maxHeapSize>
                             </jre>
                             <versionInfo>
-                                <fileVersion>1.0.0.0</fileVersion> <!-- Cannot use ${project.version} -->
+                                <fileVersion>1.0.0.0</fileVersion> &lt;!&ndash; Cannot use ${project.version} &ndash;&gt;
                                 <txtFileVersion>1.0.0.0</txtFileVersion>
                                 <productVersion>1.0.0.0</productVersion>
                                 <txtProductVersion>1.0.0.0</txtProductVersion>
@@ -172,7 +172,66 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
+    <!-- Build profiles -->
+    <profiles>
+    <!-- Package for Windows -->
+    <profile>
+        <id>package-win</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+        <!--<activation>
+            <os>
+                <family>windows</family>
+            </os>
+        </activation>-->
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.bluestemsoftware.open.maven.plugin</groupId>
+                    <artifactId>launch4j-plugin</artifactId>
+                    <version>1.5.0.0</version>
+                    <executions>
+                        <execution>
+                            <configuration>
+                                <headerType>gui</headerType>
+                                <stayAlive>false</stayAlive>
+
+                                <jar>${project.build.directory}/${project.artifactId}-${project.version}.jar</jar>
+                                <outfile>${project.build.directory}/${project.artifactId}-${project.version}.exe</outfile>
+                                <classPath>
+                                    <mainClass>org.hopto.energy.Main</mainClass>
+                                    <addDependencies>false</addDependencies>
+                                    <preCp>anything</preCp>
+                                </classPath>
+                                <jre>
+                                    <minVersion>1.6.0</minVersion>
+                                </jre>
+                                <icon>${basedir}/icon.ico</icon>
+                                <versionInfo>
+                                    <fileVersion>1.0.0.0</fileVersion>
+                                    <txtFileVersion>1.0.0.0</txtFileVersion>
+                                    <productVersion>1.0.0.0</productVersion>
+                                    <txtProductVersion>1.0.0.0</txtProductVersion>
+                                    <fileDescription>${project.name}</fileDescription>
+                                    <productName>${project.name}</productName>
+                                    <copyright>${project.organization.name}, ${project.organization.url}</copyright>
+                                    <internalName>${project.artifactId}</internalName>
+                                    <originalFilename>${project.artifactId}.exe</originalFilename>
+                                </versionInfo>
+                            </configuration>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>launch4j</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+    </profiles>
 </project>
