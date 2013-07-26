@@ -18,6 +18,26 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <!-- Dependency repositories -->
+    <repositories>
+        <repository>
+            <id>spout-repo</id>
+            <url>http://repo.spout.org</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <!-- Build plugin repositories -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spout-repo</id>
+            <url>http://repo.spout.org</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <dependencies>
 
         <dependency>
@@ -109,7 +129,8 @@
                     <minimizeJar>true</minimizeJar>
                 </configuration>
             </plugin>
-            <!--<plugin>
+            <!--
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>osxappbundle-maven-plugin</artifactId>
                 <version>1.0-alpha-2</version>
@@ -231,6 +252,45 @@
                             </execution>
                         </executions>
                     </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>package-mac</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <!--<activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>-->
+            <build>
+                <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>osxappbundle-maven-plugin</artifactId>
+                    <version>1.0-alpha-2</version>
+                    <configuration>
+                        <bundleName>${project.name}</bundleName>
+                        <version>${project.version}</version>
+                        <internetEnable>true</internetEnable>
+                        <mainClass>org.hopto.energy.Main</mainClass>
+                        <javaApplicationStub>${basedir}/src/main/resources/JavaApplicationStub</javaApplicationStub>
+                        <jvmVersion>1.6+</jvmVersion>
+                        <zipFile>${project.build.directory}/${project.build.finalName}.app.zip</zipFile>
+                        <diskImageFile>${project.build.directory}/${project.build.finalName}.dmg</diskImageFile>
+                        <iconFile>icon.icns</iconFile>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>bundle</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
                 </plugins>
             </build>
         </profile>

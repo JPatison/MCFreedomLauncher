@@ -115,7 +115,64 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>package-mac</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>osxappbundle-maven-plugin</artifactId>
+            <version>1.0-alpha-2</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>bundle</goal>
+                </goals>
+                <configuration>
+                  <bundleName>${project.name}</bundleName>
+                  <version>1.1.2-SNAPSHOT</version>
+                  <internetEnable>true</internetEnable>
+                  <mainClass>org.hopto.energy.Main</mainClass>
+                  <javaApplicationStub>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher/src/main/resources/JavaApplicationStub</javaApplicationStub>
+                  <jvmVersion>1.6+</jvmVersion>
+                  <zipFile>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher\target/MCFreedomLauncher-1.1.2-SNAPSHOT.app.zip</zipFile>
+                  <diskImageFile>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher\target/MCFreedomLauncher-1.1.2-SNAPSHOT.dmg</diskImageFile>
+                  <iconFile>icon.icns</iconFile>
+                </configuration>
+              </execution>
+            </executions>
+            <configuration>
+              <bundleName>${project.name}</bundleName>
+              <version>1.1.2-SNAPSHOT</version>
+              <internetEnable>true</internetEnable>
+              <mainClass>org.hopto.energy.Main</mainClass>
+              <javaApplicationStub>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher/src/main/resources/JavaApplicationStub</javaApplicationStub>
+              <jvmVersion>1.6+</jvmVersion>
+              <zipFile>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher\target/MCFreedomLauncher-1.1.2-SNAPSHOT.app.zip</zipFile>
+              <diskImageFile>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher\target/MCFreedomLauncher-1.1.2-SNAPSHOT.dmg</diskImageFile>
+              <iconFile>icon.icns</iconFile>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
+  <repositories>
+    <repository>
+      <snapshots>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+      <id>spout-repo</id>
+      <url>http://repo.spout.org</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>spout-repo</id>
+      <url>http://repo.spout.org</url>
+    </pluginRepository>
+  </pluginRepositories>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
