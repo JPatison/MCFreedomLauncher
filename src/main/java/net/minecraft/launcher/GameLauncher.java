@@ -200,8 +200,12 @@ public class GameLauncher
 
         File assetsDirectory = new File(this.launcher.getWorkingDirectory(), "assets");
 
-        if (OperatingSystem.getCurrentPlatform().equals(OperatingSystem.OSX)) {
+    OperatingSystem os = OperatingSystem.getCurrentPlatform();
+    if (os.equals(OperatingSystem.OSX))
             processLauncher.addCommands(new String[]{"-Xdock:icon=" + new File(assetsDirectory, "icons/minecraft.icns").getAbsolutePath(), "-Xdock:name=Minecraft"});
+    else if (os.equals(OperatingSystem.WINDOWS))
+    {
+      processLauncher.addCommands(new String[] { "-XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump" });
         }
 
         String profileArgs = selectedProfile.getJavaArgs();
