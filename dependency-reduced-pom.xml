@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.hopto.energy</groupId>
   <artifactId>MCFreedomLauncher</artifactId>
-  <version>1.1.2-SNAPSHOT</version>
+  <version>1.1.4</version>
   <description>Minecraft Freedom Launcher-Free the New Minecraft Launcher with Energy!</description>
   <url>http://energy0124.github.io/MCFreedomLauncher/</url>
   <scm>
@@ -86,8 +86,8 @@
                 <configuration>
                   <headerType>gui</headerType>
                   <stayAlive>false</stayAlive>
-                  <jar>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher\target/MCFreedomLauncher-1.1.2-SNAPSHOT.jar</jar>
-                  <outfile>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher\target/MCFreedomLauncher-1.1.2-SNAPSHOT.exe</outfile>
+                  <jar>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher\target/MCFreedomLauncher-1.1.4.jar</jar>
+                  <outfile>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher\target/MCFreedomLauncher-1.1.4.exe</outfile>
                   <classPath>
                     <mainClass>org.hopto.energy.Main</mainClass>
                     <addDependencies>false</addDependencies>
@@ -131,26 +131,26 @@
                 </goals>
                 <configuration>
                   <bundleName>${project.name}</bundleName>
-                  <version>1.1.2-SNAPSHOT</version>
+                  <version>1.1.4</version>
                   <internetEnable>true</internetEnable>
                   <mainClass>org.hopto.energy.Main</mainClass>
                   <javaApplicationStub>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher/src/main/resources/JavaApplicationStub</javaApplicationStub>
                   <jvmVersion>1.6+</jvmVersion>
-                  <zipFile>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher\target/MCFreedomLauncher-1.1.2-SNAPSHOT.app.zip</zipFile>
-                  <diskImageFile>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher\target/MCFreedomLauncher-1.1.2-SNAPSHOT.dmg</diskImageFile>
+                  <zipFile>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher\target/MCFreedomLauncher-1.1.4.app.zip</zipFile>
+                  <diskImageFile>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher\target/MCFreedomLauncher-1.1.4.dmg</diskImageFile>
                   <iconFile>icon.icns</iconFile>
                 </configuration>
               </execution>
             </executions>
             <configuration>
               <bundleName>${project.name}</bundleName>
-              <version>1.1.2-SNAPSHOT</version>
+              <version>1.1.4</version>
               <internetEnable>true</internetEnable>
               <mainClass>org.hopto.energy.Main</mainClass>
               <javaApplicationStub>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher/src/main/resources/JavaApplicationStub</javaApplicationStub>
               <jvmVersion>1.6+</jvmVersion>
-              <zipFile>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher\target/MCFreedomLauncher-1.1.2-SNAPSHOT.app.zip</zipFile>
-              <diskImageFile>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher\target/MCFreedomLauncher-1.1.2-SNAPSHOT.dmg</diskImageFile>
+              <zipFile>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher\target/MCFreedomLauncher-1.1.4.app.zip</zipFile>
+              <diskImageFile>F:\Users\Energy\Documents\GitHub\MCFreedomLauncher\target/MCFreedomLauncher-1.1.4.dmg</diskImageFile>
               <iconFile>icon.icns</iconFile>
             </configuration>
           </plugin>
