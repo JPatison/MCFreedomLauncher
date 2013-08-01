@@ -1,8 +1,10 @@
 package net.minecraft.launcher.versions;
 
 import net.minecraft.launcher.OperatingSystem;
+import org.apache.commons.lang3.text.StrSubstitutor;
 
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +16,7 @@ public class Library {
     private List<Rule> rules;
     private ExtractRules extract;
     private String url;
+    private static final StrSubstitutor SUBSTITUTOR = new StrSubstitutor(new HashMap() { } );
 
     public Library() {
     }
@@ -28,12 +31,6 @@ public class Library {
         return this.name;
     }
 
-   /* public Library addRestriction(OperatingSystem[] operatingSystems) {
-        if (this.os == null) this.os = new ArrayList();
-        if (operatingSystems != null) Collections.addAll(this.os, operatingSystems);
-        return this;
-    }*/
-
     public Library addNative(OperatingSystem operatingSystem, String name) {
         if ((operatingSystem == null) || (!operatingSystem.isSupported()))
             throw new IllegalArgumentException("Cannot add native for unsupported OS");
@@ -43,10 +40,6 @@ public class Library {
         this.natives.put(operatingSystem, name);
         return this;
     }
-
-   /* public List<OperatingSystem> getRestrictedOperatingSystems() {
-        return this.os;
-    }*/
 
     public List<Rule> getRules() {
         return this.rules;
@@ -80,36 +73,29 @@ public class Library {
     public String getArtifactBaseDir() {
         if (this.name == null) throw new IllegalStateException("Cannot get artifact dir of empty/blank artifact");
         String[] parts = this.name.split(":", 3);
-        // return String.format("libraries/%s/%s/%s", new Object[]{parts[0].replaceAll("\\.", "/"), parts[1], parts[2]});
         return String.format("%s/%s/%s", new Object[]{parts[0].replaceAll("\\.", "/"), parts[1], parts[2]});
     }
 
     public String getArtifactPath() {
-        if (this.name == null) throw new IllegalStateException("Cannot get artifact path of empty/blank artifact");
-        return String.format("%s/%s", new Object[]{getArtifactBaseDir(), getArtifactFilename()});
+    return getArtifactPath(null);
     }
 
     public String getArtifactPath(String classifier) {
         if (this.name == null) throw new IllegalStateException("Cannot get artifact path of empty/blank artifact");
-        //String[] parts = this.name.split(":", 3);
         return String.format("%s/%s", new Object[]{getArtifactBaseDir(), getArtifactFilename(classifier)});
     }
 
-    public String getArtifactFilename() {
+  public String getArtifactFilename(String classifier) {
         if (this.name == null) throw new IllegalStateException("Cannot get artifact filename of empty/blank artifact");
-        String[] parts = this.name.split(":", 3);
-        return String.format("%s-%s.jar", new Object[]{parts[1], parts[2]});
-    }
 
-    public String getArtifactFilename(String classifier) {
-        if (this.name == null) throw new IllegalStateException("Cannot get artifact filename of empty/blank artifact");
         String[] parts = this.name.split(":", 3);
-        return String.format("%s-%s-%s.jar", new Object[]{parts[1], parts[2], classifier});
+    String result = String.format("%s-%s%s.jar", new Object[] { parts[1], parts[2], "-" + classifier });
+
+    return SUBSTITUTOR.replace(result);
     }
 
     public String toString() {
         return "Library{name='" + this.name + '\'' + ", rules=" + this.rules + ", natives=" + this.natives + ", extract=" + this.extract + '}';
-//        return "Library{name='" + this.name + '\'' + ", os=" + this.os + ", natives=" + this.natives + ", extract=" + this.extract + '}';
     }
 
     public boolean hasCustomUrl() {
@@ -118,9 +104,6 @@ public class Library {
 
     public String getDownloadUrl() {
         if (this.url != null) return this.url;
-        //return "https://s3.amazonaws.com/Minecraft.Download/";
         return "https://s3.amazonaws.com/Minecraft.Download/libraries/";
     }
 }
-
-

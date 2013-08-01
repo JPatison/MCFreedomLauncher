@@ -1,6 +1,10 @@
 package net.minecraft.hopper;
 
-import java.io.*;
+import org.apache.commons.io.IOUtils;
+
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.Proxy;
@@ -29,33 +33,22 @@ public class Util {
         writer.write(paramAsBytes);
         writer.flush();
         writer.close();
-        BufferedReader reader;
+
+        InputStream stream;
         try {
-            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            stream = connection.getInputStream();
         } catch (IOException e) {
-
-
             if (returnErrorPage) {
-                InputStream stream = connection.getErrorStream();
+                stream = connection.getErrorStream();
 
-                if (stream != null)
-                    reader = new BufferedReader(new InputStreamReader(stream));
-                else
+                if (stream == null)
                     throw e;
             } else {
                 throw e;
             }
         }
 
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            response.append(line);
-            response.append('\r');
-        }
-
-        reader.close();
-        return response.toString();
+        return IOUtils.toString(stream);
     }
 
     public static URL constantURL(String input) {

@@ -9,6 +9,7 @@ import net.minecraft.launcher.authentication.GameProfile;
 import net.minecraft.launcher.authentication.SPAuthenticationService;
 import net.minecraft.launcher.authentication.exceptions.AuthenticationException;
 import net.minecraft.launcher.authentication.exceptions.InvalidCredentialsException;
+import net.minecraft.launcher.authentication.exceptions.UserMigratedException;
 import net.minecraft.launcher.authentication.yggdrasil.YggdrasilAuthenticationService;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -56,6 +57,17 @@ public class LogInForm extends JPanel
         add(usernameLabel, constraints);
         add(this.usernameField, constraints);
 
+    JLabel forgotUsernameLabel = new JLabel("(Which do I use?)");
+    forgotUsernameLabel.setFont(smalltextFont);
+    forgotUsernameLabel.setHorizontalAlignment(4);
+    forgotUsernameLabel.addMouseListener(new MouseAdapter()
+    {
+      public void mouseClicked(MouseEvent e) {
+        OperatingSystem.openLink(LauncherConstants.URL_FORGOT_USERNAME);
+      }
+    });
+    add(forgotUsernameLabel, constraints);
+
         add(Box.createVerticalStrut(10), constraints);
 
         JLabel passwordLabel = new JLabel("Password:");
@@ -68,9 +80,6 @@ public class LogInForm extends JPanel
         forgotPasswordLabel.setHorizontalAlignment(4);
         forgotPasswordLabel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                if ((StringUtils.isBlank(LogInForm.this.usernameField.getText())) || (LogInForm.this.usernameField.getText().contains("@")))
-                    OperatingSystem.openLink(LauncherConstants.URL_FORGOT_PASSWORD_MOJANG);
-                else
                     OperatingSystem.openLink(LauncherConstants.URL_FORGOT_PASSWORD_MINECRAFT);
             }
         });
@@ -176,6 +185,10 @@ public class LogInForm extends JPanel
                             authDatabase.register(LogInForm.this.authentication.getSelectedProfile().getId(), LogInForm.this.authentication);
                             LogInForm.this.popup.setLoggedIn(LogInForm.this.authentication.getSelectedProfile().getId());
                         }
+          } catch (UserMigratedException ex) {
+            LogInForm.this.popup.getLauncher().println(ex);
+            LogInForm.this.popup.getErrorForm().displayError(new String[] { "Sorry, but we can't log you in with your username.", "You have migrated your account, please use your email address." });
+            LogInForm.this.popup.setCanLogIn(true);
                     } catch (InvalidCredentialsException ex) {
                         LogInForm.this.popup.getLauncher().println(ex);
                         LogInForm.this.popup.getErrorForm().displayError(new String[]{"Sorry, but your username or password is incorrect!", "Please try again. If you need help, try the 'Forgot Password' link."});

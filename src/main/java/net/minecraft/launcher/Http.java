@@ -1,10 +1,10 @@
 package net.minecraft.launcher;
 
 import net.minecraft.hopper.Util;
+import org.apache.commons.io.IOUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.*;
 import java.util.Map;
@@ -37,76 +37,21 @@ public class Http {
     }
 
     public static String performPost(URL url, Map<String, Object> query, Proxy proxy) throws IOException {
-        //return performPost(url, buildQuery(query), proxy, "application/x-www-form-urlencoded", false);
         return Util.performPost(url, buildQuery(query), proxy, "application/x-www-form-urlencoded", false);
     }
 
-/*
-    public static String performPost(URL url, String parameters, Proxy proxy, String contentType, boolean returnErrorPage) throws IOException {
+  public static String performGet(URL url, Proxy proxy) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);
-        byte[] paramAsBytes = parameters.getBytes(Charsets.UTF_8);
-
         connection.setConnectTimeout(15000);
-        connection.setReadTimeout(15000);
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", contentType + "; charset=utf-8");
+    connection.setReadTimeout(60000);
+    connection.setRequestMethod("GET");
 
-        connection.setRequestProperty("Content-Length", "" + paramAsBytes.length);
-        connection.setRequestProperty("Content-Language", "en-US");
-
-        connection.setUseCaches(false);
-        connection.setDoInput(true);
-        connection.setDoOutput(true);
-
-        DataOutputStream writer = new DataOutputStream(connection.getOutputStream());
-        writer.write(paramAsBytes);
-        writer.flush();
-        writer.close();
-        BufferedReader reader;
+    InputStream inputStream = connection.getInputStream();
         try {
-            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        } catch (IOException e) {
-
-
-            if (returnErrorPage) {
-                InputStream stream = connection.getErrorStream();
-
-                if (stream != null)
-                    reader = new BufferedReader(new InputStreamReader(stream));
-                else
-                    throw e;
-            } else {
-                throw e;
-            }
+      return IOUtils.toString(inputStream);
+    } finally {
+      IOUtils.closeQuietly(inputStream);
         }
-
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            response.append(line);
-            response.append('\r');
-        }
-
-        reader.close();
-        return response.toString();
-    }
-*/
-
-    public static String performGet(URL url, Proxy proxy) throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);
-        connection.setRequestMethod("GET");
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            response.append(line);
-            response.append('\r');
-        }
-
-        reader.close();
-        return response.toString();
     }
 
     public static URL concatenateURL(URL url, String args) throws MalformedURLException {

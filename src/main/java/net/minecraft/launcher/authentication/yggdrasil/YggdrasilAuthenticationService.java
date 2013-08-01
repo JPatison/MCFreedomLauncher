@@ -8,6 +8,7 @@ import net.minecraft.launcher.authentication.BaseAuthenticationService;
 import net.minecraft.launcher.authentication.GameProfile;
 import net.minecraft.launcher.authentication.exceptions.AuthenticationException;
 import net.minecraft.launcher.authentication.exceptions.InvalidCredentialsException;
+import net.minecraft.launcher.authentication.exceptions.UserMigratedException;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -103,6 +104,8 @@ public class YggdrasilAuthenticationService extends BaseAuthenticationService {
             if (result == null) return null;
 
             if (StringUtils.isNotBlank(result.getError())) {
+        if ("UserMigratedException".equals(result.getCause()))
+          throw new UserMigratedException(result.getErrorMessage());
                 if (result.getError().equals("ForbiddenOperationException")) {
                     throw new InvalidCredentialsException(result.getErrorMessage());
                 }
@@ -205,5 +208,3 @@ public class YggdrasilAuthenticationService extends BaseAuthenticationService {
         return "YggdrasilAuthenticationService{agent=" + this.agent + ", profiles=" + Arrays.toString(this.profiles) + ", selectedProfile=" + getSelectedProfile() + ", sessionToken='" + getSessionToken() + '\'' + ", username='" + getUsername() + '\'' + ", isLoggedIn=" + isLoggedIn() + ", canPlayOnline=" + canPlayOnline() + ", accessToken='" + this.accessToken + '\'' + ", clientToken='" + getClientToken() + '\'' + '}';
     }
 }
-
-

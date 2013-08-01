@@ -100,7 +100,7 @@ public class ExistingUserListForm extends JPanel
                             auth.logIn();
                             ExistingUserListForm.this.popup.setLoggedIn(uuid);
                         } catch (AuthenticationException ex) {
-                            ExistingUserListForm.this.popup.getErrorForm().displayError(new String[]{"We couldn't log you back in as " + selected + ".", "Please try again using your username & password"});
+              ExistingUserListForm.this.popup.getErrorForm().displayError(new String[] { "We couldn't log you back in as " + selected + ".", "Please try to log in again." });
 
                             ExistingUserListForm.this.userDropdown.removeItem(selected);
 

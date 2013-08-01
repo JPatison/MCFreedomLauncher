@@ -3,9 +3,10 @@ package net.minecraft.launcher;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class LauncherConstants {
-    public static final String VERSION_NAME = "1.1.3";
-    public static final int VERSION_NUMERIC = 5;
+public class LauncherConstants
+{
+  public static final String VERSION_NAME = "1.1.4";
+  public static final int VERSION_NUMERIC = 6;
     public static final URI URL_REGISTER = constantURI("https://account.mojang.com/register");
     public static final String URL_DOWNLOAD_BASE = "https://s3.amazonaws.com/Minecraft.Download/";
     public static final String URL_RESOURCE_BASE = "https://s3.amazonaws.com/Minecraft.Resources/";
@@ -19,8 +20,8 @@ public class LauncherConstants {
 
     public static final String[] CONFIRM_PROFILE_DELETION_OPTIONS = {"Delete profile", "Cancel"};
 
-    public static final URI URL_FORGOT_PASSWORD_MOJANG = constantURI("https://account.mojang.com/resetpassword/request");
-    public static final URI URL_FORGOT_PASSWORD_MINECRAFT = constantURI("https://minecraft.net/resetpassword");
+  public static final URI URL_FORGOT_USERNAME = constantURI("http://help.mojang.com/customer/portal/articles/1233873");
+  public static final URI URL_FORGOT_PASSWORD_MINECRAFT = constantURI("http://help.mojang.com/customer/portal/articles/329524-change-or-forgot-password");
     public static final URI URL_FORGOT_MIGRATED_EMAIL = constantURI("http://help.mojang.com/customer/portal/articles/1205055-minecraft-launcher-error---migrated-account");
     public static final int MAX_NATIVES_LIFE_IN_SECONDS = 3600;
     public static final String DEFAULT_VERSION_INCOMPATIBILITY_REASON = "This version is incompatible with your computer. Please try another one by going into Edit Profile and selecting one through the dropdown. Sorry!";

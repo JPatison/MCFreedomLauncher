@@ -40,9 +40,15 @@ public class LocalVersionList extends FileBasedVersionList {
 
             if ((directory.isDirectory()) && (jsonFile.exists())) {
                 try {
-                    CompleteVersion version = (CompleteVersion) this.gson.fromJson(getUrl("versions/" + id + "/" + id + ".json"), CompleteVersion.class);
+          String path = "versions/" + id + "/" + id + ".json";
+          CompleteVersion version = (CompleteVersion)this.gson.fromJson(getContent(path), CompleteVersion.class);
+
+          if (version.getId().equals(id))
                     addVersion(version);
-                } catch (JsonSyntaxException ex) {
+          else if (Launcher.getInstance() != null)
+            Launcher.getInstance().println("Ignoring: " + path + "; it contains id: '" + version.getId() + "' expected '" + id + "'");
+        }
+        catch (RuntimeException ex) {
                     if (Launcher.getInstance() != null)
                         Launcher.getInstance().println("Couldn't load local version " + jsonFile.getAbsolutePath(), ex);
                     else {
