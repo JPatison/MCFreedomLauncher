@@ -5,8 +5,8 @@ import java.net.URISyntaxException;
 
 public class LauncherConstants
 {
-  public static final String VERSION_NAME = "1.1.4";
-  public static final int VERSION_NUMERIC = 6;
+  public static final String VERSION_NAME = "1.2.1";
+  public static final int VERSION_NUMERIC = 7;
     public static final URI URL_REGISTER = constantURI("https://account.mojang.com/register");
     public static final String URL_DOWNLOAD_BASE = "https://s3.amazonaws.com/Minecraft.Download/";
     public static final String URL_RESOURCE_BASE = "https://s3.amazonaws.com/Minecraft.Resources/";

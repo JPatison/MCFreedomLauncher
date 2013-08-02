@@ -1,40 +1,29 @@
 package net.minecraft.launcher.ui.popups.profile;
 
-import net.minecraft.launcher.events.RefreshedVersionsListener;
-import net.minecraft.launcher.locale.LocaleHelper;
 import net.minecraft.launcher.profile.LauncherVisibilityRule;
 import net.minecraft.launcher.profile.Profile;
-import net.minecraft.launcher.updater.VersionManager;
-import net.minecraft.launcher.updater.VersionSyncInfo;
-import net.minecraft.launcher.versions.ReleaseType;
-import net.minecraft.launcher.versions.Version;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
 
 public class ProfileInfoPanel extends JPanel
-        implements RefreshedVersionsListener {
+    //    implements RefreshedVersionsListener 
+{
     private final ProfileEditorPopup editor;
     private final JCheckBox gameDirCustom = new JCheckBox("Game Directory:");
     private final JTextField profileName = new JTextField();
     private final JTextField gameDirField = new JTextField();
-    private final JComboBox versionList = new JComboBox();
+    //private final JComboBox versionList = new JComboBox();
     private final JCheckBox resolutionCustom = new JCheckBox("Resolution:");
     private final JTextField resolutionWidth = new JTextField();
     private final JTextField resolutionHeight = new JTextField();
-    private final JCheckBox allowSnapshots = new JCheckBox("Enable experimental development versions (\"snapshots\")");
-    private final JComboBox<Locale> langList = new JComboBox<Locale>(LocaleHelper.getLocales());
+    //private final JCheckBox allowSnapshots = new JCheckBox("Enable experimental development versions (\"snapshots\")");
+    //private final JComboBox<Locale> langList = new JComboBox<Locale>(LocaleHelper.getLocales());
     private final JCheckBox useHopper = new JCheckBox("Automatically ask Mojang for assistance with fixing crashes");
     private final JCheckBox launcherVisibilityCustom = new JCheckBox("Launcher Visibility:");
     private final JComboBox launcherVisibilityOption = new JComboBox();
@@ -50,12 +39,12 @@ public class ProfileInfoPanel extends JPanel
         addEventHandlers();
 
         //List versions = editor.getLauncher().getVersionManager().getVersions();
-        List versions = editor.getLauncher().getVersionManager().getVersions(editor.getProfile().getVersionFilter());
+        //List versions = editor.getLauncher().getVersionManager().getVersions(editor.getProfile().getVersionFilter());
 
-        if (versions.isEmpty())
-            editor.getLauncher().getVersionManager().addRefreshedVersionsListener(this);
-        else
-            populateVersions(versions);
+        //if (versions.isEmpty())
+//            editor.getLauncher().getVersionManager().addRefreshedVersionsListener(this);
+//        else
+//            populateVersions(versions);
     }
 
     protected void createInterface() {
@@ -83,7 +72,7 @@ public class ProfileInfoPanel extends JPanel
 
         constraints.gridy += 1;
 
-        constraints.fill = 2;
+   /*     constraints.fill = 2;
         constraints.weightx = 1.0D;
         constraints.gridwidth = 0;
         add(this.allowSnapshots, constraints);
@@ -101,7 +90,7 @@ public class ProfileInfoPanel extends JPanel
         constraints.fill = 0;
 
         constraints.gridy += 1;
-
+*/
         JPanel resolutionPanel = new JPanel();
         resolutionPanel.setLayout(new BoxLayout(resolutionPanel, 0));
         resolutionPanel.add(this.resolutionWidth);
@@ -138,7 +127,7 @@ public class ProfileInfoPanel extends JPanel
 
         constraints.gridy += 1;
 
-        add(new JLabel("Language:"), constraints);
+  /*      add(new JLabel("Language:"), constraints);
         constraints.fill = 2;
         constraints.weightx = 1.0D;
         add(this.langList, constraints);
@@ -148,7 +137,7 @@ public class ProfileInfoPanel extends JPanel
         constraints.gridy += 1;
 
         this.versionList.setRenderer(new VersionListRenderer());
-
+*/
         for (LauncherVisibilityRule value : LauncherVisibilityRule.values())
             this.launcherVisibilityOption.addItem(value);
     }
@@ -173,7 +162,7 @@ public class ProfileInfoPanel extends JPanel
         this.resolutionHeight.setText(String.valueOf(resolution.getHeight()));
         updateResolutionState();
 
-        this.allowSnapshots.setSelected(this.editor.getProfile().getVersionFilter().getTypes().contains(ReleaseType.SNAPSHOT));
+   //     this.allowSnapshots.setSelected(this.editor.getProfile().getVersionFilter().getTypes().contains(ReleaseType.SNAPSHOT));
 
         this.useHopper.setSelected(this.editor.getProfile().getUseHopperCrashService());
 
@@ -188,7 +177,7 @@ public class ProfileInfoPanel extends JPanel
         }
         updateLauncherVisibilityState();
 
-        this.langList.setSelectedIndex(0);
+  //      this.langList.setSelectedIndex(0);
 
     }
 
@@ -224,12 +213,8 @@ public class ProfileInfoPanel extends JPanel
                 ProfileInfoPanel.this.updateGameDir();
             }
         });
-        this.versionList.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent e) {
-                ProfileInfoPanel.this.updateVersionSelection();
-            }
-        });
-        this.resolutionCustom.addItemListener(new ItemListener() {
+    this.resolutionCustom.addItemListener(new ItemListener()
+    {
             public void itemStateChanged(ItemEvent e) {
                 ProfileInfoPanel.this.updateResolutionState();
             }
@@ -250,12 +235,8 @@ public class ProfileInfoPanel extends JPanel
         this.resolutionWidth.getDocument().addDocumentListener(resolutionListener);
         this.resolutionHeight.getDocument().addDocumentListener(resolutionListener);
 
-        this.allowSnapshots.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent e) {
-                ProfileInfoPanel.this.updateCustomVersionFilter();
-            }
-        });
-        this.useHopper.addItemListener(new ItemListener() {
+    this.useHopper.addItemListener(new ItemListener()
+    {
             public void itemStateChanged(ItemEvent e) {
                 ProfileInfoPanel.this.updateHopper();
             }
@@ -270,12 +251,12 @@ public class ProfileInfoPanel extends JPanel
                 ProfileInfoPanel.this.updateLauncherVisibilitySelection();
             }
         });
-        this.langList.addActionListener(new ActionListener() {
+        /*this.langList.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 ProfileInfoPanel.this.editor.getProfile().setLocale((Locale) langList.getSelectedItem());
             }
-        });
+        });*/
     }
 
     private void updateLauncherVisibilityState() {
@@ -306,28 +287,8 @@ public class ProfileInfoPanel extends JPanel
             profile.setUseHopperCrashService(false);
     }
 
-    private void updateCustomVersionFilter() {
-        Profile profile = this.editor.getProfile();
-
-        if (this.allowSnapshots.isSelected()) {
-            if (profile.getAllowedReleaseTypes() == null) {
-                profile.setAllowedReleaseTypes(new HashSet(Profile.DEFAULT_RELEASE_TYPES));
-            }
-
-            profile.getAllowedReleaseTypes().add(ReleaseType.SNAPSHOT);
-        } else if (profile.getAllowedReleaseTypes() != null) {
-            profile.getAllowedReleaseTypes().remove(ReleaseType.SNAPSHOT);
-
-            if (profile.getAllowedReleaseTypes().equals(Profile.DEFAULT_RELEASE_TYPES)) {
-                profile.setAllowedReleaseTypes(null);
-            }
-        }
-
-        populateVersions(this.editor.getLauncher().getVersionManager().getVersions(this.editor.getProfile().getVersionFilter()));
-        this.editor.getLauncher().getVersionManager().removeRefreshedVersionsListener(this);
-    }
-
-    private void updateProfileName() {
+  private void updateProfileName()
+  {
         if (this.profileName.getText().length() > 0)
             this.editor.getProfile().setName(this.profileName.getText());
     }
@@ -365,67 +326,8 @@ public class ProfileInfoPanel extends JPanel
         }
     }
 
-    private void updateVersionSelection() {
-        Object selection = this.versionList.getSelectedItem();
-
-        if ((selection instanceof VersionSyncInfo)) {
-            Version version = ((VersionSyncInfo) selection).getLatestVersion();
-            this.editor.getProfile().setLastVersionId(version.getId());
-        } else {
-            this.editor.getProfile().setLastVersionId(null);
-        }
-    }
-
-    private void populateVersions(List<VersionSyncInfo> versions) {
-        String previous = this.editor.getProfile().getLastVersionId();
-        VersionSyncInfo selected = null;
-
-        this.versionList.removeAllItems();
-        this.versionList.addItem("Use Latest Version");
-
-        for (VersionSyncInfo version : versions) {
-            if (version.getLatestVersion().getId().equals(previous)) {
-                selected = version;
-            }
-
-            this.versionList.addItem(version);
-        }
-
-        if ((selected == null) && (!versions.isEmpty()))
-            this.versionList.setSelectedIndex(0);
-        else
-            this.versionList.setSelectedItem(selected);
-    }
-
-    public void onVersionsRefreshed(VersionManager manager) {
-        List versions = manager.getVersions(this.editor.getProfile().getVersionFilter());
-        //List versions = manager.getVersions();
-        populateVersions(versions);
-        this.editor.getLauncher().getVersionManager().removeRefreshedVersionsListener(this);
-    }
-
-    public boolean shouldReceiveEventsInUIThread() {
-        return true;
-    }
-
     private void updateGameDir() {
         File file = new File(this.gameDirField.getText());
         this.editor.getProfile().setGameDir(file);
     }
-
-    private static class VersionListRenderer extends BasicComboBoxRenderer {
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            if ((value instanceof VersionSyncInfo)) {
-                VersionSyncInfo syncInfo = (VersionSyncInfo) value;
-                Version version = syncInfo.getLatestVersion();
-
-                value = String.format("%s %s", new Object[]{version.getType().getName(), version.getId()});
-            }
-
-            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            return this;
-        }
     }
-}
-
-

@@ -11,7 +11,7 @@ public abstract class FileBasedVersionList extends VersionList
   protected String getContent(String path)
     throws IOException
   {
-    return IOUtils.toString(getFileInputStream(path));
+    return IOUtils.toString(getFileInputStream(path)).replaceAll("\\r\\n", "\r").replaceAll("\\r", "\n");
     }
 
     protected abstract InputStream getFileInputStream(String paramString)

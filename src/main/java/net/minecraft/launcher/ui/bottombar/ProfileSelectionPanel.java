@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.IOException;
 import java.util.Collection;
 
 public class ProfileSelectionPanel extends JPanel
@@ -109,6 +110,11 @@ public class ProfileSelectionPanel extends JPanel
         if ((!this.skipSelectionUpdate) && ((e.getItem() instanceof Profile))) {
             Profile profile = (Profile) e.getItem();
             this.launcher.getProfileManager().setSelectedProfile(profile.getName());
+      try {
+        this.launcher.getProfileManager().saveProfiles();
+      } catch (IOException e1) {
+        this.launcher.println("Couldn't save new selected profile", e1);
+      }
             this.launcher.ensureLoggedIn();
         }
     }

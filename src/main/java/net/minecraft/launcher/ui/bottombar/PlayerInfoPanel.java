@@ -80,7 +80,8 @@ public class PlayerInfoPanel extends JPanel
         VersionSyncInfo version = (profile == null) || (versions.isEmpty()) ? null : (VersionSyncInfo) versions.get(0);
 
         if ((profile != null) && (profile.getLastVersionId() != null)) {
-            version = this.launcher.getVersionManager().getVersionSyncInfo(profile.getLastVersionId());
+      VersionSyncInfo requestedVersion = this.launcher.getVersionManager().getVersionSyncInfo(profile.getLastVersionId());
+      if ((requestedVersion != null) && (requestedVersion.getLatestVersion() != null)) version = requestedVersion;
         }
 
         if ((auth == null) || (!auth.isLoggedIn())) {

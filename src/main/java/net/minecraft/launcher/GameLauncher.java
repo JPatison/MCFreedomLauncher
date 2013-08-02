@@ -90,17 +90,19 @@ public class GameLauncher
 
         Profile profile = this.launcher.getProfileManager().getSelectedProfile();
         String lastVersionId = profile.getLastVersionId();
+    VersionSyncInfo syncInfo = null;
 
         if (profile.getLauncherVisibilityOnGameClose() == null)
             this.visibilityRule = Profile.DEFAULT_LAUNCHER_VISIBILITY;
-        else
+    else {
             this.visibilityRule = profile.getLauncherVisibilityOnGameClose();
-        VersionSyncInfo syncInfo;
+    }
 
-        if (lastVersionId != null)
+    if (lastVersionId != null) {
             syncInfo = this.launcher.getVersionManager().getVersionSyncInfo(lastVersionId);
-        else {
-            //syncInfo = (VersionSyncInfo) this.launcher.getVersionManager().getVersions().get(0);
+    }
+
+    if ((syncInfo == null) || (syncInfo.getLatestVersion() == null)) {
             syncInfo = (VersionSyncInfo) this.launcher.getVersionManager().getVersions(profile.getVersionFilter()).get(0);
         }
 
@@ -129,7 +131,7 @@ public class GameLauncher
         return;
       }
 
-      if (this.version.getMinimumLauncherVersion() > 6) {
+      if (this.version.getMinimumLauncherVersion() > 7) {
         Launcher.getInstance().println("An update to your launcher is available and is required to play " + this.version.getId() + ". Please restart your launcher.");
         setWorking(false);
         return;

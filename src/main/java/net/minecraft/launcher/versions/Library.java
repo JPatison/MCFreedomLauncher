@@ -16,7 +16,8 @@ public class Library {
     private List<Rule> rules;
     private ExtractRules extract;
     private String url;
-    private static final StrSubstitutor SUBSTITUTOR = new StrSubstitutor(new HashMap() { } );
+    private static final StrSubstitutor SUBSTITUTOR = new StrSubstitutor(new HashMap() {
+    });
 
     public Library() {
     }
@@ -77,7 +78,7 @@ public class Library {
     }
 
     public String getArtifactPath() {
-    return getArtifactPath(null);
+        return getArtifactPath(null);
     }
 
     public String getArtifactPath(String classifier) {
@@ -85,13 +86,18 @@ public class Library {
         return String.format("%s/%s", new Object[]{getArtifactBaseDir(), getArtifactFilename(classifier)});
     }
 
-  public String getArtifactFilename(String classifier) {
+    public String getArtifactFilename(String classifier) {
         if (this.name == null) throw new IllegalStateException("Cannot get artifact filename of empty/blank artifact");
 
         String[] parts = this.name.split(":", 3);
-    String result = String.format("%s-%s%s.jar", new Object[] { parts[1], parts[2], "-" + classifier });
+        String result;
+        if (classifier != null) {
+             result = String.format("%s-%s%s.jar", new Object[]{parts[1], parts[2], "-" + classifier});
+        } else {
+            result = String.format("%s-%s.jar", new Object[]{parts[1], parts[2]});
+        }
 
-    return SUBSTITUTOR.replace(result);
+        return SUBSTITUTOR.replace(result);
     }
 
     public String toString() {

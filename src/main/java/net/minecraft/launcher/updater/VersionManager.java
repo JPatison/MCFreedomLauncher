@@ -251,7 +251,7 @@ public class VersionManager {
             URL resourceUrl = new URL("https://s3.amazonaws.com/Minecraft.Resources/");
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(resourceUrl.openStream());
+      Document doc = db.parse(resourceUrl.openConnection(proxy).getInputStream());
             NodeList nodeLst = doc.getElementsByTagName("Contents");
 
             long start = System.nanoTime();
