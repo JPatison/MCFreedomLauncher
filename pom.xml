@@ -84,6 +84,13 @@
                     <include>*.png</include>
                 </includes>
             </resource>
+           <resource>
+               <targetPath>${project.basedir}/target</targetPath>
+               <directory>${project.basedir}</directory>
+               <includes>
+                   <include>launch.bat</include>
+               </includes>
+           </resource>
         </resources>
 
         <plugins>
@@ -128,6 +135,28 @@
                 <configuration>
                     <minimizeJar>true</minimizeJar>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>deploy</phase>
+                        <configuration>
+                            <tasks>
+
+                                <!--
+                                  Place any Ant task here. You can add anything
+                                  you can add between <target> and </target> in a
+                                  build.xml.
+                                -->
+
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <!--
             <plugin>
