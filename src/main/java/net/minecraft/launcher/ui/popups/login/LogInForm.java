@@ -11,6 +11,7 @@ import net.minecraft.launcher.authentication.exceptions.AuthenticationException;
 import net.minecraft.launcher.authentication.exceptions.InvalidCredentialsException;
 import net.minecraft.launcher.authentication.exceptions.UserMigratedException;
 import net.minecraft.launcher.authentication.yggdrasil.YggdrasilAuthenticationService;
+import net.minecraft.launcher.locale.LocaleHelper;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -20,9 +21,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ResourceBundle;
 
 public class LogInForm extends JPanel
         implements ActionListener {
+    private ResourceBundle resourceBundle= LocaleHelper.getMessages();
     private final LogInPopup popup;
     private final JTextField usernameField = new JTextField();
     private final JPasswordField passwordField = new JPasswordField();
@@ -49,7 +52,7 @@ public class LogInForm extends JPanel
 
         add(Box.createGlue());
 
-        JLabel usernameLabel = new JLabel("Email Address or Username:");
+        JLabel usernameLabel = new JLabel(resourceBundle.getString("email.address.or.username"));
         Font labelFont = usernameLabel.getFont().deriveFont(1);
         Font smalltextFont = usernameLabel.getFont().deriveFont(labelFont.getSize() - 2.0F);
 
@@ -57,7 +60,7 @@ public class LogInForm extends JPanel
         add(usernameLabel, constraints);
         add(this.usernameField, constraints);
 
-    JLabel forgotUsernameLabel = new JLabel("(Which do I use?)");
+    JLabel forgotUsernameLabel = new JLabel(resourceBundle.getString("which.do.i.use"));
     forgotUsernameLabel.setFont(smalltextFont);
     forgotUsernameLabel.setHorizontalAlignment(4);
     forgotUsernameLabel.addMouseListener(new MouseAdapter()
@@ -70,12 +73,12 @@ public class LogInForm extends JPanel
 
         add(Box.createVerticalStrut(10), constraints);
 
-        JLabel passwordLabel = new JLabel("Password:");
+        JLabel passwordLabel = new JLabel(resourceBundle.getString("password1"));
         passwordLabel.setFont(labelFont);
         add(passwordLabel, constraints);
         add(this.passwordField, constraints);
 
-        JLabel forgotPasswordLabel = new JLabel("(Forgot Password?)");
+        JLabel forgotPasswordLabel = new JLabel(resourceBundle.getString("forgot.password"));
         forgotPasswordLabel.setFont(smalltextFont);
         forgotPasswordLabel.setHorizontalAlignment(4);
         forgotPasswordLabel.addMouseListener(new MouseAdapter() {
@@ -101,7 +104,7 @@ public class LogInForm extends JPanel
 
         this.userDropdownPanel.add(Box.createVerticalStrut(8), constraints);
 
-        JLabel userDropdownLabel = new JLabel("Character Name:");
+        JLabel userDropdownLabel = new JLabel(resourceBundle.getString("character.name"));
         userDropdownLabel.setFont(labelFont);
         this.userDropdownPanel.add(userDropdownLabel, constraints);
         this.userDropdownPanel.add(this.userDropdown, constraints);
@@ -136,11 +139,11 @@ public class LogInForm extends JPanel
                         LogInForm.this.popup.setLoggedIn(LogInForm.this.authentication.getSelectedProfile().getId());
                     } catch (InvalidCredentialsException ex) {
                         LogInForm.this.popup.getLauncher().println(ex);
-                        LogInForm.this.popup.getErrorForm().displayError(new String[]{"Sorry, but we couldn't log you in right now.", "Please try again later."});
+                        LogInForm.this.popup.getErrorForm().displayError(new String[]{resourceBundle.getString("sorry.but.we.couldn.t.log.you.in.right.now"), resourceBundle.getString("please.try.again.later")});
                         LogInForm.this.popup.setCanLogIn(true);
                     } catch (AuthenticationException ex) {
                         LogInForm.this.popup.getLauncher().println(ex);
-                        LogInForm.this.popup.getErrorForm().displayError(new String[]{"Sorry, but we couldn't connect to our servers.", "Please make sure that you are online and that Minecraft is not blocked."});
+                        LogInForm.this.popup.getErrorForm().displayError(new String[]{resourceBundle.getString("sorry.but.we.couldn.t.connect.to.our.servers"), resourceBundle.getString("please.make.sure.that.you.are.online.and.that.minecraft.is.not.blocked")});
                         LogInForm.this.popup.setCanLogIn(true);
                     }
                 }

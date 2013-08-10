@@ -3,6 +3,7 @@ package net.minecraft.launcher.ui.popups.login;
 import net.minecraft.launcher.Launcher;
 import net.minecraft.launcher.LauncherConstants;
 import net.minecraft.launcher.OperatingSystem;
+import net.minecraft.launcher.locale.LocaleHelper;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -13,16 +14,18 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ResourceBundle;
 
 public class LogInPopup extends JPanel
         implements ActionListener {
+    private ResourceBundle resourceBundle= LocaleHelper.getMessages();
     private final Launcher launcher;
     private final Callback callback;
     private final AuthErrorForm errorForm;
     private final ExistingUserListForm existingUserListForm;
     private final LogInForm logInForm;
-    private final JButton loginButton = new JButton("Log In");
-    private final JButton registerButton = new JButton("Register");
+    private final JButton loginButton = new JButton(resourceBundle.getString("log.in"));
+    private final JButton registerButton = new JButton(resourceBundle.getString("register"));
     private final JProgressBar progressBar = new JProgressBar();
 
     public LogInPopup(Launcher launcher, Callback callback) {

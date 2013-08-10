@@ -35,14 +35,38 @@ public class LangSelection {
         //   JButton button=new JButton("Add");
 
         Locale[] locales = LocaleHelper.getLocales();
-        locale = (Locale) JOptionPane.showInputDialog(null,
-                "Please select your language\n" +
-                        "請選擇你的語言", Select, JOptionPane.INFORMATION_MESSAGE,
-                null, locales, locales[0]);
+
+            locale = (Locale) JOptionPane.showInputDialog(null,
+                    "Please select your language\n" +
+                            "請選擇你的語言", Select, JOptionPane.INFORMATION_MESSAGE,
+                    null, locales, locales[0]);
+        if (locale==null){
+            locale=LocaleHelper.getCurrentLocale();
+        }
         LocaleHelper.setCurrentLocale(locale);
         JOptionPane.showMessageDialog(null, "You have selected: " + locale);
         Util.setProperties("locale", locale.toString());
         System.out.println(locale);
+        // button.addActionListener(lst);
+        // add(button);
+        return locale;
+
+    }
+
+    public static Locale setLang(Locale locale) {
+
+        //   JButton button=new JButton("Add");
+
+        //Locale[] locales = LocaleHelper.getLocales();
+
+
+        if (locale==null){
+            locale=LocaleHelper.getCurrentLocale();
+        }
+        LocaleHelper.setCurrentLocale(locale);
+        JOptionPane.showMessageDialog(null, "You have selected: " + locale);
+        Util.setProperties("locale", locale.toString());
+       // System.out.println(locale);
         // button.addActionListener(lst);
         // add(button);
         return locale;

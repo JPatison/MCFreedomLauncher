@@ -4,6 +4,7 @@ import net.minecraft.launcher.Launcher;
 import net.minecraft.launcher.authentication.AuthenticationService;
 import net.minecraft.launcher.events.RefreshedProfilesListener;
 import net.minecraft.launcher.events.RefreshedVersionsListener;
+import net.minecraft.launcher.locale.LocaleHelper;
 import net.minecraft.launcher.profile.Profile;
 import net.minecraft.launcher.profile.ProfileManager;
 import net.minecraft.launcher.updater.VersionManager;
@@ -14,13 +15,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class PlayerInfoPanel extends JPanel
         implements RefreshedProfilesListener, RefreshedVersionsListener {
+    ResourceBundle resourceBundle=LocaleHelper.getMessages() ;
     private final Launcher launcher;
     private final JLabel welcomeText = new JLabel("", 0);
     private final JLabel versionText = new JLabel("", 0);
-    private final JButton logOutButton = new JButton("Log Out");
+    private final JButton logOutButton = new JButton(resourceBundle.getString("log.out"));
 
     public PlayerInfoPanel(final Launcher launcher) {
         this.launcher = launcher;
@@ -85,24 +88,24 @@ public class PlayerInfoPanel extends JPanel
         }
 
         if ((auth == null) || (!auth.isLoggedIn())) {
-            this.welcomeText.setText("Welcome, guest! Please log in.");
+            this.welcomeText.setText(resourceBundle.getString("welcome.guest.please.log.in"));
             this.logOutButton.setEnabled(false);
         } else if (auth.getSelectedProfile() == null) {
-            this.welcomeText.setText("<html>Welcome, player!</html>");
+            this.welcomeText.setText(resourceBundle.getString("html.welcome.player.html"));
             this.logOutButton.setEnabled(true);
         } else {
-            this.welcomeText.setText("<html>Welcome, <b>" + auth.getSelectedProfile().getName() + "</b></html>");
+            this.welcomeText.setText(resourceBundle.getString("html.welcome.b") + auth.getSelectedProfile().getName() + "</b></html>");
             this.logOutButton.setEnabled(true);
         }
 
         if (version == null)
-            this.versionText.setText("Loading versions...");
+            this.versionText.setText(resourceBundle.getString("loading.versions"));
         else if (version.isUpToDate())
-            this.versionText.setText("Ready to play Minecraft " + version.getLatestVersion().getId());
+            this.versionText.setText(resourceBundle.getString("ready.to.play.minecraft") + version.getLatestVersion().getId());
         else if (version.isInstalled())
-            this.versionText.setText("Ready to update & play Minecraft " + version.getLatestVersion().getId());
+            this.versionText.setText(resourceBundle.getString("ready.to.update.play.minecraft") + version.getLatestVersion().getId());
         else if (version.isOnRemote())
-            this.versionText.setText("Ready to download & play Minecraft " + version.getLatestVersion().getId());
+            this.versionText.setText(resourceBundle.getString("ready.to.download.play.minecraft") + version.getLatestVersion().getId());
     }
 
     public void onVersionsRefreshed(VersionManager manager) {

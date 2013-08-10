@@ -3,18 +3,21 @@ package net.minecraft.launcher.ui.popups.login;
 import net.minecraft.launcher.authentication.AuthenticationDatabase;
 import net.minecraft.launcher.authentication.AuthenticationService;
 import net.minecraft.launcher.authentication.exceptions.AuthenticationException;
+import net.minecraft.launcher.locale.LocaleHelper;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 public class ExistingUserListForm extends JPanel
         implements ActionListener {
+    private ResourceBundle resourceBundle= LocaleHelper.getMessages();
     private final LogInPopup popup;
     private final JComboBox userDropdown = new JComboBox();
     private final AuthenticationDatabase authDatabase;
-    private final JButton playButton = new JButton("Play");
+    private final JButton playButton = new JButton(resourceBundle.getString("play"));
 
     public ExistingUserListForm(LogInPopup popup) {
         this.popup = popup;
@@ -42,14 +45,14 @@ public class ExistingUserListForm extends JPanel
 
         add(Box.createGlue());
 
-        String currentUser = this.authDatabase.getKnownNames().size() + " different users";
-        String thisOrThese = this.authDatabase.getKnownNames().size() == 1 ? "this account" : "one of these accounts";
-        add(new JLabel("You're already logged in as " + currentUser + "."), constraints);
-        add(new JLabel("You may use " + thisOrThese + " and skip authentication."), constraints);
+        String currentUser = this.authDatabase.getKnownNames().size() + resourceBundle.getString("different.users");
+        String thisOrThese = this.authDatabase.getKnownNames().size() == 1 ? resourceBundle.getString("this.account") : resourceBundle.getString("one.of.these.accounts");
+        add(new JLabel(resourceBundle.getString("you.re.already.logged.in.as") + currentUser + "."), constraints);
+        add(new JLabel(resourceBundle.getString("you.may.use") + thisOrThese + resourceBundle.getString("and.skip.authentication")), constraints);
 
         add(Box.createVerticalStrut(5), constraints);
 
-        JLabel usernameLabel = new JLabel("Existing User:");
+        JLabel usernameLabel = new JLabel(resourceBundle.getString("existing.user"));
         Font labelFont = usernameLabel.getFont().deriveFont(1);
 
         usernameLabel.setFont(labelFont);
@@ -71,7 +74,7 @@ public class ExistingUserListForm extends JPanel
         constraints.gridwidth = 2;
 
         add(Box.createVerticalStrut(5), constraints);
-        add(new JLabel("Alternatively, log in with a new account below:"), constraints);
+        add(new JLabel(resourceBundle.getString("alternatively.log.in.with.a.new.account.below")), constraints);
         add(new JPopupMenu.Separator(), constraints);
     }
 
@@ -87,6 +90,7 @@ public class ExistingUserListForm extends JPanel
                     if ((selected != null) && ((selected instanceof String))) {
                         auth = ExistingUserListForm.this.authDatabase.getByName((String) selected);
                         if (auth.getSelectedProfile() == null)
+                            //noinspection HardCodedStringLiteral
                             uuid = "demo-" + auth.getUsername();
                         else
                             uuid = auth.getSelectedProfile().getId();
@@ -100,7 +104,7 @@ public class ExistingUserListForm extends JPanel
                             auth.logIn();
                             ExistingUserListForm.this.popup.setLoggedIn(uuid);
                         } catch (AuthenticationException ex) {
-              ExistingUserListForm.this.popup.getErrorForm().displayError(new String[] { "We couldn't log you back in as " + selected + ".", "Please try to log in again." });
+              ExistingUserListForm.this.popup.getErrorForm().displayError(new String[] {resourceBundle.getString("we.couldn.t.log.you.back.in.as") + selected + ".", resourceBundle.getString("please.try.to.log.in.again")});
 
                             ExistingUserListForm.this.userDropdown.removeItem(selected);
 

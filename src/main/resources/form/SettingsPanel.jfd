@@ -1,0 +1,63 @@
+JFDML JFormDesigner: "5.1.1.0.120" Java: "1.7.0_25" encoding: "UTF-8"
+
+new FormModel {
+	"i18n.autoExternalize": true
+	"i18n.bundleName": "MessagesBundle"
+	"i18n.keyPrefix": "SettingsPanel"
+	contentType: "form/swing"
+	root: new FormRoot {
+		auxiliary() {
+			"JavaCodeGenerator.i18nGetBundleFormat": "LocaleHelper.getMessages()"
+		}
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+			"$columnSpecs": "0, 0, 40"
+			"$rowSpecs": "0, 0"
+			"$hGap": 5
+			"$vGap": 5
+			"$alignLeft": true
+			"$alignTop": true
+		} ) {
+			name: "this"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "labelLanguage"
+				"text": new FormMessage( null, "SettingsPanel.labelLanguage.text" )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "comboBoxLanguage"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 1
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "buttonChangeLang"
+				"text": new FormMessage( null, "SettingsPanel.buttonChangeLang.text" )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonChangeLangActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 2
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "labelDirectory"
+				"text": new FormMessage( null, "SettingsPanel.labelDirectory.text" )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 1
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "labelWorkingDirectory"
+				"text": new FormMessage( null, "SettingsPanel.labelWorkingDirectory.text" )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 1
+				"gridy": 1
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "buttonChangeWD"
+				"text": new FormMessage( null, "SettingsPanel.buttonChangeWD.text" )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonChangeWDActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 2
+				"gridy": 1
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 285, 65 )
+		} )
+	}
+}
